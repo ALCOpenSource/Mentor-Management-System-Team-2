@@ -1,8 +1,8 @@
 import { Table, Column } from 'sequelize-typescript'
-import { Base } from './base.model';
+import { BaseModel } from './base.model';
 
 @Table
-export class Tasks extends Base {
+export class Tasks extends BaseModel {
   
   @Column
   name: string

@@ -1,6 +1,6 @@
 import { Column, Model } from "sequelize-typescript";
 
-export class Base extends Model {
+export class BaseModel extends Model {
     @Column
     createdAt?: string;
 
