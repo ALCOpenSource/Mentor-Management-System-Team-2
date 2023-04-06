@@ -1,15 +1,15 @@
 import { Column, Model } from "sequelize-typescript";
 
 export class BaseModel extends Model {
-    @Column
-    createdAt?: string;
+  @Column
+  createdAt?: string;
 
-    @Column
-    updatedAt?: string;
+  @Column
+  updatedAt?: string;
 
-    @Column
-    createdBy: string;
+  @Column
+  createdBy: string;
 
-    @Column
-    updatedBy: string;
+  @Column
+  updatedBy: string;
 }
