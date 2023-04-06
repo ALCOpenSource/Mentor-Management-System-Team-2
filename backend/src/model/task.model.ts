@@ -5,21 +5,20 @@ import { BaseModel } from './base.model';
 export class Tasks extends BaseModel {
   
   @Column
-  name: string
+  name: string;
 
   @Column
-  description: string
+  description: string;
 
   @Column
   createdate: string;
 
   @Column
-  updateddate: string
+  updateddate: string;
 
   @Column
   createdBy: string;
 
   @Column
   updatedBy: string;
-  
 }
