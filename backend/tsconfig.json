@@ -19,6 +19,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true
     },
+    "files": ["src/types/pine/index.d.ts"],
     "exclude": [
         "node_modules",
         "jest.config.js"

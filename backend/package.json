@@ -4,7 +4,7 @@
   "description": "Mentor Management System - Team 2",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/app.ts",
+    "start": "ts-node ./index.ts",
     "dev": "./node_modules/nodemon/bin/nodemon.js",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "test": "jest",

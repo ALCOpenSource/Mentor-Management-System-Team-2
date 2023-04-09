@@ -1,4 +1,4 @@
-import * as pine from "pine";
+import pine from "pine";
 
 const logger = pine();
 
