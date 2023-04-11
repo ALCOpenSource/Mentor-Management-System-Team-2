@@ -1,7 +1,5 @@
 import { Sequelize } from "sequelize-typescript";
-import {User} from "../model/user.model";
-import * as dotenv from "dotenv"; 
-
+import { User } from "../model/user.model";
 
 export const connect = () => {
   const hostName = process.env.DATABASE_HOST as string;
@@ -10,6 +8,7 @@ export const connect = () => {
   const database = process.env.DATABASE_DB as string;
   const dialect: any = process.env.DATABASE_DIALECT as string;
 
+  console.log("password  ", password);
   console.log("dialect  ", dialect);
 
   const operatorsAliases: any = false;
@@ -27,7 +26,6 @@ export const connect = () => {
     },
     models: [User],
   });
-
 
   // const db: any = {};
   // db.Sequelize = Sequelize;

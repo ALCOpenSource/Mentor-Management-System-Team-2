@@ -2,10 +2,16 @@ import * as bodyParser from "body-parser";
 import express, { Application } from "express";
 import "dotenv/config";
 import { APILogger } from "./logger/api.logger";
+import { connect } from "./config/db.config";
+import routes from "./routes";
 import * as fs from "fs";
 import { getAllModelsInDir } from "./utils";
 import * as path from "path";
+import { Sequelize } from "sequelize-typescript";
+import UserService from "./service/api";
+import { serviceContainer } from "./utils/container";
 
+export let sequelize: Sequelize;
 class App {
   public express: Application;
   public logger: APILogger;
@@ -22,9 +28,27 @@ class App {
 
   constructor() {
     this.express = express();
-    this.middleware();
-    this.routes();
+    this.init();
     this.logger = new APILogger();
+  }
+
+  private init(): void {
+    const db = connect();
+
+    const engine = db.sequelize;
+
+    engine
+      .sync({ force: false })
+      .then(() => {
+        sequelize = engine;
+        this.depInjection(engine);
+        this.middleware();
+        this.routes();
+      })
+      .catch((err: any) => {
+        // console.log(err);
+        process.exit(1);
+      });
   }
 
   // Configure Express middleware.
@@ -39,15 +63,29 @@ class App {
   }
 
   private routes(): void {
-    const { modelsArray } = getAllModelsInDir(path.join(__dirname, "./routes"));
-    modelsArray.forEach((route: any) => {
-      this.express.use("/api", route);
+    routes.forEach((route) => {
+      console.log(route);
+      this.express.use(`/api/${route.group}`, route.router);
     });
+
     // handle undefined routes
     this.express.use("*", (req, res) => {
       res.send("Make sure url is correct!!!");
     });
   }
+
+  private depInjection = (db: Sequelize): void => {
+    this.express.use((req: any, res, next) => {
+      // initialize services here
+      const userSrv = new UserService(db);
+      // add services to the container
+      const container = serviceContainer({ userSrv });
+
+      const object = Object.freeze(container);
+      req.container = object;
+      next();
+    });
+  };
 }
 
 export default new App().express;
