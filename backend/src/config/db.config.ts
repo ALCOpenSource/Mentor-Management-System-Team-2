@@ -1,9 +1,7 @@
 import { Sequelize } from "sequelize-typescript";
-import * as path from "path";
-import * as dotenv from "dotenv";
-import { getAllModelsInDir } from "../utils";
+import {User} from "../model/user.model";
+import * as dotenv from "dotenv"; 
 
-dotenv.config();
 
 export const connect = () => {
   const hostName = process.env.DATABASE_HOST as string;
@@ -27,14 +25,16 @@ export const connect = () => {
       acquire: 20000,
       idle: 5000,
     },
+    models: [User],
   });
 
-  const { modelsArray } = getAllModelsInDir(path.join(__dirname, "../model"));
-  sequelize.addModels(modelsArray);
 
-  const db: any = {};
-  db.Sequelize = Sequelize;
-  db.sequelize = sequelize;
+  // const db: any = {};
+  // db.Sequelize = Sequelize;
+  // db.sequelize = sequelize;
 
-  return db;
+  return {
+    sequelize,
+    Sequelize,
+  };
 };
