@@ -1,10 +1,11 @@
 import React from "react";
 import Image from "next/image";
+import styles from "./componentStyles/splashscreen.module.css"
 
 function SplashScreen() {
   return (
     <div>
-      <div style={{ textAlign: "center" }}>
+      <div className={styles.container}>
         <Image
           src="/assets/images/logo.png"
           width="224.27px"
@@ -13,12 +14,8 @@ function SplashScreen() {
         />
       </div>
       <p
-        style={{
-          fontWeight: "700",
-          fontSize: "32px",
-          lineHeight: "53.18px",
-          color: "#ffffff",
-        }}>
+       className={styles.logo_text}
+       >
         Mentor Management System
       </p>
     </div>

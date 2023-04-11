@@ -1,56 +1,24 @@
-import React, { useState } from "react";
-import SplashScreen from "../components/SplashScreen";
-import { Col, Row, Button, Input } from "antd";
+import React from "react";
+import {  Button, Input } from "antd";
+import styles from "./componentStyles/passwordreset.module.css";
 
 function NewPassword() {
   return (
-    <div style={{ margin: "0 auto" }}>
-      <p
-        style={{
-          fontWeight: "700",
-          fontSize: "32px",
-          lineHeight: "53.18px",
-          color: "#141414",
-          height: "53px",
-          marginBottom: "20px",
-        }}>
-        Set New Password?
-      </p>
+    <div className={styles.container}>
+      <p className={styles.set_password_text}>Set New Password?</p>
 
       <Input.Password
         size="large"
-        style={{ fontSize: "20px", width: "100%" }}
+        className={styles.input}
         placeholder="Password"
         required
       />
 
-      <p
-        style={{
-          fontWeight: "400",
-          fontSize: "16px",
-          lineHeight: "27px",
-          color: "#808080",
-          width: "426px",
-          height: "120px",
-          marginTop: "20px",
-        }}>
+      <p className={styles.password_warning_text}>
         *Your new password must be different from previously used password.
       </p>
 
-      <Button
-        size="large"
-        style={{
-          backgroundColor: "#058B94",
-
-          fontWeight: "600",
-          height: "50px",
-          fontSize: "18px",
-          color: "#ffffff",
-          width: "100%",
-          marginTop: "40px",
-        }}>
-        Reset Password
-      </Button>
+      <Button className={styles.button}>Reset Password</Button>
     </div>
   );
 }
@@ -62,45 +30,14 @@ function ForgetPassword({ setForgetPassword, forgetPassword }) {
   };
 
   return (
-    <div style={{ margin: "0 auto" }}>
-      <p
-        style={{
-          fontWeight: "700",
-          fontSize: "32px",
-          lineHeight: "53.18px",
-          color: "#141414",
-          height: "53px",
-          marginBottom: "0",
-        }}>
-        Forgot Password?
-      </p>
-      <p
-        style={{
-          fontWeight: "400",
-          fontSize: "24px",
-          lineHeight: "40px",
-          color: "#808080",
-          width: "426px",
-          height: "120px",
-          marginTop: "3px",
-        }}>
+    <div className={styles.container}>
+      <p className={styles.forgot_password_text}>Forgot Password?</p>
+      <p className={styles.email_confirmation_text}>
         An email has been sent to your registered email. <br />
         Follow the link to reset your password.
       </p>
 
-      <Button
-        onClick={handleChangePassword}
-        size="large"
-        style={{
-          backgroundColor: "#058B94",
-
-          fontWeight: "600",
-          height: "50px",
-          fontSize: "18px",
-          color: "#ffffff",
-          width: "100%",
-          marginTop: "40px",
-        }}>
+      <Button onClick={handleChangePassword} className={styles.button}>
         Done
       </Button>
     </div>
@@ -115,7 +52,7 @@ function PasswordComponents({
   console.log(showPassword);
   return (
     <>
-      {showPassword && forgetPassword == false && (
+      {showPassword && !forgetPassword && (
         <ForgetPassword
           setForgetPassword={setForgetPassword}
           forgetPassword={forgetPassword}

@@ -19,16 +19,19 @@
 .login_input {
   font-size: 20px;
   width: 90%;
-  height:50px
+  height: 50px;
+}
+.login_input_margin {
+  margin-bottom: 20px;
 }
 
 .login_button_container {
   width: 100%;
   margin-top: 40px;
-
 }
 .login_button {
   background-color: #058b94;
+  height: 50px;
 
   font-weight: 600;
   font-size: 18px;
@@ -38,6 +41,7 @@
 
 .google_login_button {
   display: flex;
+  height: 50px;
   flex-direction: row;
   flex: 1;
   align-items: center;
@@ -46,7 +50,6 @@
   padding-bottom: 10px;
   width: 90%;
   border-radius: 10;
-
 }
 
 .forgot_password_text {
@@ -59,15 +62,21 @@
   width: 90%;
   margin-top: 15px;
   cursor: pointer;
-  
-
 }
 .signup {
   font-weight: 600;
   font-size: 16px;
   line-height: 27px;
   margin-top: 40px;
+  cursor: pointer;
 
   color: #141414;
   text-align: center;
+}
+
+.signin_text {
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 30px;
+  color: #023c40;
 }
