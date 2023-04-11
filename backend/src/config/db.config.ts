@@ -1,6 +1,9 @@
 import { Sequelize } from "sequelize-typescript";
 import * as path from "path";
+import * as dotenv from "dotenv";
 import { getAllModelsInDir } from "../utils";
+
+dotenv.config();
 
 export const connect = () => {
   const hostName = process.env.DATABASE_HOST as string;

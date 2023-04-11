@@ -1,9 +1,5 @@
-import { Column, Model } from "sequelize-typescript";
+import { Model } from "sequelize-typescript";
 
-export class BaseModel extends Model {
-  @Column
-  createdBy!: string;
+export class BaseModel extends Model {}
 
-  @Column
-  updatedBy!: string;
-}
+export default BaseModel;
