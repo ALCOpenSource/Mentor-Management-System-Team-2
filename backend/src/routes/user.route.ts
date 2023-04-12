@@ -1,9 +1,11 @@
 import express from "express";
 import userController from "../controller/user.controller";
-import { loginMiddleware } from "../helpers/middleware";
+import { loginMiddleware, loginRateLimiter } from "../helpers/middleware";
 
-const router = express.Router();
+const authRoute = express.Router();
 
-router.post("/login", loginMiddleware, userController.login);
+authRoute.post("/login", loginRateLimiter, loginMiddleware, userController.login);
+authRoute.post("/resetpassword", userController.resetPassword);
+authRoute.post("/forgot-password", userController.forgotPasswordRequest);
 
-export default router;
+export default authRoute;

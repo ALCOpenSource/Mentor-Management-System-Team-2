@@ -46,7 +46,7 @@ class App {
         this.routes();
       })
       .catch((err: any) => {
-        // console.log(err);
+
         process.exit(1);
       });
   }
@@ -63,10 +63,8 @@ class App {
   }
 
   private routes(): void {
-    routes.forEach((route) => {
-      console.log(route);
-      this.express.use(`/api/${route.group}`, route.router);
-    });
+    this.express.use("/api", routes);
+
 
     // handle undefined routes
     this.express.use("*", (req, res) => {

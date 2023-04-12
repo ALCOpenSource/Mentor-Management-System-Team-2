@@ -35,6 +35,7 @@ export class User extends BaseModel {
 
   @Column(DataType.TEXT)
   website!: string;
+
 }
 
 export default User;

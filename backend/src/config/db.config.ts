@@ -8,8 +8,6 @@ export const connect = () => {
   const database = process.env.DATABASE_DB as string;
   const dialect: any = process.env.DATABASE_DIALECT as string;
 
-  console.log("password  ", password);
-  console.log("dialect  ", dialect);
 
   const operatorsAliases: any = false;
 
@@ -26,10 +24,6 @@ export const connect = () => {
     },
     models: [User],
   });
-
-  // const db: any = {};
-  // db.Sequelize = Sequelize;
-  // db.sequelize = sequelize;
 
   return {
     sequelize,
