@@ -18,11 +18,13 @@
   height: 100%;
   object-fit: cover;
 }
+
 .profileImage_sub_upload {
   position: absolute;
   top: 2.5rem;
   left: 25rem;
 }
+
 .profileImage_sub_upload p {
   font-style: normal;
   font-weight: 600;
@@ -172,7 +174,7 @@
 
 .button {
   width: 173px;
-  height: 47px;   
+  height: 47px;
   font-size: 1.2rem;
   background-color: #058b94;
   color: #fff;
