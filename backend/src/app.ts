@@ -7,7 +7,7 @@ import routes from "./routes";
 import * as fs from "fs";
 import { getAllModelsInDir } from "./utils";
 import * as path from "path";
-import { Sequelize } from "sequelize-typescript";
+import { Sequelize } from "sequelize";
 import UserService from "./service/api";
 import { serviceContainer } from "./utils/container";
 
@@ -33,14 +33,14 @@ class App {
   }
 
   private init(): void {
-    const db = connect();
+   
+    const db = connect;
 
     const engine = db.sequelize;
 
     engine
       .sync({ force: false })
       .then(() => {
-        sequelize = engine;
         this.depInjection(engine);
         this.middleware();
         this.routes();
@@ -64,8 +64,6 @@ class App {
 
   private routes(): void {
     this.express.use("/api", routes);
-
-
     // handle undefined routes
     this.express.use("*", (req, res) => {
       res.send("Make sure url is correct!!!");

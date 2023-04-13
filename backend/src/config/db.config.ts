@@ -1,7 +1,7 @@
-import { Sequelize } from "sequelize-typescript";
+import { Sequelize } from "sequelize";
 import { User } from "../model/user.model";
 
-export const connect = () => {
+export const dbInit = () => {
   const hostName = process.env.DATABASE_HOST as string;
   const userName = process.env.DATABASE_USER as string;
   const password = process.env.DATABASE_PASSWORD as string;
@@ -14,19 +14,20 @@ export const connect = () => {
   const sequelize = new Sequelize(database, userName, password, {
     host: hostName,
     dialect,
-    operatorsAliases,
-    repositoryMode: true,
     pool: {
       max: 10,
       min: 0,
       acquire: 20000,
       idle: 5000,
     },
-    models: [User],
+    
   });
 
+ 
   return {
     sequelize,
     Sequelize,
   };
 };
+
+export const connect = dbInit();

@@ -1,11 +1,11 @@
-import { Repository, Sequelize } from "sequelize-typescript";
+import { Sequelize} from "sequelize";
 import { User } from "../model/user.model";
 
 
 class UserRepo {
-  private userRepo: Repository<User>;
+  private userRepo: typeof User;
   constructor(db: Sequelize) {
-    this.userRepo = db.getRepository(User);
+    this.userRepo = User;
   }
 
   public async getUser(userId: string) {
@@ -13,9 +13,11 @@ class UserRepo {
   }
 
 
-  public async getUserByEmail(email: string) {
-    return this.userRepo.findOne({ where: { email } });
-  }
+   public async getUserByEmail(email: string) {
+    return this.userRepo.findAll();
+   }
+
 }
+
 
 export default UserRepo;

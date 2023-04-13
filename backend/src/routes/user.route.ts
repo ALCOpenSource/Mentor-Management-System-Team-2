@@ -5,7 +5,7 @@ import { loginMiddleware, loginRateLimiter } from "../helpers/middleware";
 const authRoute = express.Router();
 
 authRoute.post("/login", loginRateLimiter, loginMiddleware, userController.login);
-authRoute.post("/resetpassword", userController.resetPassword);
-authRoute.post("/forgot-password", userController.forgotPasswordRequest);
+//authRoute.post("/resetpassword", userController.resetPassword);
+
 
 export default authRoute;
