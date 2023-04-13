@@ -30,7 +30,6 @@ function ProfileImage() {
       [event.target.name]: event.target.value,
     });
   };
-  console.log(formData);
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
