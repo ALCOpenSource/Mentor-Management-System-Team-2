@@ -1,0 +1,53 @@
+.button {
+  width: 156px;
+  height: 47px;
+  background: #058b94;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 27px;
+}
+.t_align {
+  text-align: right;
+}
+.about {
+  padding-top: 30px;
+  margin-left: 257px;
+}
+.about_header {
+  display: flex;
+  align-items: center;
+}
+
+.about_name {
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 40px;
+  color: #333333;
+  height: 40px;
+  margin-bottom: 0;
+}
+
+.about_role {
+  width: 44px;
+  height: 27px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 27px;
+  color: #808080;
+  margin-top: 0;
+}
+
+.profile {
+  margin-left: 20px;
+}
+
+.profile_description {
+  box-sizing: border-box;
+  width: 1095px;
+  height: 559px;
+  background-color: red;
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+}
