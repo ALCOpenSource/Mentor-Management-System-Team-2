@@ -15,6 +15,7 @@
   flex-direction: column;
   width: 15rem;
 }
+
 .sidebar_span{
   position: absolute;
   left: 28px;
@@ -24,6 +25,7 @@
   font-size: 24px;
   color: #141414;
 }
+
 .sidebar_sub_div{
   display: flex;
   justify-content: center;
@@ -37,6 +39,7 @@
 .sidebar_sub_div:hover{
   background-color: white;
 }
+
 .sidebar_sub_div_link{
   color: black;
   font-style: normal;
@@ -44,6 +47,6 @@
   font-size: 16px;
 }
 
-.item_div {margin-top: 3rem}
-
-
+.item_div {
+  margin-top: 3rem
+}

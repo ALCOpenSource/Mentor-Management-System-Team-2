@@ -4,12 +4,13 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
 .profileImage_card {
   width: 100px;
   height: 100px;
   border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   margin-top: 1rem;
 }
 
@@ -24,11 +25,12 @@
   font-weight: 600;
   font-size: 20px;
   line-height: 33px;
-  color: #333333;
+  color: #333;
 }
+
 .profileImage_upload_button{
   padding: 10px 20px;
-  background-color: #058B94;
+  background-color: #058b94;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -36,15 +38,18 @@
   cursor: pointer;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
+
 .profileImage_upload_button input[type="file"] {
   display: none;
 }
+
 .Name_div{
   padding-top: 3rem;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .lastName,
 .firstName {
   width: 425.78px;
@@ -56,9 +61,11 @@
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
+
 .fullName_div{
   padding-top: 0.5rem;
 }
+
 .social_name_div label,
 .web_sub_div label,
 .cityname_div label,
@@ -67,18 +74,7 @@
 .fullName_div label {
   font-size: 1.2rem;
 }
-.twitter:focus,
-.instagram:focus,
-.linkdein:focus,
-.gitHub:focus,
-.site:focus,
-.city_select:focus,
-.country_select:focus,
-.bio:focus,
-.lastName:focus ,
-.firstName:focus {
-  outline: none;
-}
+
 .bio{
   width: 915px;
   height: 100px;
@@ -89,6 +85,7 @@
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
+
 .site{
   width: 915px;
   height: 50px;
@@ -99,14 +96,7 @@
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
-.main_social_div,
-.web_div,
-.select_div,
-.main_div_about{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
+
 .city_select,
 .country_select{
   width: 360px;
@@ -118,6 +108,38 @@
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
+
+.twitter,
+.instagram,
+.linkdein,
+.gitHub{
+  width: 320px;
+  border: none;
+  border-radius: 5px;
+}
+
+.twitter:focus,
+.instagram:focus,
+.linkdein:focus,
+.gitHub:focus,
+.site:focus,
+.city_select:focus,
+.country_select:focus,
+.bio:focus,
+.lastName:focus,
+.firstName:focus {
+  outline: none;
+}
+
+.main_social_div,
+.web_div,
+.select_div,
+.main_div_about{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .social_sub_img_1,
 .social_sub_img{
   display: flex;
@@ -128,21 +150,12 @@
   border-radius: 5px;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
 }
-.twitter,
-.instagram,
-.linkdein,
-.gitHub{
-  width: 320px;
-  border: none;
-  border-radius: 5px;
+
+.social_sub_img_1,
+.social_sub_img1{
+  margin-top: 0.2rem;
 }
 
-.social_sub_img1{
-  margin-top: 0.2rem !important;
-}
-.social_sub_img_1{
-  margin-top: 0.2rem !important;
-}
 .button {
   width: 150px;
   height: 40px;
@@ -153,8 +166,8 @@
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
-  margin-top: 2rem !important;
-  margin-left: 57rem !important;
+  margin-top: 2rem;
+  margin-left: 57rem;
 }
 
 .button:hover {
