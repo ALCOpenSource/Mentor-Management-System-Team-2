@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 36dc95972366f2dc6f98f75e4670e4f7e5070c9b
 import { useRouter } from "next/router";
 
 const Login = () => {
