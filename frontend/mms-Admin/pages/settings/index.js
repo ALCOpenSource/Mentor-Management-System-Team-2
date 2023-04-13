@@ -1,7 +1,7 @@
 import React from "react";
 import SettingsLayout from "../../components/SettingsLayout";
 import { Layout, Row } from "antd";
-import ProfileImage from "../../components/settings/ProfileImage";
+import General from "../../components/settings/General";
 
 import styles from "../../styles/settings/sidebar.module.css";
 
@@ -11,7 +11,7 @@ function settingsGeneral() {
     <Row className={styles.main_container}>
       <Layout className={styles.sidebar}>
         <SettingsLayout>
-         <ProfileImage/>
+         <General/>
         </SettingsLayout>
       </Layout>
     </Row>

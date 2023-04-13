@@ -1,16 +1,11 @@
 import React, { useState } from "react"
 import Image from "next/image";
-import styles from "../componentStyles/profileimage.module.css";
-import Github from "../../asset/images/GitHub.svg"
-import Gitlog from "../../asset/images/Gitlogo.svg"
-import Linkdein from "../../asset/images/Linkdein.svg"
-import Linkdeinlog from "../../asset/images/Linkeinlogo.svg"
-import Instagram from "../../asset/images/Instagram.svg"
-import Instagramlog from "../../asset/images/instagramlogo.svg"
-import Twitter from "../../asset/images/Twitter.svg"
-import Twitterlog from "../../asset/images/Twitterlogo.svg"
+import Icon from "../Icon"
+import styles from "../componentStyles/general.module.css";
+import { Input, Select } from "antd";
+const { Option } = Select;
 
-function ProfileImage() {
+function General() {
   const [file, setFile] = useState(null);
   const [formData, setFormData] = useState({
     first: '',
@@ -30,6 +25,7 @@ function ProfileImage() {
       [event.target.name]: event.target.value,
     });
   };
+  console.log(formData)
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -73,7 +69,7 @@ function ProfileImage() {
         <label htmlFor="full_name">Full Name</label>
       </div>
        <div className={styles.firstName_div}>
-        <input
+          <Input
             type="text"
             id="firstName"
             name="first"
@@ -82,18 +78,18 @@ function ProfileImage() {
             required
             className={styles.firstName}
             placeholder="First Name"
-        />
+          />
        </div>
        <div className={styles.lastName_div}>
-        <input
-            type="text"
-            id="lastName"
-            name="last"
-            value={formData.last}
-            onChange={handleInputChange}
-            required
-            className={styles.lastName}
-            placeholder="Last Name"
+        <Input
+          type="text"
+          id="lastName"
+          name="last"
+          value={formData.last}
+          onChange={handleInputChange}
+          required
+          className={styles.lastName}
+          placeholder="Last Name"
         />
        </div>
       </div>
@@ -102,7 +98,7 @@ function ProfileImage() {
         <label htmlFor="about">About</label>
         </div>
         <div className={styles.div_textarea}>
-          <textarea
+          <Input.TextArea
             type="text"
             id="bio"
             name="bio"
@@ -110,7 +106,7 @@ function ProfileImage() {
             onChange={handleInputChange}
             required
             className={styles.bio}
-            placeholder="Bio"
+            placeholder="Your Bio"
           />
         </div>
       </div>
@@ -119,16 +115,16 @@ function ProfileImage() {
            <label htmlFor="web">Website</label>
         </div>
         <div className={styles.website_div}>
-        <input
-            type="text"
-            id="website"
-            name="web"
-            value={formData.web}
-            onChange={handleInputChange}
-            required
-            className={styles.site}
-            placeholder="www.example.com"
-        />
+          <Input
+              type="text"
+              id="website"
+              name="web"
+              value={formData.web}
+              onChange={handleInputChange}
+              required
+              className={styles.site}
+              placeholder="www.example.com"
+            />
         </div>
       </div>
       <div className={styles.select_div}>
@@ -137,7 +133,7 @@ function ProfileImage() {
       </div>
        <div className={styles.country_div}>
         <select name="country" id="my-select-city" onChange={handleInputChange} value={formData.country} required className={styles.country_select}>
-            <option value="">Select country</option>
+            <option value="" disabled defaultValue>Select country</option>
             <option value="usa">USA</option>
             <option value="uk">UK</option>
             <option value="canada">Canada</option>
@@ -148,7 +144,7 @@ function ProfileImage() {
       </div>
        <div className={styles.city_div}>
         <select name="city" id="my-select-city" onChange={handleInputChange} value={formData.city} required className={styles.city_select}>
-            <option value="">Select city</option>
+           <option value="" disabled defaultValue>Select city</option>
             <option value="lagos">Lagos</option>
             <option value="kaduna">Kaduna</option>
             <option value="abuja">Abuja</option>
@@ -162,20 +158,17 @@ function ProfileImage() {
 
         <div className={styles.social_sub_div1}>
             <div className={styles.social_sub_img}>
-             <Image
-                src={Gitlog}
-                alt="GitHub"
-                width="20px"
-                height="20px"
-                className={styles.social_sub_img2}
+              <Icon
+                icon={"/assets/images/Gitlogo.svg"}
+                width={"18px"}
+                height={"18px"}
+               />
+              <Icon
+               icon={"/assets/images/GitHub.svg"}
+               width={"30px"}
+               height={"30px"}
               />
-              <Image
-                src={Github}
-                alt="GitHub"
-                width="50px"
-                height="50px"
-                className={styles.social_sub_img1}
-              />
+              <div className={styles.vertical_line}></div>
               <input
               type="text"
               id="gitHub"
@@ -188,20 +181,17 @@ function ProfileImage() {
              />
             </div>
             <div className={styles.social_sub_img_1}>
-                <Image
-                    src={Linkdeinlog}
-                    alt="Linkdein"
-                    width="20px"
-                    height="20px"
-                    className={styles.social_sub_img2}
-                />
-                <Image
-                    src={Linkdein}
-                    alt="Linkdein"
-                    width="50px"
-                    height="50px"
-                    className={styles.social_sub_img1}
-                />
+              <Icon
+                icon={"/assets/images/Linkeinlogo.svg"}
+                width={"20px"}
+                height={"20px"}
+              />
+              <Icon
+                icon={"/assets/images/Linkdein.svg"}
+                width={"28px"}
+                height={"28px"}
+              />
+              <div className={styles.vertical_line}></div>
                 <input
                 type="text"
                 id="linkdein"
@@ -216,20 +206,17 @@ function ProfileImage() {
            </div>
            <div className={styles.social_sub_div2}>
             <div className={styles.social_sub_img}>
-            <Image
-                src={Instagramlog}
-                alt="Instagram"
-                width="20px"
-                height="20px"
-                className={styles.social_sub_img2}
+                <Icon
+                  icon={"/assets/images/instagramlogo.svg"}
+                  width={"20px"}
+                  height={"20px"}
                 />
-                <Image
-                src={Instagram}
-                alt="Instagram"
-                width="50px"
-                height="50px"
-                className={styles.social_sub_img1}
+                <Icon
+                  icon={"/assets/images/Instagram.svg"}
+                  width={"28px"}
+                  height={"28px"}
                 />
+                <div className={styles.vertical_line}></div>
                 <input
                 type="text"
                 id="instagram"
@@ -242,20 +229,17 @@ function ProfileImage() {
             />
             </div>
             <div className={styles.social_sub_img_1}>
-                <Image
-                    src={Twitterlog}
-                    alt="Twitter"
-                    width="20px"
-                    height="20px"
-                    className={styles.social_sub_img2}
+                <Icon
+                  icon={"/assets/images/Twitterlogo.svg"}
+                  width={"20px"}
+                  height={"20px"}
                 />
-                <Image
-                    src={Twitter}
-                    alt="Twitter"
-                    width="50px"
-                    height="50px"
-                    className={styles.social_sub_img1}
+                <Icon
+                  icon={"/assets/images/Twitter.svg"}
+                  width={"28px"}
+                  height={"28px"}
                 />
+                <div className={styles.vertical_line}></div>
                 <input
                 type="text"
                 id="twitter"
@@ -277,4 +261,4 @@ function ProfileImage() {
   );
 }
 
-export default ProfileImage;
+export default General;

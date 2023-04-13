@@ -6,6 +6,7 @@
 
 .sub_div {
   flex-grow: 1;
+  max-width: 800px;
   margin: 2rem;
   padding: 2rem;
   color: black;
