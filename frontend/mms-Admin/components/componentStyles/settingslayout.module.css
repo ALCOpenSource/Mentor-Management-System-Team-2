@@ -1,10 +1,10 @@
-.main_div{
+.main_div {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
 }
 
-.sub_div{
+.sub_div {
   flex-grow: 1;
   margin: 2rem;
   padding: 2rem;
