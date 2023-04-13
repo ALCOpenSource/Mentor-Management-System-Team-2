@@ -15,9 +15,6 @@
   "schemes": [
     "http"
   ],
-  "schemes": [
-    "http"
-  ],
   "host": "localhost:3081",
   "basePath": "/api",
   "paths": {
@@ -26,14 +23,8 @@
         "tags": [
           "Tasks"
         ],
-        "tags": [
-          "Tasks"
-        ],
         "summary": "Get all the tasks",
         "description": "Get all the tasks",
-        "produces": [
-          "application/json"
-        ],
         "produces": [
           "application/json"
         ],
@@ -62,21 +53,12 @@
         "tags": [
           "Tasks"
         ],
-        "tags": [
-          "Tasks"
-        ],
         "summary": "Save the task",
         "description": "Save the task",
-        "produces": [
-          "application/json"
-        ],
         "consumes": [
           "application/json"
         ],
         "produces": [
-          "application/json"
-        ],
-        "consumes": [
           "application/json"
         ],
         "parameters": [
@@ -120,14 +102,8 @@
         "tags": [
           "Tasks"
         ],
-        "tags": [
-          "Tasks"
-        ],
         "summary": "Update the tasks",
         "description": "Update the tasks",
-        "produces": [
-          "application/json"
-        ],
         "produces": [
           "application/json"
         ],
@@ -179,14 +155,8 @@
         "tags": [
           "Tasks"
         ],
-        "tags": [
-          "Tasks"
-        ],
         "summary": "Delete the task",
         "description": "Delete the task",
-        "produces": [
-          "application/json"
-        ],
         "produces": [
           "application/json"
         ],
