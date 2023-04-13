@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import { Input } from "antd"
 import styles from "../componentStyles/password.module.css";
 import Link from "next/link";
+import { Input } from "antd";
 
 function Password() {
     const [formData, setFormData] = useState({
