@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { Input } from "antd";
+import { Input } from "antd"
 import styles from "../componentStyles/password.module.css";
 import Link from "next/link";
 
