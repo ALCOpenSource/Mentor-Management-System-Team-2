@@ -8,16 +8,20 @@
   font-size: 16px;
   line-height: 27px;
 }
+
 .t_align {
   text-align: right;
 }
+
 .about {
-  padding-top: 30px;
-  margin-left: 257px;
+  display: flex;
+  align-items: center;
 }
 .about_header {
   display: flex;
   align-items: center;
+  width: 305px;
+  height: 90px;
 }
 
 .about_name {
@@ -25,7 +29,8 @@
   font-size: 24px;
   line-height: 40px;
   color: #333333;
-  height: 40px;
+  width: 181px;
+  height: 35px;
   margin-bottom: 0;
 }
 
@@ -41,13 +46,99 @@
 
 .profile {
   margin-left: 20px;
+  padding-top: 10px;
+}
+
+.flag {
+  margin-left: 5px;
+  width: 20px;
+  border-radius: 2px;
 }
 
 .profile_description {
   box-sizing: border-box;
-  width: 1095px;
-  height: 559px;
-  background-color: red;
+  width: 100%;
+  background-color: #fff;
   border: 1px solid #e6e6e6;
   border-radius: 10px;
+  margin-top: 60px;
+  padding-left: 30px;
+  padding-right: 30px;
+}
+
+.about_title {
+  width: 64px;
+  height: 40px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 40px;
+  color: #333333;
+  margin-top: 22px;
+}
+
+.about_desc {
+  width: 959px;
+  height: 85px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 27px;
+  color: #4d4d4d;
+}
+
+.about_desc_container {
+  background-color: #f7feff;
+  border: 1px solid #e6fdfe;
+  box-sizing: border-box;
+  padding-top: 20px;
+  padding-left: 20px;
+  margin-bottom: 64px;
+}
+
+.icon {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 27px;
+
+  color: #808080;
+  margin-left: 10px;
+}
+
+.icon_color {
+  color: #058b94;
+}
+
+.icon_container {
+  width: 300px;
+  height: 27px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  margin-bottom: 33px;
+}
+
+.social_color {
+  color: #4d4d4d;
+}
+
+.social_icon {
+  width: 142px;
+  height: 33px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 33px;
+  color: #4d4d4d;
+  margin-left: 12px;
+}
+
+.social_icon_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 5px 11px;
+  width: 204px;
+  height: 40px;
+  background-color:#E6FDFE;
+  border-radius: 5px;
+  margin-bottom: 30px;
 }

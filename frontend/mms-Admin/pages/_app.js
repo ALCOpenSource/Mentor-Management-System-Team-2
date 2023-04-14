@@ -1,18 +1,4 @@
 import Head from "next/head";
-<<<<<<< HEAD
-
-import "../styles/globals.css";
-
-const App = ({ Component, pageProps }) => {
-  return (
-    <>
-      <Head>
-       
-
-        <style>{`body { background-color: #f9f9f9b8 !important; }`}</style>
-      </Head>
-      <Component {...pageProps} />
-=======
 import { useRouter } from "next/router";
 import WithAuth from "components/WithAuth";
 
@@ -33,7 +19,6 @@ const App = ({ Component, pageProps }) => {
         <style>{ styles }</style>
       </Head>
       <WithAuth component={<Component {...pageProps} />} route={router?.route} />
->>>>>>> 36dc95972366f2dc6f98f75e4670e4f7e5070c9b
     </>
   );
 };
