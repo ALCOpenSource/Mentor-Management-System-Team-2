@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import NavBar from "./NavBar/NavBar";
 import SideBar from "./SideBar/SideBar";
-import NavHeader from "components/NavHeader/NavHeader";
+import NavHeader from "../NavHeader/NavHeader";
 import { Layout } from "antd";
 
 const AppLayout = ({ children }) => {
