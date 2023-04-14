@@ -163,11 +163,7 @@ function General() {
                 width={"18px"}
                 height={"18px"}
                />
-              <Icon
-               icon={"/assets/images/GitHub.svg"}
-               width={"30px"}
-               height={"30px"}
-              />
+              <span className={styles.sub_img_span1}>GitHub</span>
               <div className={styles.vertical_line}></div>
               <input
               type="text"
@@ -186,11 +182,7 @@ function General() {
                 width={"20px"}
                 height={"20px"}
               />
-              <Icon
-                icon={"/assets/images/Linkdein.svg"}
-                width={"28px"}
-                height={"28px"}
-              />
+              <span className={styles.sub_img_span2}>Linkdein</span>
               <div className={styles.vertical_line}></div>
                 <input
                 type="text"
@@ -211,11 +203,7 @@ function General() {
                   width={"20px"}
                   height={"20px"}
                 />
-                <Icon
-                  icon={"/assets/images/Instagram.svg"}
-                  width={"28px"}
-                  height={"28px"}
-                />
+                <span className={styles.sub_img_span3}>Instagram</span>
                 <div className={styles.vertical_line}></div>
                 <input
                 type="text"
@@ -234,11 +222,7 @@ function General() {
                   width={"20px"}
                   height={"20px"}
                 />
-                <Icon
-                  icon={"/assets/images/Twitter.svg"}
-                  width={"28px"}
-                  height={"28px"}
-                />
+                <span className={styles.sub_img_span4}>Twitter</span>
                 <div className={styles.vertical_line}></div>
                 <input
                 type="text"
