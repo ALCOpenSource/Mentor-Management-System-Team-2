@@ -21,8 +21,8 @@
 
 .profileImage_sub_upload {
   position: absolute;
-  top: 2.5rem;
-  left: 25rem;
+  top: 5.5rem;
+  left: 28.5rem;
 }
 
 .profileImage_sub_upload p {
@@ -210,4 +210,13 @@
 
 .button:hover {
   background-color: #058b94;
+}
+
+.form {
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  max-width: 800px;
+  flex-grow: 1;
+  margin: 1rem;
+  padding: 2rem;
 }
