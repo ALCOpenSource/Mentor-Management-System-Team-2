@@ -24,10 +24,15 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.group(()=>{
-    Route.group(()=>{
-        Route.post('/login', 'AuthenticationController.login')
-        Route.post('/forgetpassword', 'AuthenticationController.forgetPassword')
-    }).prefix('auth')
-}).prefix('api/v1')
+Route.group(() => {
+  Route.group(() => {
+    Route.post('/login', 'AuthenticationController.login')
+    Route.post('/forgetpassword', 'AuthenticationController.forgetPassword')
+  }).prefix('auth')
 
+  Route.group(() => {
+    Route.get('/:userId', 'ProfilesController.getByUserId')
+    Route.put('/:userId', 'ProfilesController.update')
+    Route.put('/delete/:userId', 'ProfilesController.delete')
+  }).prefix('profile')
+}).prefix('api/v1')
