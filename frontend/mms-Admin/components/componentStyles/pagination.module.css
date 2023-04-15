@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  justify-content: space-evenly;
+}
+  
+.button1 {
+  cursor: pointer;
+  margin-right: 0.5rem;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button2 {
+  cursor: pointer;
+  margin-right: 3.5rem;
+  height: 40px;
+  background-color: transparent;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+ 
+.indextotal {
+  min-width: 5.8rem;
+  margin-top: 0.7rem
+}
+
+  
