@@ -7,12 +7,12 @@
   border-radius: 5px;
 }
 
-.main_sub_div{
-    display: flex;
+.main_sub_div {
+  display: flex;
 }
 
 .main_sub_icon {
-  margin: 10px 0px 0px 5px;
+  margin: 10px 0 0 5px;
   width: 48px;
 }
 
@@ -37,7 +37,6 @@
 
 .main_sub_content_time {
   padding-left: 10px;
-  padding-top: 3px;
   font-style: normal;
   font-weight: 400;
   font-size: 12px;
@@ -54,6 +53,7 @@
   height: 10px;
   display: flex;
 }
+
 .main_sub_con {
   display: flex;
 }
