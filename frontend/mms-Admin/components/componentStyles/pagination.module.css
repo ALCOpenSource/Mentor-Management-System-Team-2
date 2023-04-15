@@ -5,7 +5,6 @@
 
 .button1 {
   cursor: pointer;
-  margin-right: 0.5rem;
   height: 40px;
   background-color: transparent;
   border: none;
@@ -26,6 +25,6 @@
 }
 
 .indextotal {
-  min-width: 5.8rem;
+  width: 8rem;
   margin-top: 0.7rem;
 }

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styles from "./componentStyles/pagination.module.css"
 import Icon from "./Icon";
 
+
 const PAGE_SIZE = 10;
 
 const Pagination = ({ total }) => {
@@ -30,13 +31,13 @@ const Pagination = ({ total }) => {
       <button className={styles.button1} disabled={currentPage === 1} onClick={handlePreviousClick}>
        <Icon
         icon={"/assets/images/Backward.svg"}
-        width={"13px"}
-        height={"13px"}
+        width={"20px"}
+        height={"20px"}
        />
       <Icon
        icon={"/assets/images/Backward-sign.svg"}
-       width={"13px"}
-       height={"13px"}
+       width={"20px"}
+       height={"20px"}
       />
       </button>
       <div className={styles.indextotal}>
@@ -50,13 +51,13 @@ const Pagination = ({ total }) => {
       <button className={styles.button2} disabled={currentPage === totalPages} onClick={handleNextClick}>
         <Icon
          icon={"/assets/images/forward-sign.svg"}
-         width={"13px"}
-         height={"13px"}
+         width={"20px"}
+         height={"20px"}
         />
         <Icon
          icon={"/assets/images/Forward.svg"}
-         width={"13px"}
-         height={"13px"}
+         width={"20px"}
+         height={"20px"}
         />
       </button>
     </div>
