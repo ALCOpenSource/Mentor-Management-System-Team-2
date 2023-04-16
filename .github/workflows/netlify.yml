@@ -17,10 +17,12 @@ jobs:
       - name: "code checkout"
         uses: actions/checkout@v3
         with:
-          node-version: 14
+          node-version: 16
 
       - name: "install dependencies"
         run: npm install
+        with:
+          node-version: 16
       - run: npm run build
 
       - name: "deploy to netlify"
