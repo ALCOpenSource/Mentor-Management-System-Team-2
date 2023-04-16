@@ -1,0 +1,29 @@
+name: "Netlify Deployment"
+
+on: 
+  push:
+  pull_request:
+    branches: [main, develop]
+  
+jobs:
+  test_deployment: 
+    run-on: ubuntu-latest
+    steps:
+      - name: "code checkout"
+        uses: actions/checkout@v3
+      - run: cd frontend/mms-Admin
+
+      - name: "install dependencies"
+        run: npm install
+      - run: npm run build
+
+      - name: "deploy to netlify"
+        uses: netlify/actions/cli@master
+        env:
+          NETLIFY_AUTH_TOKEN: lR3JK0dXeHUkIdby570JzBZE-UJ4X4nE-KoxqZXbkDI
+          NETLIFY_SITE_ID: 8680e251-87b0-45fe-a86c-5889ce94c008
+        with: 
+          args: deploy --dir=build --prod
+          secrets: '["NETLIFY_AUTH_TOKEN", "NETLIFY_SITE_ID"]'
+
+      - run: echo "Deployment Successful"
