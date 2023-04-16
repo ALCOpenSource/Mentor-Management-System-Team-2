@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
     branches: [main, develop]
+
+defaults: 
+  run:
+    working-directory: frontend/mms-Admin
   
 jobs:
   test_deployment: 
