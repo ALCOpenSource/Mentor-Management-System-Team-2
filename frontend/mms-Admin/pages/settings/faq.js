@@ -6,7 +6,7 @@ const faq = () => {
   return (
     <Row className={styles.main_container}>
     <Layout className={styles.sidebar}>
-    <SettingsLayout>faq</SettingsLayout>
+    <SettingsLayout>Faq</SettingsLayout>
     </Layout>
   </Row>
   )
