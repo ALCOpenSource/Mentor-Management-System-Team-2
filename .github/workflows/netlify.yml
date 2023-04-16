@@ -16,11 +16,12 @@ jobs:
     steps:
       - name: "code checkout"
         uses: actions/checkout@v3
+        with:
+          node-version: 16
 
       - name: "install dependencies"
         run: npm install
       - run: npm run build
-      - run: npm audit fix --force
 
       - name: "deploy to netlify"
         uses: netlify/actions/cli@master
