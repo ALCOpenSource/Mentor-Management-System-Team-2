@@ -38,4 +38,10 @@ Route.group(()=>{
     Route.put('/:userId', 'ProfilesController.update')
     Route.put('/delete/:userId', 'ProfilesController.delete')
   }).prefix('profile')
+
+  Route.group(() => {
+    Route.get('/', 'NotificationSettingsController.getUserNotificationSettings')
+    Route.put('/', 'NotificationSettingsController.updateUserNotificationSettings')
+  }).prefix('notification-settings')
+
 }).prefix('api/v1')
