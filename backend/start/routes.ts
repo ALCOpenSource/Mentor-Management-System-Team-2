@@ -44,4 +44,9 @@ Route.group(()=>{
     Route.put('/', 'NotificationSettingsController.updateUserNotificationSettings')
   }).prefix('notification-settings')
 
+  Route.group(() => {
+    Route.get('/', 'PrivacySettingsController.getUserPrivacySettings')
+    Route.put('/', 'PrivacySettingsController.updateUserPrivacySettings')
+  }).prefix('privacy-settings')
+
 }).prefix('api/v1')
