@@ -7,7 +7,7 @@ import "styles/globals.css";
 import "components/Layout/Layout.css";
 import "components/Layout/NavBar/NavBar.css";
 import "components/Layout/SideBar/SideBar.css";
-import { styles } from "styles/_app";
+import { styles } from "styles/globals.css";
 
 const App = ({ Component, pageProps }) => {
   const router = useRouter();

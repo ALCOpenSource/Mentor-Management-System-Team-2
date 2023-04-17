@@ -1,5 +1,6 @@
 import React from 'react'
 import SettingsLayout from "../../components/SettingsLayout";
+import Faq from "../../components/settings/Faq";
 import { Layout, Row } from "antd";
 import styles from "../../styles/settings/sidebar.module.css";
 const faq = () => {
