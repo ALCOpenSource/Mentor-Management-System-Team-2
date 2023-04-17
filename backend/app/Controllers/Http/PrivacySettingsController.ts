@@ -5,7 +5,7 @@ export default class PrivacySettingsController {
   async getUserPrivacySettings({ auth, response }: HttpContextContract) {
     try {
       const user = auth.user
-      const privacySettings = await PrivacySetting.findBy('user_id', 1)
+      const privacySettings = await PrivacySetting.findBy('user_id', user)
       return response.json(privacySettings ? privacySettings : {})
     } catch (error) {
       response.unauthorized({ message: 'No Permissions', status: 'Error' })
@@ -15,7 +15,7 @@ export default class PrivacySettingsController {
   async updateUserPrivacySettings({ auth, request, response }) {
     try {
       const user = await auth.User
-      const privacySettings = await PrivacySetting.findBy('user_id', 1)
+      const privacySettings = await PrivacySetting.findBy('user_id', user)
 
       if (privacySettings) {
         privacySettings.settings = Object.assign(
