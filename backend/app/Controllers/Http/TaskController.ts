@@ -5,6 +5,8 @@ import TaskMentor from 'App/Models/TaskMentor'
 import TaskMentorManager from 'App/Models/TaskMentorManager'
 import Database from '@ioc:Adonis/Lucid/Database'
 
+
+
 export default class TaskController {
   async create({ auth, request, response }: HttpContextContract) {
     const adminUser = await auth.authenticate()
@@ -187,4 +189,33 @@ export default class TaskController {
       return response.status(500).send({ message: 'Error retrieving tasks.' })
     }
   }
+
+  async delete({ auth, params, response }: HttpContextContract) {
+    const adminUser = await auth.authenticate();
+  
+    if (!adminUser || adminUser.roleId !== Roles.ADMIN) {
+      return response.unauthorized({ message: 'You are not authorized to perform this action' });
+    }
+  
+    const taskId = params.taskId;
+  
+    const task = await Task.query().where('id', taskId).first();
+  
+    if (!task) {
+      return response.notFound({ message: 'Task not found' });
+    }
+  
+    try {
+      await Database.transaction(async (trx) => {
+        await TaskMentor.query().where('taskId', taskId).useTransaction(trx).delete();
+        await TaskMentorManager.query().where('taskId', taskId).useTransaction(trx).delete();
+        await task.useTransaction(trx).delete();
+      });
+  
+      return response.ok({ message: 'Task deleted successfully' });
+    } catch (error) {
+      return response.status(500).send({ message: 'Error deleting task' });
+    }
+  }
+  
 }
