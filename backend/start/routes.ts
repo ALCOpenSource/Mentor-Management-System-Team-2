@@ -24,16 +24,33 @@ Route.get('/', async () => {
   return { hello: 'world' }
 })
 
-Route.group(()=>{
-    Route.group(()=>{
-        Route.post('/login', 'AuthenticationController.login')
-        Route.post('/forgetpassword', 'AuthenticationController.forgetPassword')
-        Route.post('/resetpassword', 'AuthenticationController.resetPassword')
-    }).prefix('auth')
+Route.group(() => {
+  Route.group(() => {
+    Route.post('/login', 'AuthenticationController.login')
+    Route.post('/forgetpassword', 'AuthenticationController.forgetPassword')
+    Route.post('/resetpassword', 'AuthenticationController.resetPassword')
+    Route.get('/google/redirect', 'AuthenticationController.redirectToGoogle')
+    Route.get('/google', 'AuthenticationController.googleLogin')
+  }).prefix('auth')
 
   Route.group(() => {
     Route.get('/:userId', 'ProfilesController.getByUserId')
     Route.put('/:userId', 'ProfilesController.update')
     Route.put('/delete/:userId', 'ProfilesController.delete')
   }).prefix('profile')
+
+  Route.group(() => {
+    Route.get('/', 'NotificationSettingsController.getUserNotificationSettings')
+    Route.put('/', 'NotificationSettingsController.updateUserNotificationSettings')
+  }).prefix('notification-settings')
+
+  Route.group(() => {
+    Route.get('/', 'PrivacySettingsController.getUserPrivacySettings')
+    Route.put('/', 'PrivacySettingsController.updateUserPrivacySettings')
+  }).prefix('privacy-settings')
+
+  Route.group(() => {
+    Route.get('/', 'SupportRequestsController.index')
+    Route.post('/', 'SupportRequestsController.createRequest')
+  }).prefix('support-request')
 }).prefix('api/v1')

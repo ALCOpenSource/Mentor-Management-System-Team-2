@@ -4,8 +4,8 @@ import NavBar from "./NavBar/NavBar";
 import SideBar from "./SideBar/SideBar";
 import NavHeader from "../NavHeader/NavHeader";
 import { Layout, Input } from "antd";
-import { extractTitleFromUrl } from "utils/extractTitleFromUrl"
-import styles from "../componentStyles/login.module.css";
+import { extractTitleFromUrl } from "../../utils/extractTitleFromUrl"
+import styles from "styles/layout.module.css";
 import Pagination from "../Pagination"
 
 const AppLayout = ({ children }) => {
@@ -21,10 +21,10 @@ const AppLayout = ({ children }) => {
   }, [router]);
 
   return (
-    <Layout className="app-layout">
+    <Layout className={styles.app_layout}>
       <NavBar />
       <Content>
-        <Layout className="app-layout">
+        <Layout className={styles.app_layout}>
           <SideBar />
           <Content className="app-layout-content">
             <div className={[styles.div_input]}>
