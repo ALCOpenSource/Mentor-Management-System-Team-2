@@ -27,8 +27,8 @@ Route.get('/', async () => {
 Route.group(()=>{
     Route.group(()=>{
         Route.post('/login', 'AuthenticationController.login')
-        Route.post('/forgetpassword', 'AuthenticationController.forgetPassword')
-        Route.post('/resetpassword', 'AuthenticationController.resetPassword')
+        Route.post('/forget-password', 'AuthenticationController.forgetPassword')
+        Route.post('/reset-password', 'AuthenticationController.resetPassword')
         Route.get('/google/redirect', 'AuthenticationController.redirectToGoogle')
         Route.get('/google', 'AuthenticationController.googleLogin')
     }).prefix('auth')
@@ -38,4 +38,11 @@ Route.group(()=>{
     Route.put('/:userId', 'ProfilesController.update')
     Route.put('/delete/:userId', 'ProfilesController.delete')
   }).prefix('profile')
+
+  Route.group(()=>{
+    Route.get('/', 'TaskController.index')
+    Route.post('/', 'TaskController.create')
+    Route.put('/:taskId', 'TaskController.update')
+    Route.get('/:taskId', 'TaskController.show')
+  }).prefix('task').middleware('auth')
 }).prefix('api/v1')
