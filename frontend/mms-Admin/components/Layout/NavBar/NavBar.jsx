@@ -2,12 +2,12 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { Icon } from "components/Icon/Icon";
-import { Avatar, Badge, Col, Input, Row } from "antd";
+import { Avatar, Badge, Input } from "antd";
+
+import styles from "styles/navbar.module.css";
 
 const NavBar = () => {
-  const recentNotifications = useState([]);
-
-  const { Search } = Input;
+  const [recentNotifications, setRecentNotifications] = useState([]);
 
   const notificationCount = (count) => {
     if (count == 20) return "20+";
@@ -15,31 +15,31 @@ const NavBar = () => {
   };
 
   return (
-    <header className="header">
-      <Row justify={"space-evenly"} align={"middle"}>
-        <Col md={12} sm={8} xs={4}>
-          <Row align={"middle"}>
-            <Image
-              width={80}
-              height={80}
-              src={"/assets/images/logo_small.png"}
-              alt="logo"
-            />
-            <span className="logo-text">Mentor&apos;s Managers System</span>
-          </Row>
-        </Col>
+    <header className={styles.header}>
+      <div className={styles.navbar}>
+        <div className={styles.logo_container}>
+          <Image
+            width={69}
+            height={69}
+            src={"/assets/images/logo_small.png"}
+            alt="logo"
+          />
+          <span className={styles.logo_text}>
+            Mentor&apos;s Managers System
+          </span>
+        </div>
 
-        <Col span={12}>
-          <Row gutter={[16, 8, 4]} align={"middle"} justify={"space-around"}>
-            <Col className="gutter-row">
-              <Search
-                placeholder="Search for anything"
-                enterButton=""
-                size="large"
-                style={{ width: 540 }}
-              />
-            </Col>
-            <Col className="gutter-row">
+        <div className={styles.navbar_right}>
+          <div className={styles.navbar_search_container}>
+            <Input
+              className={styles.navbar_search}
+              placeholder="Search for anything"
+              prefix={<Icon name="Search" />}
+              size="large"
+            />
+          </div>
+          <div className={styles.navbar_icons}>
+            <div>
               <Link href="/home">
                 <a>
                   <Badge>
@@ -47,8 +47,8 @@ const NavBar = () => {
                   </Badge>
                 </a>
               </Link>
-            </Col>
-            <Col className="gutter-row">
+            </div>
+            <div>
               <Link href="/home">
                 <a>
                   <Badge count={notificationCount(recentNotifications?.length)}>
@@ -56,17 +56,17 @@ const NavBar = () => {
                   </Badge>
                 </a>
               </Link>
-            </Col>
-            <Col className="gutter-row">
+            </div>
+            <div>
               <Link href="/profile">
                 <a>
-                  <Avatar src="" />
+                  <Avatar src="/assets/images/user.png" />
                 </a>
               </Link>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+            </div>
+          </div>
+        </div>
+      </div>
     </header>
   );
 };

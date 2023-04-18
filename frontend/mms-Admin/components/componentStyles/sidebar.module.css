@@ -1,20 +1,18 @@
 .sidebar {
-  height: 100vh;
-  padding-top: 2rem;
+  width: 227px;
+  height: 295px;
   display: flex;
   color: black;
+  background-color: #f7feff;
   justify-content: flex-start;
   flex-direction: column;
-  width: 15rem;
 }
 
 .sidebar_span {
-  position: absolute;
-  left: 28px;
-  top: 13px;
+  position: relative;
   font-style: normal;
   font-weight: 600;
-  font-size: 24px;
+  font-size: 16px;
   color: #141414;
 }
 
@@ -22,9 +20,12 @@
   display: flex;
   justify-content: center;
   cursor: pointer;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  background-color: rgba(247, 254, 255, 1);
+  font-size: 16px;
+  color: #333;
+  height: 43px;
+  width: 227px;
+  border-radius: 0;
+  padding: 8px 100px 10px 100px;
 }
 
 .active,
@@ -37,8 +38,4 @@
   font-style: normal;
   font-weight: 400;
   font-size: 16px;
-}
-
-.item_div {
-  margin-top: 3rem;
 }

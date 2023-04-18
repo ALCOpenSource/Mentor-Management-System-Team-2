@@ -1,15 +1,9 @@
-import { useRouter } from "next/router";
-
-const Login = () => {
-  const router = useRouter();
-
+const Profile = () => {
   return (
     <>
-      <div>
-        <h1>Hello World</h1>
-      </div>
+      <h2>/</h2>
     </>
   );
 };
 
-export default Login;
+export default Profile;
