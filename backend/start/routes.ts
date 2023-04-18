@@ -49,4 +49,8 @@ Route.group(()=>{
     Route.put('/', 'PrivacySettingsController.updateUserPrivacySettings')
   }).prefix('privacy-settings')
 
+  Route.group(() => {
+    Route.get('/', 'SupportRequestsController.index')
+    Route.post('/', 'SupportRequestsController.createRequest')
+  }).prefix('support-request')
 }).prefix('api/v1')
