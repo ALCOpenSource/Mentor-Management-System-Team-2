@@ -7,6 +7,8 @@ import { Layout, Input } from "antd";
 import Pagination from "../Pagination"
 import { extractTitleFromUrl } from "../../utils/extractTitleFromUrl"
 import styles from "styles/layout.module.css";
+import Icon from "../Icon";
+import { CustomButton } from "../formInputs/CustomInput";
 
 const AppLayout = ({ children }) => {
   const [headerTitle, setHeaderTitle] = useState("");
@@ -41,7 +43,29 @@ const AppLayout = ({ children }) => {
                <Pagination total={20} />
               </>
             )}
-
+            {router?.pathname === "/tasks" && (
+              <>
+              <div className={[styles.task_icon]}>
+                  <div className={[styles.task_search_icon]}>
+                    <Icon
+                      icon={"/assets/images/search.svg"}
+                      width={"20px"}
+                      height={"20px"} />
+                  </div>
+                  <div className={[styles.task_filter_icon]}>
+                    <Icon
+                      icon={"/assets/images/filter.svg"}
+                      width={"25px"}
+                      height={"25px"} />
+                  </div>
+                </div>
+                  <span className={[styles.task_create]}>
+                    <CustomButton>
+                    Create New Task
+                    </CustomButton>
+                  </span>
+              </>
+            )}
             </div>
             {children}
           </Content>

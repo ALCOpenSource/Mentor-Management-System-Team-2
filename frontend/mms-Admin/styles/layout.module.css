@@ -18,3 +18,22 @@
   display: flex;
   padding-top: 2rem;
 }
+
+.task_icon {
+  margin-right: 26rem;
+  display: flex;
+  width: 100%;
+}
+
+.task_search_icon {
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+.task_filter_icon {
+  cursor: pointer;
+}
+
+.task_create {
+  margin-right: 4rem;
+}
