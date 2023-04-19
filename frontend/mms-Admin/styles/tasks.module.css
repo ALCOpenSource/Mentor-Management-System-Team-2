@@ -54,7 +54,7 @@
 }
 
 .side_div_item_des {
-  background: #F7FEFF;
+  background: #f7feff;
 }
 
 .side_div_item_des p {
@@ -76,17 +76,17 @@
 .taskbutton1 {
   color: #fff;
   background-color: #058b94;
-  padding: 1px 15px; 
+  padding: 1px 15px;
 }
 
 .taskbuttonspan {
-  padding-top: 0.7rem;  
+  padding-top: 0.7rem;
 }
 
 .side_div_item_des1 {
   display: flex;
   justify-content: space-between;
-  background: #E6FDFE;
+  background: #e6fdfe;
   margin-right: 1.5rem;
   margin-left: 1rem;
 }
@@ -147,7 +147,7 @@
   padding-top: 0.7rem;
 }
 
-.program_mentor_managers2  {
+.program_mentor_managers2 {
   font-style: normal;
   font-weight: 600;
   font-size: 20px;
@@ -177,8 +177,8 @@
 }
 
 .button_div {
-    display: flex;
-    margin-top: 3rem;
-    float: right;
-    margin-right: 2rem;
+  display: flex;
+  margin-top: 3rem;
+  float: right;
+  margin-right: 2rem;
 }
