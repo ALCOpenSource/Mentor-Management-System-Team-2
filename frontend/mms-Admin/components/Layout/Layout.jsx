@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import NavBar from "./NavBar/NavBar";
 import SideBar from "./SideBar/SideBar";
 import NavHeader from "../NavHeader/NavHeader";
-import { Layout, Input } from "antd";
-import Pagination from "../Pagination"
-import { extractTitleFromUrl } from "../../utils/extractTitleFromUrl"
+import { Input, Layout } from "antd";
+import Pagination from "../Pagination";
+import { extractTitleFromUrl } from "../../utils/extractTitleFromUrl";
 import styles from "styles/layout.module.css";
 import Icon from "../Icon";
 import { CustomButton } from "../formInputs/CustomInput";
@@ -14,11 +14,11 @@ const AppLayout = ({ children }) => {
   const [headerTitle, setHeaderTitle] = useState("");
   const router = useRouter();
   const { Content } = Layout;
-  const searchData = { foo: 'bar' }
+  const searchData = { foo: "bar" };
 
   useEffect(() => {
-    let pathname = router?.pathname
-    if(pathname === "/") setHeaderTitle("");
+    let pathname = router?.pathname;
+    if (pathname === "/") setHeaderTitle("");
     else setHeaderTitle(extractTitleFromUrl(pathname?.slice(1)));
   }, [router]);
 
