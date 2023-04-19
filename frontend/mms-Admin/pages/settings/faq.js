@@ -2,6 +2,7 @@ import React from "react";
 import SettingsLayout from "../../components/SettingsLayout";
 import { Layout, Row } from "antd";
 import styles from "../../styles/settings/sidebar.module.css";
+import Faq  from "../../components/settings/Faq";
 
 const faq = () => {
   return (
