@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap");
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   padding: 0;
@@ -35,4 +39,28 @@ body {
 .logo-text {
   color: #fff;
   font-weight: 600;
+}
+
+.broadcast-body {
+  scrollbar-width: thin;
+  scrollbar-color: #06B9C6;
+}
+
+/* Chrome, Edge, and Safari */
+.broadcast-body::-webkit-scrollbar {
+  width: 12px;
+}
+
+.broadcast-body::-webkit-scrollbar-track {
+  background: #F7FEFF;
+}
+
+.broadcast-body::-webkit-scrollbar-thumb {
+  background-color: #06B9C6;
+  border-radius: 20px;
+  border: 1px solid #06B9C6;
+}
+
+.font-mukta {
+  font-family: 'Mukta', sans-serif;
 }

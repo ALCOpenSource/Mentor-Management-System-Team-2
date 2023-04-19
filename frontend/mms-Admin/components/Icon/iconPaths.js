@@ -120,7 +120,7 @@ export const iconPaths = {
       </svg>
     );
   },
-  Task: ({color="#808080", width="16", height="16"}) => {
+  Task: ({ color = "#808080", width = "16", height = "16" }) => {
     return (
       <svg
         width={width}
@@ -136,7 +136,7 @@ export const iconPaths = {
       </svg>
     );
   },
-  Report: ({color="#808080", width="16", height="16"}) => {
+  Report: ({ color = "#808080", width = "16", height = "16" }) => {
     return (
       <svg
         width={width}
@@ -144,7 +144,8 @@ export const iconPaths = {
         viewBox="0 0 18 22"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
-        <path d="M5 5H13M5 9H13M5 13H8M3 21H15C16.1046 21 17 20.1046 17 19V3C17 1.89543 16.1046 1 15 1H3C1.89543 1 1 1.89543 1 3V19C1 20.1046 1.89543 21 3 21Z"
+        <path
+          d="M5 5H13M5 9H13M5 13H8M3 21H15C16.1046 21 17 20.1046 17 19V3C17 1.89543 16.1046 1 15 1H3C1.89543 1 1 1.89543 1 3V19C1 20.1046 1.89543 21 3 21Z"
           stroke={color}
           strokeWidth="2"
           strokeLinecap="round"
@@ -153,18 +154,18 @@ export const iconPaths = {
       </svg>
     );
   },
-  Location: ({color="#058B94", width="24", height="28"}) => {
+  Location: ({ color = "#058B94", width = "24", height = "28" }) => {
     return (
-      <svg width={width}
+      <svg
+        width={width}
         height={height}
         viewBox="0 0 24 28"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+        xmlns="http://www.w3.org/2000/svg">
         <path
           d="M4.54049 18.1091L12 26.5L19.4595 18.1091C25.1807 11.6735 20.6116 1.5 12 1.5C3.38835 1.5 -1.18077 11.6735 4.54049 18.1091Z"
           stroke={color}
-          strokeWidth="2" 
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
@@ -178,7 +179,7 @@ export const iconPaths = {
       </svg>
     );
   },
-  Person: ({color="#808080", width="16", height="16"}) => {
+  Person: ({ color = "#808080", width = "16", height = "16" }) => {
     return (
       <svg
         width={width}
@@ -203,7 +204,7 @@ export const iconPaths = {
       </svg>
     );
   },
-  People: ({color="#808080", width="16", height="16"}) => {
+  People: ({ color = "#808080", width = "16", height = "16" }) => {
     return (
       <svg
         width={width}
@@ -348,6 +349,81 @@ export const iconPaths = {
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+
+  Emoji: () => {
+    return (
+      <svg
+        className="inline"
+        width="22"
+        height="22"
+        viewBox="0 0 22 22"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M14.0161 9.0161L14 9M8.01611 9.0161L8 9M7 14C7 14 7.12514 14.2503 7.4197 14.5738C7.9578 15.1647 9.0613 16 11 16C12.9387 16 14.0422 15.1647 14.5803 14.5738C14.8749 14.2503 15 14 15 14M11 21C5.47715 21 1 16.5228 1 11C1 5.47715 5.47715 1 11 1C16.5228 1 21 5.47715 21 11C21 16.5228 16.5228 21 11 21Z"
+          stroke="black"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+
+  Attachment: () => {
+    return (
+      <svg
+        className="inline"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M19 9.0265L10.8445 17.289C8.5925 19.5707 4.94113 19.5707 2.68905 17.289C0.436983 15.0074 0.436983 11.3081 2.68905 9.0265L9.4853 2.14106C10.9867 0.619972 13.4209 0.619972 14.9223 2.14106C16.4236 3.66215 16.4236 6.12832 14.9223 7.64941L8.126 14.5348C7.37535 15.2954 6.15824 15.2954 5.40754 14.5348C4.65685 13.7743 4.65685 12.5412 5.40754 11.7807L12.2038 4.89524"
+          stroke="black"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+
+  DoubleCheck: () => {
+    return (
+      <svg
+        width="22"
+        height="12"
+        viewBox="0 0 22 12"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M1 6L6.25 11L8.875 8M7 6L12.25 11L21 1M15 1L11.5 5"
+          stroke="#4D4D4D"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+
+  DropDownIndicator: () => {
+    return (
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M10 13L14 9H6L10 13ZM10 20C8.61667 20 7.31667 19.7373 6.1 19.212C4.88333 18.6873 3.825 17.975 2.925 17.075C2.025 16.175 1.31267 15.1167 0.788 13.9C0.262667 12.6833 0 11.3833 0 10C0 8.61667 0.262667 7.31667 0.788 6.1C1.31267 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.31233 6.1 0.787C7.31667 0.262333 8.61667 0 10 0C11.3833 0 12.6833 0.262333 13.9 0.787C15.1167 1.31233 16.175 2.025 17.075 2.925C17.975 3.825 18.6873 4.88333 19.212 6.1C19.7373 7.31667 20 8.61667 20 10C20 11.3833 19.7373 12.6833 19.212 13.9C18.6873 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6873 13.9 19.212C12.6833 19.7373 11.3833 20 10 20ZM10 18C12.2333 18 14.125 17.225 15.675 15.675C17.225 14.125 18 12.2333 18 10C18 7.76667 17.225 5.875 15.675 4.325C14.125 2.775 12.2333 2 10 2C7.76667 2 5.875 2.775 4.325 4.325C2.775 5.875 2 7.76667 2 10C2 12.2333 2.775 14.125 4.325 15.675C5.875 17.225 7.76667 18 10 18Z"
+          fill="#058B94"
         />
       </svg>
     );
