@@ -7,9 +7,7 @@ function TasksSidebar() {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [items, setItems] = useState([]);
-    // /api/items?page=${currentPage}&pageSize=${pageSize}
-    // https://api.punkapi.com/v2/beers?page=2&per_page=80
-    //  https://api.instantwebtools.net/v1/passenger?page=0&size=10
+
     const loadMore = () => {
       fetch(`https://api.punkapi.com/v2/beers?page=${currentPage}&per_page=${pageSize}`)
         .then(response => response.json())
@@ -41,7 +39,7 @@ function TasksSidebar() {
         if (element) element.removeEventListener('scroll', handleScroll);
       };
     });
-    console.log("items :", items)
+
   return (
     <div className={styles.main_div} id="scroll-container">
     { items.length > 0 ? (
