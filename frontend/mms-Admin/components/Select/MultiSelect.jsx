@@ -1,4 +1,4 @@
-import Select from "react-select";
+import Select, {components} from "react-select";
 import { Icon } from "../Icon/Icon";
 
 const customStyles = {
@@ -21,9 +21,9 @@ const customStyles = {
 
 const customIndicator = (props) => {
   return (
-    <div {...props}>
+    <components.DropdownIndicator {...props}>
       <Icon name={"DropDownIndicator"} />
-    </div>
+    </components.DropdownIndicator>
   );
 };
 

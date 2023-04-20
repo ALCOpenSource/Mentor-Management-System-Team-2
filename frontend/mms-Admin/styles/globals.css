@@ -43,7 +43,7 @@ body {
 
 .broadcast-body {
   scrollbar-width: thin;
-  scrollbar-color: #06B9C6;
+  scrollbar-color: #06b9c6;
 }
 
 /* Chrome, Edge, and Safari */
@@ -52,15 +52,15 @@ body {
 }
 
 .broadcast-body::-webkit-scrollbar-track {
-  background: #F7FEFF;
+  background: #f7feff;
 }
 
 .broadcast-body::-webkit-scrollbar-thumb {
-  background-color: #06B9C6;
+  background-color: #06b9c6;
   border-radius: 20px;
-  border: 1px solid #06B9C6;
+  border: 1px solid #06b9c6;
 }
 
 .font-mukta {
-  font-family: 'Mukta', sans-serif;
+  font-family: "Mukta", sans-serif;
 }
