@@ -2,7 +2,7 @@ import { DateTime } from 'luxon'
 import { BaseModel, belongsTo, column, BelongsTo, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
 import Task from './Task'
 import User from './User'
-import Roles from 'App/Enums/Roles'
+
 
 export default class TaskMentor extends BaseModel {
   @column({ isPrimary: true })

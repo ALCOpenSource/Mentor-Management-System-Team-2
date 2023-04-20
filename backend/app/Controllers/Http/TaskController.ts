@@ -5,8 +5,6 @@ import TaskMentor from 'App/Models/TaskMentor'
 import TaskMentorManager from 'App/Models/TaskMentorManager'
 import Database from '@ioc:Adonis/Lucid/Database'
 
-
-
 export default class TaskController {
   async create({ auth, request, response }: HttpContextContract) {
     const adminUser = await auth.authenticate()
@@ -97,7 +95,7 @@ export default class TaskController {
         'mentorManagers',
       ])
 
-    const taskId = params.id
+    const taskId = params.taskId
 
     try {
       const task = await Database.transaction(async (trx) => {
@@ -166,7 +164,29 @@ export default class TaskController {
       return response.notFound({ message: 'Task not found' })
     }
 
-    return response.ok(task)
+    const result = 
+       {
+        id: task.id,
+        title: task.title,
+        description: task.description,
+        meta: task.meta,
+        creatorUserId: task.userId,
+        createdBy: `${task.user?.firstName} ${task.user?.lastName}`,
+        startDate: task.startDate,
+        endDate: task.endDate,
+        typeOfReport: task.typeOfReport,
+        createdAt: task.createdAt,
+        updatedAt: task.updatedAt,
+        mentors: task.mentors?.map((mentor) => `${mentor.firstName} ${mentor.lastName}`),
+        mentorManagers: task.mentorManagers?.map(
+          (mentorManager) => `${mentorManager.firstName} ${mentorManager.lastName}`
+        ),
+        mentorCount: task.mentors.length,
+        mentorManagerCount: task.mentorManagers.length,
+      }
+   
+
+    return response.ok(result)
   }
   async index({ auth, response, request }: HttpContextContract) {
     const adminUser = await auth.authenticate()
@@ -182,40 +202,61 @@ export default class TaskController {
         .preload('user')
         .preload('mentors')
         .preload('mentorManagers')
-        .paginate(page ||  1, limit || 10)
+        .paginate(page || 1, limit || 10)
 
-      return response.status(200).json(tasks)
+      const tasksWithCounts = tasks.toJSON().data.map((task) => {
+        return {
+          id: task.id,
+          title: task.title,
+          description: task.description,
+          meta: task.meta,
+          creatorUserId: task.userId,
+          createdBy: `${task.user?.firstName} ${task.user?.lastName}`,
+          startDate: task.startDate,
+          endDate: task.endDate,
+          typeOfReport: task.typeOfReport,
+          createdAt: task.createdAt,
+          updatedAt: task.updatedAt,
+          mentors: task.mentors?.map((mentor) => `${mentor.firstName} ${mentor.lastName}`),
+          mentorManagers: task.mentorManagers?.map(
+            (mentorManager) => `${mentorManager.firstName} ${mentorManager.lastName}`
+          ),
+          mentorCount: task.mentors.length,
+          mentorManagerCount: task.mentorManagers.length,
+        }
+      })
+
+      return response.status(200).json({ data: tasksWithCounts })
     } catch (error) {
       return response.status(500).send({ message: 'Error retrieving tasks.' })
     }
   }
 
   async delete({ auth, params, response }: HttpContextContract) {
-    const adminUser = await auth.authenticate();
-  
+    const adminUser = await auth.authenticate()
+
     if (!adminUser || adminUser.roleId !== Roles.ADMIN) {
-      return response.unauthorized({ message: 'You are not authorized to perform this action' });
+      return response.unauthorized({ message: 'You are not authorized to perform this action' })
     }
-  
-    const taskId = params.taskId;
-  
-    const task = await Task.query().where('id', taskId).first();
-  
+
+    const taskId = params.taskId
+
+    const task = await Task.query().where('id', taskId).first()
+
     if (!task) {
-      return response.notFound({ message: 'Task not found' });
+      return response.notFound({ message: 'Task not found' })
     }
-  
+
     try {
       await Database.transaction(async (trx) => {
-        await TaskMentor.query().where('taskId', taskId).useTransaction(trx).delete();
-        await TaskMentorManager.query().where('taskId', taskId).useTransaction(trx).delete();
-        await task.useTransaction(trx).delete();
-      });
-  
-      return response.ok({ message: 'Task deleted successfully' });
+        await TaskMentor.query().where('taskId', taskId).useTransaction(trx).delete()
+        await TaskMentorManager.query().where('taskId', taskId).useTransaction(trx).delete()
+        await task.useTransaction(trx).delete()
+      })
+
+      return response.ok({ message: 'Task deleted successfully' })
     } catch (error) {
-      return response.status(500).send({ message: 'Error deleting task' });
+      return response.status(500).send({ message: 'Error deleting task' })
     }
   }
-  
 }
