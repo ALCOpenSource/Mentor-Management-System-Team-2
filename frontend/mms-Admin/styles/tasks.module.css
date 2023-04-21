@@ -12,6 +12,7 @@
   border-radius: 5px;
 }
 
+
 .side_container_task {
   width: 100%;
   height: 70px;
@@ -181,4 +182,10 @@
   margin-top: 3rem;
   float: right;
   margin-right: 2rem;
+}
+
+@media(max-width: 992px) {
+  .main_container{
+    display: none;
+  }
 }

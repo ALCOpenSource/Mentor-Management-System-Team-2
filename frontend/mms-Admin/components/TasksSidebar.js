@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import styles from "./componentStyles/tasksidebar.module.css";
 import Icon from "./Icon";
+import TasksModal from "./TasksModal";
 
-function TasksSidebar() {
+function TasksSidebar(props) {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize, setPageSize] = useState(10);
     const [items, setItems] = useState([]);
+    const [data, setData] = useState(null);
 
     const loadMore = () => {
       fetch(`https://api.punkapi.com/v2/beers?page=${currentPage}&per_page=${pageSize}`)
@@ -39,12 +41,45 @@ function TasksSidebar() {
         if (element) element.removeEventListener('scroll', handleScroll);
       };
     });
+    const [isMobile, setIsMobile] = useState(false);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+  
+  React.useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 992px)");
+    setIsMobile(mediaQuery.matches);
+  }, []);
+
+  const handleCloseModal = (e) => {
+    e.preventDefault();
+    setIsModalOpen(false);
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    setIsModalOpen(true);
+  };
+
+  const handleData = () => {
+    fetch('/api/my-api-endpoint')
+      .then(response => response.json())
+      .then(newData => {
+        setData(newData);
+        props.onDataChanged(newData);
+      })
+      .catch(error => {
+        console.error('Error loading data:', error);
+      });
+  };
+  const handleCombinedActions = () => {
+    handleData();
+    handleClick();
+  }
 
   return (
     <div className={styles.main_div} id="scroll-container">
     { items.length > 0 ? (
         items.map(item => (
-        <div key={item.id} className={styles.side_container}>
+        <div key={item.id} className={styles.side_container} onClick={handleCombinedActions}>
         <div className={styles.side_div_logo}>
         <Icon
         icon={"/assets/images/task.svg"}
@@ -69,7 +104,8 @@ function TasksSidebar() {
         </div>
         ))
       ) : (
-        <div className={styles.side_container}>
+        <>
+        <div className={styles.side_container} onClick={handleClick}>
         <div className={styles.side_div_logo}>
         <Icon
         icon={"/assets/images/task.svg"}
@@ -92,6 +128,14 @@ function TasksSidebar() {
         </div>
         </div>
         </div>
+        {isModalOpen && isMobile && <TasksModal 
+            width={"300px"}
+            height={"600px"}
+            isModalOpen={isModalOpen}
+            setIsModalOpen={setIsModalOpen}
+            isModelClose={handleCloseModal}
+        />}
+        </>
       )
     }
     </div>

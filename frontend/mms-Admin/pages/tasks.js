@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styles from "../styles/tasks.module.css";
 import TasksSidebar from '../components/TasksSidebar';
 import Icon from '../components/Icon';
 import { CustomButton } from '../components/formInputs/CustomInput';
+import TasksModal from '../components/TasksModal';
 
 function tasks() {
+  const [data, setData] = useState(null);
 
+  const handleDataChange = newData => {
+    setData(newData);
+  };
   return (
     <div className={styles.main_div}>
         <div className={styles.side_container}>
-         <TasksSidebar />
+         <TasksSidebar onDataChanged={handleDataChange}/>
          </div>
          <div className={styles.main_container}>
           <div className={styles.main_container_sub}>
@@ -36,6 +41,7 @@ function tasks() {
                 </div>
               </div>
             </div>
+            
             <div className={styles.side_div_item_des}>
               <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. 

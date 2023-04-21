@@ -60,7 +60,7 @@ const AppLayout = ({ children }) => {
                   </div>
                 </div>
                   <span className={[styles.task_create]}>
-                    <CustomButton>
+                    <CustomButton className={styles.taskbutton}>
                     Create New Task
                     </CustomButton>
                   </span>
