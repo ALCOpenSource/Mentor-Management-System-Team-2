@@ -68,15 +68,22 @@
   margin-right: 0.5rem;
 }
 
-.taskbutton1,
+
 .taskbutton {
   color: white;
   background-color: #058b94;
   border: none;
 }
 
+.taskbutton1 {
+  color: white;
+  background-color: #058b94;
+  border: none;
+  margin-left: 0.5rem; 
+}
+
 .taskbutton2 {
-  margin-left: 6.9rem;
+  margin-left: 7.6rem;
   color: white;
   background-color: #058b94;
   border: none;
@@ -99,6 +106,7 @@
 .button_div {
   display: flex;
   margin-top: 1rem;
+  justify-content: space-between;
 }
 
 .button_div_custom {
