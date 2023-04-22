@@ -1,4 +1,4 @@
-import BroadcastMessage from "../components/Layout/BroadcastMessage/BroadcastMessage"
+import BroadcastMessage from "../components/Layout/BroadcastMessage"
 const Broadcast = () => {
     return(
         <>

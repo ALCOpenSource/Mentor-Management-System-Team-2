@@ -1,9 +1,5 @@
-const PrimaryBtn = () => {
-    return (
-        <button className="rounded-lg bg-primary py-2.5 px-10 font-mukta text-base hover:bg-primary-active text-white font-semibold">
-        Close
-      </button>
-    )
-}
+import styles from "../componentStyles/broadcast.module.css";
+import { Button } from "antd";
+const PrimaryBtn = () => <Button className={styles.close_btn}>Close</Button>;
 
 export default PrimaryBtn;
