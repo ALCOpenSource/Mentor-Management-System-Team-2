@@ -184,7 +184,7 @@
 }
 
 @media (max-width: 992px) {
-  .main_container{
+  .main_container {
     display: none;
   }
 }
