@@ -36,7 +36,7 @@ jobs:
             }
 
             const env = await getFileContent('./backend/.env.prod')
-            fs.writeFile('/backend/.env', env, (err) => {
+            fs.writeFile('./backend/.env', env, (err) => {
               if (err) throw err;
               console.log('New .env file created!');
             });
