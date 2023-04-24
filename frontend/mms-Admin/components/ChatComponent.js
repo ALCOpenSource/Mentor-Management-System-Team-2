@@ -15,7 +15,7 @@ function ChatComponent({isModelChatClose}) {
       setIsMobile(mediaQuery.matches);
     }, []);
 
-    const [selectedFile, setSelectedFile] = useState(null);
+    const [selectedfile, setSelectedFile] = useState(null);
     const fileInput = useRef(null);
 
     const handleFileChange = (event) => {
@@ -105,7 +105,7 @@ function ChatComponent({isModelChatClose}) {
                      className={styles.input_chat}
                      placeholder="Type a message..."
                      onKeyDown={handleKeyDown}
-                     selectedFile={selectedFile}
+                     selectedfile={selectedfile}
                      />
                </div>
             </div>
