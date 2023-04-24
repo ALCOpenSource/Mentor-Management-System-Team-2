@@ -52,7 +52,7 @@
   line-height: 27px;
 }
 
-@media(max-width: 992px) {
+@media(max-width: 992px){
   .task_create,
   .task_icon {
     margin-right: 0rem;
