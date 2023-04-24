@@ -59,8 +59,13 @@ function TasksSidebar(props) {
     setIsModalOpen(true);
   };
 
+<<<<<<< HEAD
   const handleData = (itemId) => {
     fetch(`/api/my-api-endpoint${itemId}`)
+=======
+  const handleData = () => {
+    fetch('/api/my-api-endpoint')
+>>>>>>> 56db45ec04d3b4280f358a4080a7473255b59f7c
       .then(response => response.json())
       .then(newData => {
         setData(newData);
@@ -70,8 +75,13 @@ function TasksSidebar(props) {
         console.error('Error loading data:', error);
       });
   };
+<<<<<<< HEAD
   const handleCombinedActions = (itemId) => {
     handleData(itemId);
+=======
+  const handleCombinedActions = () => {
+    handleData();
+>>>>>>> 56db45ec04d3b4280f358a4080a7473255b59f7c
     handleClick();
   }
 
@@ -79,7 +89,11 @@ function TasksSidebar(props) {
     <div className={styles.main_div} id="scroll-container">
     { items.length > 0 ? (
         items.map(item => (
+<<<<<<< HEAD
         <div key={item.id} className={styles.side_container} onClick={handleCombinedActions(item.id)}>
+=======
+        <div key={item.id} className={styles.side_container} onClick={handleCombinedActions}>
+>>>>>>> 56db45ec04d3b4280f358a4080a7473255b59f7c
         <div className={styles.side_div_logo}>
         <Icon
         icon={"/assets/images/task.svg"}
