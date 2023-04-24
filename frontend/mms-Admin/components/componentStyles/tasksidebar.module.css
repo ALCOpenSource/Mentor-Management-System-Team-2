@@ -48,14 +48,14 @@
   padding-left: 0.5rem;
 }
 
-@media(max-width: 480px){
+@media (max-width: 480px) {
   .main_div {
     margin-left: 1rem;
     margin-top: 1rem;
   }
 }
 
-@media(min-width: 480px) and (max-width: 992px){
+@media (min-width: 480px) and (max-width: 992px) {
   .main_div {
     margin-top: 1rem;
     margin-left: 12rem;

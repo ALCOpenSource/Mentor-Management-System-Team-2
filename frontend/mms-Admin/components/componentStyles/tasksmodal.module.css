@@ -73,7 +73,7 @@
   color: white;
   background-color: #058b94;
   border: none;
-  margin-left: 0.5rem; 
+  margin-left: 0.5rem;
 }
 
 .taskbutton2 {
@@ -114,19 +114,23 @@
   margin-top: 0.5rem;
 }
 
-@media(min-width: 480px) and (max-width: 992px){
+@media (min-width: 480px) and (max-width: 992px) {
   .modal {
     width: 600px;
   }
+
   .taskbutton2 {
     margin-left: 16.9rem;
   }
+
   .button_div_custom {
     margin-left: 18rem;
   }
+
   .taskbutton1 {
     margin-left: 9.8rem;
   }
+  
   .taskbutton {
     margin-left: 6.8rem;
   }
