@@ -59,8 +59,8 @@ function TasksSidebar(props) {
     setIsModalOpen(true);
   };
 
-  const handleData = () => {
-    fetch('/api/my-api-endpoint')
+  const handleData = (itemId) => {
+    fetch(`/api/my-api-endpoint${itemId}`)
       .then(response => response.json())
       .then(newData => {
         setData(newData);
@@ -70,8 +70,8 @@ function TasksSidebar(props) {
         console.error('Error loading data:', error);
       });
   };
-  const handleCombinedActions = () => {
-    handleData();
+  const handleCombinedActions = (itemId) => {
+    handleData(itemId);
     handleClick();
   }
 
@@ -79,7 +79,7 @@ function TasksSidebar(props) {
     <div className={styles.main_div} id="scroll-container">
     { items.length > 0 ? (
         items.map(item => (
-        <div key={item.id} className={styles.side_container} onClick={handleCombinedActions}>
+        <div key={item.id} className={styles.side_container} onClick={handleCombinedActions(item.id)}>
         <div className={styles.side_div_logo}>
         <Icon
         icon={"/assets/images/task.svg"}
