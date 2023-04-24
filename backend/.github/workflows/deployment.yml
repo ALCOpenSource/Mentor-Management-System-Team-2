@@ -3,7 +3,7 @@ name: ALX_Team_2
 # Trigger deployment only on push to master branch
 on:
   push:
-  pull_requests:
+  pull_request:
     branches:
       - develop
 
