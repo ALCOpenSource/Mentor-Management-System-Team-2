@@ -73,11 +73,15 @@ export default class TaskReportController {
       if (!user || !user.isAdmin) {
         return response.unauthorized({ error: 'You must be an admin to view task reports' })
       }
-      const { page, limit } = request.qs()
+      const { page, limit, search} = request.qs()
       const taskReports = await TaskReport.query()
-        .orderBy('created_at', 'desc')
+        .orderBy('created_at', 'desc').if(search, (q) => {
+          q.whereHas('task', (taskQuery) => {
+            taskQuery.where('title', 'like', `%${search}%`)
+          })
+        })
         .paginate(page || 1, limit || 10)
-
+      
       const responseData = await Promise.all(
         taskReports.all().map(async (report) => {
           const task = await Task.query()
@@ -231,5 +235,24 @@ export default class TaskReportController {
       response.badRequest({ message: 'Error getting request', status: 'Error' })
     }
   }
+
+  async deleteReport({ auth, params, response }: HttpContextContract) {
+    try {
+      const user = auth.user
+      if (!user || !user.isAdmin) {
+        return response.unauthorized({ error: 'You must be an admin to delete reports' })
+      }
+  
+      const reportId = params.reportId
+      const report = await TaskReport.findOrFail(reportId)
+  
+      await report.delete()
+  
+      return response.noContent()
+    } catch (error) {
+      response.badRequest({ message: 'Error deleting report', status: 'Error' })
+    }
+  }
+  
 
 }

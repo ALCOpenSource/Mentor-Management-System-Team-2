@@ -181,9 +181,18 @@ export default class TaskController {
         typeOfReport: task.typeOfReport,
         createdAt: task.createdAt,
         updatedAt: task.updatedAt,
-        mentors: task.mentors?.map((mentor) => `${mentor.firstName} ${mentor.lastName}`),
+        mentors: task.mentors?.map((mentor) => ({
+          id: mentor.id,
+          firstName: mentor.firstName,
+          lastName:mentor.lastName
+        })),
         mentorManagers: task.mentorManagers?.map(
-          (mentorManager) => `${mentorManager.firstName} ${mentorManager.lastName}`
+          (mentorManager) => ({
+            id: mentorManager.id,
+            firstName: mentorManager.firstName,
+            lastName:mentorManager.lastName
+
+          })
         ),
         mentorCount: task.mentors.length,
         mentorManagerCount: task.mentorManagers.length,
@@ -206,6 +215,7 @@ export default class TaskController {
         .preload('user')
         .preload('mentors')
         .preload('mentorManagers')
+        .preload('taskReports')
         .preload('user', (query) => {
           query.select(['firstName', 'lastName'])
         })
@@ -225,12 +235,30 @@ export default class TaskController {
           typeOfReport: task.typeOfReport,
           createdAt: task.createdAt,
           updatedAt: task.updatedAt,
-          mentors: task.mentors?.map((mentor) => `${mentor.firstName} ${mentor.lastName}`),
+          mentors: task.mentors?.map((mentor) => ({
+            id: mentor.id,
+            firstName: mentor.firstName,
+            lastName:mentor.lastName
+          })),
           mentorManagers: task.mentorManagers?.map(
-            (mentorManager) => `${mentorManager.firstName} ${mentorManager.lastName}`
+            (mentorManager) =>({ 
+              id: mentorManager.id,
+              firstName: mentorManager.firstName,
+              lastName:mentorManager.lastName
+            })
           ),
+          reports: task.taskReports?.map((report) => ({
+            id: report.id,
+            title: report.title,
+            achievement: report.achievement,
+            blocker:report.blocker,
+            recommendation:report.recommendation,
+            createdAt: report.createdAt,
+            updatedAt: report.updatedAt,
+          })),
           mentorCount: task.mentors.length,
           mentorManagerCount: task.mentorManagers.length,
+          taskReportCount:task.taskReports.length,
         }
       })
 

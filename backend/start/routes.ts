@@ -29,11 +29,16 @@ Route.group(() => {
     Route.post('/login', 'AuthenticationController.login')
     Route.post('/forget-password', 'AuthenticationController.forgetPassword')
     Route.post('/reset-password', 'AuthenticationController.resetPassword')
-    Route.post('/forget-password', 'AuthenticationController.forgetPassword')
-    Route.post('/reset-password', 'AuthenticationController.resetPassword')
     Route.get('/google/redirect', 'AuthenticationController.redirectToGoogle')
     Route.get('/google', 'AuthenticationController.googleLogin')
   }).prefix('auth')
+
+  Route.group(() => {
+    Route.get('/mentors', 'UserController.getAllMentors')
+    Route.get('/mentor-managers', 'UserController.getAllMentors')
+  }).prefix('user')
+
+
 
   Route.group(() => {
     Route.get('/:userId', 'ProfilesController.getByUserId')
@@ -55,6 +60,7 @@ Route.group(() => {
     Route.get('/:reportId', 'TaskReportController.getReport')
     Route.get('/:reportId/pdf', 'TaskReportController.downloadReportPDF')
     Route.post('/:reportId/pdf', 'TaskReportController.shareReport')
+    Route.delete('/:reportId','TaskReportController.deleteReport' )
   }).prefix('task-reports')
   
   Route.group(() => {
