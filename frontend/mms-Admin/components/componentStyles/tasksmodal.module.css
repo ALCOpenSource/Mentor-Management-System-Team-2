@@ -28,11 +28,8 @@
 }
 
 .div_item_des {
-  color: #808080;  
-}
-
-.div_item_des {
   margin-top: 1rem;
+  color: #808080;
   background-color: #f7feff;
 }
 
@@ -50,14 +47,12 @@
   margin-top: 0.5rem;
 }
 
-
-
 .amount_mentor_managers2,
 .amount_mentor_managers {
- font-weight: 700;
- color: black;
- margin-left: 0.5rem;
- margin-right: 0.5rem;
+  font-weight: 700;
+  color: black;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
 .program_mentor_managers3,
@@ -67,7 +62,6 @@
   font-size: 12px;
   margin-right: 0.5rem;
 }
-
 
 .taskbutton {
   color: white;
@@ -120,7 +114,7 @@
   margin-top: 0.5rem;
 }
 
-@media(min-width: 480px) and (max-width: 992px) {
+@media(min-width: 480px) and (max-width: 992px){
   .modal {
     width: 600px;
   }
