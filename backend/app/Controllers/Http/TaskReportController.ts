@@ -5,10 +5,7 @@ import User from 'App/Models/User'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Mail from '@ioc:Adonis/Addons/Mail'
 import generatePdfFile from 'Helpers/index'
-import PDFDocument from 'pdfkit'
-import fs from 'fs'
-import path from 'path'
-import { AttachmentOptionsNode, MailMessage } from 'mailgen'
+
 export default class TaskReportController {
   async createTaskReport({ auth, params, request, response }: HttpContextContract) {
     try {
