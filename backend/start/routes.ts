@@ -46,6 +46,15 @@ Route.group(() => {
     Route.get('/:taskId', 'TaskController.show')
     Route.delete('/delete/:taskId', 'TaskController.delete')
   }).prefix('task').middleware('auth')
+
+  Route.group(()=>{
+    Route.get('/', 'TaskReportController.getAllReports')
+    Route.post('/:taskId/', 'TaskReportController.createTaskReport')
+    Route.get('/:reportId', 'TaskReportController.getReport')
+    Route.get('/:reportId/pdf', 'TaskReportController.downloadReportPDF')
+    Route.post('/:reportId/pdf', 'TaskReportController.shareReport')
+  }).prefix('task-reports')
+  
   Route.group(() => {
     Route.get('/', 'NotificationSettingsController.getUserNotificationSettings')
     Route.put('/', 'NotificationSettingsController.updateUserNotificationSettings')

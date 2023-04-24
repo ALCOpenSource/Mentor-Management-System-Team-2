@@ -152,17 +152,21 @@ export default class TaskController {
     }
 
     const taskId = params.taskId
-    console.log(taskId)
 
     const task = await Task.query()
       .where('id', taskId)
       .preload('mentors')
       .preload('mentorManagers')
+      .preload('user', (query) => {
+        query.select(['firstName', 'lastName'])
+      })
       .first()
 
     if (!task) {
       return response.notFound({ message: 'Task not found' })
     }
+
+    console.log(task)
 
     const result = 
        {
@@ -202,7 +206,11 @@ export default class TaskController {
         .preload('user')
         .preload('mentors')
         .preload('mentorManagers')
+        .preload('user', (query) => {
+          query.select(['firstName', 'lastName'])
+        })
         .paginate(page || 1, limit || 10)
+
 
       const tasksWithCounts = tasks.toJSON().data.map((task) => {
         return {
@@ -211,7 +219,7 @@ export default class TaskController {
           description: task.description,
           meta: task.meta,
           creatorUserId: task.userId,
-          createdBy: `${task.user?.firstName} ${task.user?.lastName}`,
+          createdBy: `${task.user.firstName} ${task.user.lastName}`,
           startDate: task.startDate,
           endDate: task.endDate,
           typeOfReport: task.typeOfReport,

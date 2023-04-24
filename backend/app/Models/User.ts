@@ -6,6 +6,7 @@ import Roles from 'App/Enums/Roles'
 import TaskMentor from './TaskMentor'
 import TaskMentorManager from './TaskMentorManager'
 import Task from './Task'
+import TaskReport from './TaskReport'
 
 
 
@@ -51,6 +52,12 @@ export default class User extends BaseModel {
     localKey: 'id'
   })
   public taskMentorManagers: HasMany<typeof TaskMentorManager>
+
+  @hasMany(() => TaskReport, {
+    foreignKey: 'userId',
+    localKey: 'id'
+  })
+  public taskReport: HasMany<typeof TaskReport>
 
   @hasMany(() => User, { foreignKey: 'id' })
   public userId: HasMany<typeof User>
