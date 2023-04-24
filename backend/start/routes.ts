@@ -29,6 +29,8 @@ Route.group(() => {
     Route.post('/login', 'AuthenticationController.login')
     Route.post('/forget-password', 'AuthenticationController.forgetPassword')
     Route.post('/reset-password', 'AuthenticationController.resetPassword')
+    Route.post('/forget-password', 'AuthenticationController.forgetPassword')
+    Route.post('/reset-password', 'AuthenticationController.resetPassword')
     Route.get('/google/redirect', 'AuthenticationController.redirectToGoogle')
     Route.get('/google', 'AuthenticationController.googleLogin')
   }).prefix('auth')

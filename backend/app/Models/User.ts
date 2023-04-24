@@ -1,13 +1,12 @@
 import { DateTime } from 'luxon'
 import Hash from '@ioc:Adonis/Core/Hash'
-import { column, beforeSave, BaseModel, hasMany, HasMany, belongsTo, BelongsTo, computed, manyToMany, ManyToMany } from '@ioc:Adonis/Lucid/Orm'
+import { column, beforeSave, BaseModel, hasMany, HasMany, belongsTo, BelongsTo, computed, manyToMany, ManyToMany} from '@ioc:Adonis/Lucid/Orm'
 import Role from './Role'
 import Roles from 'App/Enums/Roles'
 import TaskMentor from './TaskMentor'
 import TaskMentorManager from './TaskMentorManager'
 import Task from './Task'
 import TaskReport from './TaskReport'
-
 
 
 export default class User extends BaseModel {
@@ -74,6 +73,18 @@ export default class User extends BaseModel {
   @column()
   public deletedAt: DateTime
 
+  @belongsTo(() => Role)
+  public role: BelongsTo<typeof Role>
+
+  @manyToMany(() => Task, {
+    pivotTable: 'task_mentors',
+    pivotForeignKey: 'user_id',
+    pivotRelatedForeignKey: 'task_id',
+    localKey: 'id',
+    relatedKey: 'id'
+  })
+  public tasks: ManyToMany<typeof Task>
+
   @computed()
   public get isAdmin(){
     return this.roleId === Roles.ADMIN
@@ -88,19 +99,6 @@ export default class User extends BaseModel {
   public get isMentorManager() {
     return this.roleId === Roles.MENTOR_MANAGER
   }
-
-
-  @belongsTo(() => Role)
-  public role: BelongsTo<typeof Role>
-
-  @manyToMany(() => Task, {
-    pivotTable: 'task_mentors',
-    pivotForeignKey: 'user_id',
-    pivotRelatedForeignKey: 'task_id',
-    localKey: 'id',
-    relatedKey: 'id'
-  })
-  public tasks: ManyToMany<typeof Task>
 
   @beforeSave()
   public static async hashPassword(user: User) {
