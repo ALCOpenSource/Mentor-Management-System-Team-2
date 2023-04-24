@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import ChatComponent from '../components/ChatComponent';
 import styles from "../styles/messages.module.css";
 import { Avatar } from "antd";
@@ -11,6 +11,7 @@ function messages() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [usersList, setUsersList] = useState([]);
+  const containerRef = useRef(null);
 
   const loadMore = () => {
     fetch(`https://api.punkapi.com/v2/beers?page=${currentPage}&per_page=${pageSize}`)
@@ -26,7 +27,8 @@ function messages() {
   };
   
   const handleScroll = () => {
-    const element = document.getElementById('scroll-container');
+    // const element = document.getElementById('scroll-container');
+    const element = containerRef.current;
     if (!element) return;
     const { scrollTop, scrollHeight, clientHeight } = element;
     if (scrollTop + clientHeight >= scrollHeight) {
@@ -37,7 +39,8 @@ function messages() {
   };
 
   useEffect(() => {
-    const element = document.getElementById('scroll-container');
+    // const element = document.getElementById('scroll-container');
+    const element = containerRef.current;
     if (element) element.addEventListener('scroll', handleScroll);
     return () => {
       if (element) element.removeEventListener('scroll', handleScroll);
@@ -60,7 +63,7 @@ function messages() {
   return (
     <div className={styles.main_div}>
         {!isMobile && (
-            <div className={styles.side_div} id="scroll-container">
+            <div className={styles.side_div} id="scroll-container" ref={containerRef}>
                 {usersList.length > 0 ? (
                     usersList.map(user => (
                         <div className={styles.side_div_sub} key={user.id} onClick={() => handleUserClick(user.id)}>
