@@ -7,7 +7,7 @@ export default class SupportRequest extends BaseModel {
   public id: number
 
   @column()
-  public user_id: number
+  public userId: number
 
   @column()
   public email: string

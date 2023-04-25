@@ -15,6 +15,9 @@ export default class Token extends BaseModel {
   @column()
   public userId: number
 
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>
+
   @column()
   public meta?: string
 

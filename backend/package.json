@@ -16,7 +16,8 @@
     "mm": "node ace make:migration",
     "model": "node ace make:model",
     "prepare": "cd ../../ && husky install",
-    "precommit": "npm run prepare && npm run lint && npm run build"
+    "precommit": "npm run prepare && npm run lint && npm run build",
+    "deploy": "npm run build && cd build && npm run start"
   },
   "eslintConfig": {
     "extends": [
@@ -73,6 +74,7 @@
     "adonis5-swagger": "^1.4.1",
     "luxon": "^3.3.0",
     "nanoid": "^3.3.6",
+    "pdfkit": "^0.13.0",
     "pg": "^8.10.0",
     "proxy-addr": "^2.0.7",
     "reflect-metadata": "^0.1.13",

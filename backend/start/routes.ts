@@ -27,30 +27,79 @@ Route.get('/', async () => {
 Route.group(() => {
   Route.group(() => {
     Route.post('/login', 'AuthenticationController.login')
-    Route.post('/forgetpassword', 'AuthenticationController.forgetPassword')
-    Route.post('/resetpassword', 'AuthenticationController.resetPassword')
+    Route.post('/forget-password', 'AuthenticationController.forgetPassword')
+    Route.post('/reset-password', 'AuthenticationController.resetPassword')
     Route.get('/google/redirect', 'AuthenticationController.redirectToGoogle')
     Route.get('/google', 'AuthenticationController.googleLogin')
   }).prefix('auth')
 
   Route.group(() => {
+    Route.get('/mentors', 'UserController.getAllMentors')
+    Route.get('/mentor-managers', 'UserController.getAllMentors')
+  }).prefix('user')
+
+
+
+  Route.group(() => {
     Route.get('/:userId', 'ProfilesController.getByUserId')
     Route.put('/:userId', 'ProfilesController.update')
     Route.put('/delete/:userId', 'ProfilesController.delete')
-  }).prefix('profile')
+  })
+    .prefix('profile')
+    .middleware('auth')
+
+  Route.group(() => {
+    Route.get('/', 'TaskController.index')
+    Route.post('/', 'TaskController.create')
+    Route.put('/:taskId', 'TaskController.update')
+    Route.get('/:taskId', 'TaskController.show')
+    Route.delete('/delete/:taskId', 'TaskController.delete')
+  }).prefix('task').middleware('auth')
+
+  Route.group(()=>{
+    Route.get('/', 'TaskReportController.getAllReports')
+    Route.post('/:taskId/', 'TaskReportController.createTaskReport')
+    Route.get('/:reportId', 'TaskReportController.getReport')
+    Route.get('/:reportId/pdf', 'TaskReportController.downloadReportPDF')
+    Route.post('/:reportId/pdf', 'TaskReportController.shareReport')
+    Route.delete('/:reportId','TaskReportController.deleteReport' )
+  }).prefix('task-reports')
 
   Route.group(() => {
     Route.get('/', 'NotificationSettingsController.getUserNotificationSettings')
     Route.put('/', 'NotificationSettingsController.updateUserNotificationSettings')
-  }).prefix('notification-settings')
+  })
+    .prefix('notification-settings')
+    .middleware('auth')
 
   Route.group(() => {
     Route.get('/', 'PrivacySettingsController.getUserPrivacySettings')
     Route.put('/', 'PrivacySettingsController.updateUserPrivacySettings')
-  }).prefix('privacy-settings')
+  })
+    .prefix('privacy-settings')
+    .middleware('auth')
 
   Route.group(() => {
     Route.get('/', 'SupportRequestsController.index')
     Route.post('/', 'SupportRequestsController.createRequest')
-  }).prefix('support-request')
+  })
+    .prefix('support-request')
+    .middleware('auth')
+
+  Route.group(() => {
+    Route.get('/', 'ProgramsController.index')
+    Route.get('/:id', 'ProgramsController.show')
+    Route.post('/', 'ProgramsController.store')
+    Route.put('/:id', 'ProgramsController.update')
+    Route.delete('/:id', 'ProgramsController.destroy')
+  })
+    .prefix('programs')
+    .middleware('auth')
+
+  Route.group(() => {
+    Route.get('/', 'ProgramsController.allArchive')
+    Route.put('/:id', 'ProgramsController.archive')
+  })
+    .prefix('archive')
+    .middleware('auth')
 }).prefix('api/v1')
