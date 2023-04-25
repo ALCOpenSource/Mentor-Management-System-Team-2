@@ -42,8 +42,11 @@ Route.group(() => {
     Route.get('/:userId', 'ProfilesController.getByUserId')
     Route.put('/:userId', 'ProfilesController.update')
     Route.put('/delete/:userId', 'ProfilesController.delete')
-  }).prefix('profile')
+  })
+    .prefix('profile')
+    .middleware('auth')
 
+  Route.group(() => {
   Route.group(() => {
     Route.get('/', 'TaskController.index')
     Route.post('/', 'TaskController.create')
@@ -66,23 +69,19 @@ Route.group(() => {
   Route.group(() => {
     Route.get('/', 'NotificationSettingsController.getUserNotificationSettings')
     Route.put('/', 'NotificationSettingsController.updateUserNotificationSettings')
-  }).prefix('notification-settings')
+  })
+    .prefix('notification-settings')
+    .middleware('auth')
 
   Route.group(() => {
     Route.get('/', 'PrivacySettingsController.getUserPrivacySettings')
     Route.put('/', 'PrivacySettingsController.updateUserPrivacySettings')
-  }).prefix('privacy-settings')
+  })
+    .prefix('privacy-settings')
+    .middleware('auth')
 
   Route.group(() => {
     Route.get('/', 'SupportRequestsController.index')
     Route.post('/', 'SupportRequestsController.createRequest')
   }).prefix('support-request')
-
-  Route.group(() => {
-    Route.get('/sent', 'BroadcastMessagesController.sent')
-    Route.get('/received', 'BroadcastMessagesController.received')
-    Route.post('/', 'BroadcastMessagesController.create')
-  })
-    .prefix('broadcast')
-    .middleware('auth')
 }).prefix('api/v1')
