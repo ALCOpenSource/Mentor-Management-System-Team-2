@@ -5,6 +5,7 @@ import User from 'App/Models/User'
 import Database from '@ioc:Adonis/Lucid/Database'
 import Mail from '@ioc:Adonis/Addons/Mail'
 import generatePdfFile from 'Helpers/index'
+import stream from 'stream'
 
 export default class TaskReportController {
   async createTaskReport({ auth, params, request, response }: HttpContextContract) {
@@ -23,7 +24,7 @@ export default class TaskReportController {
       const taskId = params.taskId
       const task = await Task.query()
         .where('id', taskId)
-        .preload('mentors')
+        .preload('mentorManagers')
         .preload('user', (query) => {
           query.select(['firstName', 'lastName'])
         })
@@ -31,8 +32,8 @@ export default class TaskReportController {
       if (!task) {
         return response.notFound({ message: 'Task not found' })
       }
-      const isMentor = task.mentors.some((mentor) => mentor.id === user.id)
-      if (!isMentor) {
+      const isMentorManager = task.mentorManagers.some((mentorManager) => mentorManager.id === user.id)
+      if (!isMentorManager) {
         return response.unauthorized({ message: 'You are not authorized to perform this action' })
       }
 
@@ -91,7 +92,7 @@ export default class TaskReportController {
             })
             .firstOrFail()
 
-          const mentor = await User.findOrFail(report.mentorId)
+          const mentorManager = await User.findOrFail(report.mentorId)
 
           return {
             id: report.id,
@@ -106,10 +107,10 @@ export default class TaskReportController {
               startDate: task.startDate,
               endDate: task.endDate,
             },
-            mentor: {
-              id: mentor.id,
-              firstName: mentor.firstName,
-              lastName: mentor.lastName,
+            mentorManager: {
+              id: mentorManager.id,
+              firstName: mentorManager.firstName,
+              lastName: mentorManager.lastName,
             },
           }
         })
@@ -139,7 +140,7 @@ export default class TaskReportController {
           query.select(['firstName', 'lastName'])
         })
         .firstOrFail()
-      const mentor = await User.findOrFail(report.mentorId)
+      const mentorManager = await User.findOrFail(report.mentorId)
       const result = {
         id: report.id,
         achievement: report.achievement,
@@ -153,10 +154,10 @@ export default class TaskReportController {
           startDate: task.startDate,
           endDate: task.endDate,
         },
-        mentor: {
-          id: mentor.id,
-          firstName: mentor.firstName,
-          lastName: mentor.lastName,
+        mentorManager: {
+          id: mentorManager.id,
+          firstName: mentorManager.firstName,
+          lastName: mentorManager.lastName,
         },
       }
       await trx.commit()
@@ -187,9 +188,10 @@ export default class TaskReportController {
         .firstOrFail()
       const mentor = await User.findOrFail(report.mentorId)
 
-      generatePdfFile(response, report, task, mentor)
+       
 
       await trx.commit()
+      return generatePdfFile(response, report, task, mentor);
     } catch (error) {
       await trx.rollback()
       response.badRequest({ message: 'Error getting request', status: 'Error' })
@@ -203,7 +205,7 @@ export default class TaskReportController {
       if (!user || !user.isAdmin) {
         await trx.rollback()
         return response.unauthorized({
-          error: 'You must be an admin to view task reports',
+          error: 'You must be an admin to share task reports',
         })
       }
       const { name, email } = request.only(['name', 'email'])
@@ -216,8 +218,12 @@ export default class TaskReportController {
         })
         .firstOrFail()
       const mentor = await User.findOrFail(report.mentorId)
-      const doc = await generatePdfFile(response, report, task, mentor)
-    
+      const writable = new stream.Duplex()
+
+      const doc = await generatePdfFile({response: writable}, report, task, mentor)
+      const readable = new stream.Readable()
+      readable.pipe(writable)
+   
       await Mail.send((message) => {
         message
           .from('MMM2@example.com')
@@ -228,9 +234,10 @@ export default class TaskReportController {
           Find the attached report for your perusal\n
           Kind regards,\n
           ${user.firstName}`
-          ).attach('report.pdf', doc)
+          ).attachData(readable, {filename: 'report.pdf'})
       })
     } catch (error) {
+      console.log(error)
       await trx.rollback()
       response.badRequest({ message: 'Error getting request', status: 'Error' })
     }
