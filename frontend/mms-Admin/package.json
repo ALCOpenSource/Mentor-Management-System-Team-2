@@ -23,12 +23,8 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.8.0",
-<<<<<<< HEAD
     "react-infinite-scroller": "^1.2.6",
     "react-input-emoji": "^5.0.2"
-=======
-    "react-infinite-scroller": "^1.2.6"
->>>>>>> 56db45ec04d3b4280f358a4080a7473255b59f7c
   },
   "devDependencies": {
     "eslint": "^8.19.0",

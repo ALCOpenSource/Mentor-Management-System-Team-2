@@ -48,30 +48,16 @@
   padding-left: 0.5rem;
 }
 
-<<<<<<< HEAD
-@media(max-width: 480px) {
-=======
 @media (max-width: 480px) {
->>>>>>> 56db45ec04d3b4280f358a4080a7473255b59f7c
   .main_div {
     margin-left: 1rem;
     margin-top: 1rem;
   }
 }
 
-<<<<<<< HEAD
-@media(min-width: 480px) and (max-width: 992px) {
-  .main_div {
-    margin-left: 1rem;
-    margin-top: 1rem;
-    margin-left: 12rem;
-  }
-}
-=======
 @media (min-width: 480px) and (max-width: 992px) {
   .main_div {
     margin-top: 1rem;
     margin-left: 12rem;
   }
 }
->>>>>>> 56db45ec04d3b4280f358a4080a7473255b59f7c

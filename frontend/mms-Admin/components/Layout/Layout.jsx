@@ -67,7 +67,6 @@ const AppLayout = ({ children }) => {
                   </span>
               </>
             )}
-<<<<<<< HEAD
             {router?.pathname === "/messages" && (
               <>
               <div className={[styles.task_icon]}>
@@ -85,8 +84,6 @@ const AppLayout = ({ children }) => {
                   </span>
               </>
             )}
-=======
->>>>>>> 56db45ec04d3b4280f358a4080a7473255b59f7c
             </div>
             {children}
           </Content>
