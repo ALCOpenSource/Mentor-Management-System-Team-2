@@ -46,8 +46,7 @@ Route.group(() => {
     .prefix('profile')
     .middleware('auth')
 
-  Route.group(() => {
-  Route.group(() => {
+  Route.group(()=>{
     Route.get('/', 'TaskController.index')
     Route.post('/', 'TaskController.create')
     Route.put('/:taskId', 'TaskController.update')
@@ -83,5 +82,5 @@ Route.group(() => {
   Route.group(() => {
     Route.get('/', 'SupportRequestsController.index')
     Route.post('/', 'SupportRequestsController.createRequest')
-  }).prefix('support-request')
+  }).prefix('support-request').middleware('auth')
 }).prefix('api/v1')
