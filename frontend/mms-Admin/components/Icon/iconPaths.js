@@ -1,17 +1,17 @@
 import Image from "next/image";
 
 export const iconPaths = {
-  Notification: () => {
+  Notification: ({ color = "#F7FEFF", width = "26", height = "27" }) => {
     return (
       <svg
-        width="26"
-        height="27"
+        width={width}
+        height={height}
         viewBox="0 0 26 27"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path
           d="M5 10.8225V9.5C5 5.08172 8.58172 1.5 13 1.5C17.4183 1.5 21 5.08171 21 9.5V10.8225C21 13.6979 21.8311 16.512 23.3932 18.9261L24.25 20.25H1.75L2.60674 18.926C4.1689 16.512 5 13.6979 5 10.8225Z"
-          stroke="#F7FEFF"
+          stroke={color}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -26,17 +26,17 @@ export const iconPaths = {
       </svg>
     );
   },
-  Chat: () => {
+  Chat: ({ color = "#F7FEFF", width = "26", height = "25" }) => {
     return (
       <svg
-        width="26"
-        height="25"
+        width={width}
+        height={height}
         viewBox="0 0 26 25"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path
           d="M21.75 1.75H4.25C2.86929 1.75 1.75 2.86929 1.75 4.25V16.75C1.75 18.1307 2.86929 19.25 4.25 19.25H8L12.558 23.808C12.8021 24.0521 13.1979 24.0521 13.442 23.808L18 19.25H21.75C23.1307 19.25 24.25 18.1307 24.25 16.75V4.25C24.25 2.86929 23.1307 1.75 21.75 1.75Z"
-          stroke="#F7FEFF"
+          stroke={color}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -44,17 +44,17 @@ export const iconPaths = {
       </svg>
     );
   },
-  Search: () => {
+  Search: ({ color = "#808080", width = "22", height = "22" }) => {
     return (
       <svg
-        width="22"
-        height="22"
+        width={width}
+        height={height}
         viewBox="0 0 22 22"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path
           d="M16 16L21 21M18.5 9.75C18.5 14.5825 14.5825 18.5 9.75 18.5C4.91751 18.5 1 14.5825 1 9.75C1 4.91751 4.91751 1 9.75 1C14.5825 1 18.5 4.91751 18.5 9.75Z"
-          stroke="#808080"
+          stroke={color}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -511,18 +511,80 @@ export const iconPaths = {
       </svg>
     );
   },
-
-  DoubleCheck: () => {
+  Pin: ({ color = "#808080", width = "20", height = "20" }) => {
     return (
       <svg
-        width="22"
-        height="12"
-        viewBox="0 0 22 12"
+        width={width}
+        height={height}
+        viewBox="0 0 20 21"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path
-          d="M1 6L6.25 11L8.875 8M7 6L12.25 11L21 1M15 1L11.5 5"
-          stroke="#4D4D4D"
+          d="M19 9.52626L10.8445 17.7888C8.5925 20.0705 4.94113 20.0705 2.68905 17.7888C0.436983 15.5072 0.436983 11.8079 2.68905 9.52626L9.4853 2.64082C10.9867 1.11973 13.4209 1.11973 14.9223 2.64082C16.4236 4.16191 16.4236 6.62808 14.9223 8.14917L8.126 15.0346C7.37535 15.7952 6.15824 15.7952 5.40754 15.0346C4.65685 14.2741 4.65685 13.041 5.40754 12.2805L12.2038 5.395"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+  MessageIcon: ({ color = "#058B94", width = "24", height = "28" }) => {
+    return (
+      <svg
+        width={width}
+        height={height}
+        viewBox="0 0 22 22"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 13.663 2.04094 16.0829 3.73812 17.875L1.72681 20.1705C1.44361 20.4937 1.67314 21 2.10288 21H11Z"
+          stroke={color}
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    );
+  },
+
+  PlusIcon: ({ color = "#058B94", width = "22", height = "22" }) => {
+    return (
+      <svg
+        width={width}
+        height={height}
+        viewBox="0 0 22 22"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M11 6V16ZM6 11H16Z" fill={color} />
+        <path
+          d="M11 6V16M6 11H16"
+          stroke="#058B94"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M11 21C16.5228 21 21 16.5228 21 11C21 5.47715 16.5228 1 11 1C5.47715 1 1 5.47715 1 11C1 16.5228 5.47715 21 11 21Z"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+  Close: ({ color = "#058B94", width = "18", height = "18" }) => {
+    return (
+      <svg
+        width={width}
+        height={height}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M18 7.05L16.95 6L12 10.95L7.05 6L6 7.05L10.95 12L6 16.95L7.05 18L12 13.05L16.95 18L18 16.95L13.05 12L18 7.05Z"
+          fill={color}
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -531,17 +593,170 @@ export const iconPaths = {
     );
   },
 
-  DropDownIndicator: () => {
+  SmileyFace: ({ color = "#058B94", width = "25", height = "25" }) => {
     return (
       <svg
-        width="20"
-        height="20"
+        width={width}
+        height={height}
+        viewBox="0 0 25 25"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M15.6424 10.4331L15.6257 10.4163M9.39243 10.4331L9.37565 10.4163M8.33398 15.6247C8.33398 15.6247 8.46434 15.8854 8.77117 16.2224C9.33169 16.8379 10.4812 17.708 12.5007 17.708C14.5201 17.708 15.6696 16.8379 16.2301 16.2224C16.537 15.8854 16.6673 15.6247 16.6673 15.6247M12.5007 22.9163C6.74768 22.9163 2.08398 18.2526 2.08398 12.4997C2.08398 6.74671 6.74768 2.08301 12.5007 2.08301C18.2536 2.08301 22.9173 6.74671 22.9173 12.4997C22.9173 18.2526 18.2536 22.9163 12.5007 22.9163Z"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+
+  Comment: ({ color = "#058B94", width = "20", height = "20" }) => {
+    return (
+      <svg
+        width={width}
+        height={height}
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <g clip-path="url(#clip0_9997_21882)">
+          <path
+            d="M9.99935 18.3337C14.6017 18.3337 18.3327 14.6027 18.3327 10.0003C18.3327 5.39795 14.6017 1.66699 9.99935 1.66699C5.39697 1.66699 1.66602 5.39795 1.66602 10.0003C1.66602 12.2195 2.53347 14.2361 3.94778 15.7295L2.27169 17.6424C2.03569 17.9117 2.22697 18.3337 2.58508 18.3337H9.99935Z"
+            stroke={color}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M5.83398 7.5H14.1673"
+            stroke={color}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+          <path
+            d="M5.83398 10.833H9.16732"
+            stroke={color}
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </g>
+        <defs>
+          <clipPath id="clip0_9997_21882">
+            <rect width={width} height={height} fill="white" />
+          </clipPath>
+        </defs>
+      </svg>
+    );
+  },
+
+  BookMark: ({ color = "#058B94", width = "20", height = "20" }) => {
+    return (
+      <svg
+        width={width}
+        height={height}
         viewBox="0 0 20 20"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
         <path
-          d="M10 13L14 9H6L10 13ZM10 20C8.61667 20 7.31667 19.7373 6.1 19.212C4.88333 18.6873 3.825 17.975 2.925 17.075C2.025 16.175 1.31267 15.1167 0.788 13.9C0.262667 12.6833 0 11.3833 0 10C0 8.61667 0.262667 7.31667 0.788 6.1C1.31267 4.88333 2.025 3.825 2.925 2.925C3.825 2.025 4.88333 1.31233 6.1 0.787C7.31667 0.262333 8.61667 0 10 0C11.3833 0 12.6833 0.262333 13.9 0.787C15.1167 1.31233 16.175 2.025 17.075 2.925C17.975 3.825 18.6873 4.88333 19.212 6.1C19.7373 7.31667 20 8.61667 20 10C20 11.3833 19.7373 12.6833 19.212 13.9C18.6873 15.1167 17.975 16.175 17.075 17.075C16.175 17.975 15.1167 18.6873 13.9 19.212C12.6833 19.7373 11.3833 20 10 20ZM10 18C12.2333 18 14.125 17.225 15.675 15.675C17.225 14.125 18 12.2333 18 10C18 7.76667 17.225 5.875 15.675 4.325C14.125 2.775 12.2333 2 10 2C7.76667 2 5.875 2.775 4.325 4.325C2.775 5.875 2 7.76667 2 10C2 12.2333 2.775 14.125 4.325 15.675C5.875 17.225 7.76667 18 10 18Z"
-          fill="#058B94"
+          d="M4.16602 18.3337V2.50033C4.16602 2.04009 4.53912 1.66699 4.99935 1.66699H14.9993C15.4596 1.66699 15.8327 2.04009 15.8327 2.50033V18.3337L9.99935 13.2411L4.16602 18.3337Z"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+
+  Share: ({ color = "#058B94", width = "20", height = "20" }) => {
+    return (
+      <svg
+        width={width}
+        height={height}
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M14.166 1.66699H18.3327V5.83366"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M17.5 10.8333V15.8333C17.5 16.7538 16.7538 17.5 15.8333 17.5H4.16667C3.24619 17.5 2.5 16.7538 2.5 15.8333V4.16667C2.5 3.24619 3.24619 2.5 4.16667 2.5H9.16667"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M10.834 9.16634L17.9173 2.08301"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+  Clock: ({ color = "#058B94", width = "20", height = "20" }) => {
+    return (
+      <svg
+        width={width}
+        height={height}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M12 6V12L16 16"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    );
+  },
+
+  Horizon: ({ color = "#058B94", width = "24", height = "24" }) => {
+    return (
+      <svg
+        width={width}
+        height={height}
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path
+          d="M6 13C6.55228 13 7 12.5523 7 12C7 11.4477 6.55228 11 6 11C5.44772 11 5 11.4477 5 12C5 12.5523 5.44772 13 6 13Z"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M18 13C18.5523 13 19 12.5523 19 12C19 11.4477 18.5523 11 18 11C17.4477 11 17 11.4477 17 12C17 12.5523 17.4477 13 18 13Z"
+          stroke={color}
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         />
       </svg>
     );
