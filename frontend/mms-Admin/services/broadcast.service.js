@@ -1,13 +1,10 @@
-import getConfig from "next/config";
 import { fetchWrapper } from "../lib/fetch-wrapper";
 
-const { publicRuntimeConfig } = getConfig();
-
-const baseUrl = `${publicRuntimeConfig.apiUrl}`;
+const baseUrl = `http://127.0.0.1:3333/api/v1`; //-- in progress to be removed
 
 function send(message, token) {
   return fetchWrapper
-    .post(`${baseUrl}/broadcast}`, token, message)
+    .post(`${baseUrl}/broadcast`, token, message)
     .then((message) => message);
 }
 

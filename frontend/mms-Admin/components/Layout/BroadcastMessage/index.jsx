@@ -9,10 +9,10 @@ import { broadcastService } from "../../../services/broadcast.service";
 // TODO: integrate with backend
 
 const BroadcastMessage = () => {
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const [users, setUsers] = useState([]);
-  const [userToken, setUserToken] = useState();
+  const [userToken, setUserToken] = useState(undefined);
   const ref = useRef();
   const headers = {
     "User-Agent": "request",
@@ -28,20 +28,26 @@ const BroadcastMessage = () => {
         if (ref.current !== key) return;
 
         setLoading(false);
-        console.log(items);
         setUsers(items.slice(0, 10));
       });
   };
   useEffect(() => {
     const user = localStorage.getItem("user");
     const userObject = JSON.parse(user);
-    setUserToken(userObject.token);
-
-    loadMessages();
+    setUserToken(`${userObject.token.type} ${userObject.token.token}`);
+    setUserId(userObject.user.id)
   });
 
-  const loadMessages = () =>
-    broadcastService.sent(userToken).then((res) => setMessages(res), []);
+  useEffect(() => {
+    loadMessages(userToken);
+  }, [messages]);
+
+  const loadMessages = (token) => {
+    broadcastService.sent(token).then((res) => {
+      console.log(res);
+      setMessages(res.data);
+    });
+  };
 
   const loadUser = useCallback(loadUsers, []);
 
@@ -55,13 +61,9 @@ const BroadcastMessage = () => {
   };
 
   const handleSubmit = (text) => {
-    const dateInit = new Date();
-    const time = dateInit.toLocaleTimeString().replace(/:\d+ /, "");
-    const date = dateInit.toISOString().split("T")[0];
-    const sender = "John Doe";
-    const id = messages[messages.length - 1] + 1 || 1;
-    const message = { id, date, time, message: text, sender };
-    setMessages([...messages, message]);
+    const recipient = [10]
+    const message = { message: text, recipient };
+    broadcastService.send(message, userToken)
     //TODO: upload files and message text
   };
   return (
@@ -71,18 +73,18 @@ const BroadcastMessage = () => {
           <BroadcastHeader />
           <Mentions loading={loading} users={users} onSearch={onSearch} />
           <div className={styles.broadcast_board}>
-            {messages.map((message) => (
-              <Broadcast
-                key={message.id}
-                message={message.message}
-                sender={message.sender}
-                time={message.time}
-                date={message.date}
-              />
-            ))}
+            {messages && messages.map((message) => (
+                  <Broadcast
+                    key={message.id}
+                    message={message.message}
+                    sender={message.user_id}
+                    time={message.created_at.split("T")[1].split(".")[0]}
+                    date={message.created_at.split("T")[0]}
+                  />
+                ))
+              }
           </div>
           <BroadcastTextArea handleSubmit={handleSubmit} />
-          {userToken}
         </div>
       </div>
     </>

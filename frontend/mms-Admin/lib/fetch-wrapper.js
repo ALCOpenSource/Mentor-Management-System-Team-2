@@ -3,7 +3,6 @@ function get(url, token) {
     method: "GET",
     headers: { Authorization: token },
   };
-
   return fetch(url, requestOptions)
     .then(handleResponse)
     .catch((e) => e);
@@ -12,7 +11,7 @@ function get(url, token) {
 function post(url, token, body) {
   const requestOptions = {
     method: "POST",
-    headers: { "Content-Type": "application/json", ...token },
+    headers: { "Content-Type": "application/json", Authorization: token },
     body: JSON.stringify(body),
   };
   return fetch(url, requestOptions).then(handleResponse);
