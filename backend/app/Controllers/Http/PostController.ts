@@ -16,7 +16,7 @@ export default class PostsController {
     post.imageUrl = request.input('imageUrl')?.toString() || ''
     await post.save()
 
-    return post
+    return response.created({status: 'success', message: 'Post successfully created', post})
   }
 
   public async updatePost({ auth, params, request, response }: HttpContextContract) {
@@ -42,7 +42,7 @@ export default class PostsController {
     post.imageUrl = request.input('imageUrl')?.toString() || ''
     await post.save()
 
-    return post
+    return response.status(201).json({ status: 'success', message: 'Post updated successfully', post})
   }
 
   public async getAllPosts({ auth, request, response }: HttpContextContract) {
@@ -65,7 +65,7 @@ export default class PostsController {
 
     const posts = await query.paginate(page || 1, limit || 10)
 
-    return posts
+    return response.ok({ status: 'success', message: 'Posts fetched successfully', posts})
   }
 
   public async getPostWithComments({ auth, params, response }: HttpContextContract) {
@@ -89,7 +89,7 @@ export default class PostsController {
       throw new Error('Post not found')
     }
 
-    return post
+    return response.ok({ status: 'success', message: 'Post with comments fetched successfully', post})
   }
 
   public async deletePost({ auth, params, response }: HttpContextContract) {

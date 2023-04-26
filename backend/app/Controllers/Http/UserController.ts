@@ -4,7 +4,15 @@ import Roles from 'App/Enums/Roles'
 
 export default class AuthenticationController {
 
-    public async getAllUsers({ request }: HttpContextContract) {
+    public async getAllUsers({ auth, request, response }: HttpContextContract) {
+
+       const user = auth.user
+
+       if (!user) {
+        response.unauthorized({ message: 'You are not authorized to access this resource.' })
+        return
+      }
+
         const { page, limit, search } = request.qs()
     
         let query = User.query()
@@ -19,19 +27,19 @@ export default class AuthenticationController {
     
         const users = await query.paginate(page, limit)
     
-        return users
+        return{ status: 'success', message: 'Fetched all user successful', users}
       }
     
   public async getAllMentors({ auth, response }: HttpContextContract) {
     const user = auth.user
     if (!user || !user.isAdmin) {
-      response.unauthorized({ message: 'You are not authorized to access this resource.' })
-      return
+       response.unauthorized({ message: 'You are not authorized to access this resource.' })
+       return
     }
     const mentors = await User.query()
       .where('roleId', Roles.MENTOR)
       .select(['id', 'firstName', 'lastName'])
-    return mentors
+    return { status: 'success', message: 'Fetched all mentors successful', mentors}
   }
 
   public async getAllMentorManagers({ auth, response }: HttpContextContract) {
@@ -41,8 +49,8 @@ export default class AuthenticationController {
       return
     }
     const mentorManagers = await User.query()
-      .where('roleId', Roles.MENTOR_MANAGER)
+      .where('roleId', 3)
       .select(['id', 'firstName', 'lastName'])
-    return mentorManagers
+    return { status: 'success', message: 'Fetched all mentor mangers successful', mentorManagers}
   }
 }

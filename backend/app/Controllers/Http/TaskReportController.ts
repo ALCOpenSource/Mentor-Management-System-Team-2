@@ -30,7 +30,7 @@ export default class TaskReportController {
         })
         .first()
       if (!task) {
-        return response.notFound({ message: 'Task not found' })
+        return response.notFound({ message: 'Task not found', status: 'Error' })
       }
       const isMentorManager = task.mentorManagers.some((mentorManager) => mentorManager.id === user.id)
       if (!isMentorManager) {
@@ -62,7 +62,7 @@ export default class TaskReportController {
           endDate: task.endDate,
         },
       }
-      return response.status(201).json(responseData)
+      return response.status(201).json({ status: 'success', message: 'Tasks report successfully created',responseData})
     } catch (error) {
       response.badRequest({ message: 'Error Creating Report', status: 'Error' })
     }
@@ -116,7 +116,7 @@ export default class TaskReportController {
         })
       )
 
-      return response.ok(responseData)
+      return response.ok({ status: 'success', message: 'All Task reports fetched successfully', responseData})
     } catch (error) {
       response.badRequest({ message: 'Error getting report', status: 'Error' })
     }
@@ -161,7 +161,7 @@ export default class TaskReportController {
         },
       }
       await trx.commit()
-      return response.ok(result)
+      return response.ok({ status: 'success', message: 'Report fetched successfully', result})
     } catch (error) {
       await trx.rollback()
       response.badRequest({ message: 'Error getting request', status: 'Error' })
@@ -187,8 +187,6 @@ export default class TaskReportController {
         })
         .firstOrFail()
       const mentor = await User.findOrFail(report.mentorId)
-
-       
 
       await trx.commit()
       return generatePdfFile(response, report, task, mentor);
@@ -255,7 +253,7 @@ export default class TaskReportController {
   
       await report.delete()
   
-      return response.noContent()
+      return response.ok({ message: 'Task Report deleted successfully' })
     } catch (error) {
       response.badRequest({ message: 'Error deleting report', status: 'Error' })
     }

@@ -3,7 +3,7 @@ import PDFDocument from 'pdfkit';
 async function generatePdfFile(response: any, report: any, task: any, mentor:any) {
     // generate pdf file using a library like pdfkit
     const doc = new PDFDocument();
-    const pipe = doc.pipe(response.response)
+     doc.pipe(response.response)
    
     doc.fontSize(16).text(`Task Report #${report.id}`)
     doc.moveDown()

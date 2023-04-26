@@ -36,7 +36,7 @@ Route.group(() => {
   Route.group(() => {
     Route.get('/', 'UserController.getAllUsers')
     Route.get('/mentors', 'UserController.getAllMentors')
-    Route.get('/mentor-managers', 'UserController.getAllMentors')
+    Route.get('/mentor-managers', 'UserController.getAllMentorManagers')
   }).prefix('user')
 
   Route.group(() => {

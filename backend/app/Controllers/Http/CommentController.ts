@@ -23,7 +23,7 @@ export default class CommentsController {
   
       await post.related('comments').save(comment)
   
-      return comment
+      return response.created({status: 'success', message: 'Comment successfully added', comment})
     }
   
    
@@ -53,7 +53,7 @@ export default class CommentsController {
     
       await comment.save()
     
-      return comment
+      return response.status(200).json({status: 'success', message: 'Comment successfully updated', comment})
     }
 
     public async deleteComment({ auth, params, response }: HttpContextContract) {
