@@ -63,7 +63,7 @@
   }
 
   .side_div_sub {
-   margin-left: 1.8rem;
+    margin-left: 1.8rem;
   }
 }
 
@@ -72,12 +72,12 @@
     margin-left: 1.5rem;
   }
 }
-  
+
 @media (min-width: 480px) and (max-width: 992px) {
   .side_div_sub {
     margin-left: 12rem;
   }
-  
+
   .main_div {
     margin-left: 1rem;
   }
