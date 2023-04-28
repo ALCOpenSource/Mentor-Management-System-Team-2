@@ -30,11 +30,13 @@ const AppLayout = ({ children }) => {
     else setHeaderTitle(extractTitleFromUrl(pathname?.slice(1)));
   }, [router]);
 
+
   const [searchData, setSearchData] = useState([]);
   
 
   const loadMore = () => {
       
+
     const token = 'MQ.L2oPLG2ZM5TOHnsFTg3O_w91QgAzBmYezYuHH-eK6yJ2q8KLR84cuXu5dn3x';
 
     axios.get(`archive?page=${currentPage}&limit=${pageSize}`, {
