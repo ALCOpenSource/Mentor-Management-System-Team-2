@@ -32,12 +32,13 @@ const AppLayout = ({ children }) => {
 
 
   const [searchData, setSearchData] = useState([]);
+  const [searchTotal, setSearchTotal] = useState([]);
   
 
   const loadMore = () => {
       
 
-    const token = 'MQ.L2oPLG2ZM5TOHnsFTg3O_w91QgAzBmYezYuHH-eK6yJ2q8KLR84cuXu5dn3x';
+    const token = 'Mw.SamgyKJGsQjp7z8LIzvDrLDCWpmyqB6fMaf-r1AWksT9A6ExAB-gHFUBOOjs';
 
     axios.get(`archive?page=${currentPage}&limit=${pageSize}`, {
       headers: {
@@ -45,8 +46,9 @@ const AppLayout = ({ children }) => {
       }
     })
       .then(response => {
-        const newItems = response?.data?.data;
-        setSearchData(newItems);
+        const newData =  response?.data?.data
+        setSearchData(JSON.stringify(newData));
+        // setSearchTotal(JSON.stringify(response?.data?.total))
       })
       .catch(error => {
         console.error('Error loading more items:', error);
@@ -76,6 +78,7 @@ const AppLayout = ({ children }) => {
                   type="archive"
                   required 
                 />
+                
                <Pagination total={20} currentPage={currentPage} onPageChange={handlePageChange} />
               </>
             )}

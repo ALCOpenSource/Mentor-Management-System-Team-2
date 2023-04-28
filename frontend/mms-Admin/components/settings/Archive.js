@@ -1,4 +1,4 @@
-import React, { useContext  } from "react";
+import React, { useContext, useState, useEffect  } from "react";
 import { SearchDataContext } from "../searchDataContext";
 import styles from "../componentStyles/archive.module.css";
 import Icon from "../Icon";
@@ -6,10 +6,18 @@ import moment from 'moment';
 
 function Archive() {
   const searchData = useContext(SearchDataContext);
-  console.log(searchData, "searchData")
+  const [newData, setNewData] = useState([])
+
+  useEffect(() => {
+    if (typeof(searchData) === 'string'){
+      setNewData(JSON.parse(searchData))
+    }
+  }, [])
+  
+  console.log(newData, "searchData")
   return (
     <div className={styles.main_div}>
-     {searchData.map(data => (
+     {newData.map(data => (
       <div className={styles.main_sub_div} key={data?.id}>
         <div className={styles.main_sub_icon}>
           <Icon
