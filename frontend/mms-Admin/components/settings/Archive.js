@@ -1,23 +1,20 @@
-import React, { useContext, useState, useEffect  } from "react";
-import { SearchDataContext } from "../searchDataContext";
+import React, { useState } from "react";
+import { useStateValue } from "store/context";
 import styles from "../componentStyles/archive.module.css";
 import Icon from "../Icon";
 import moment from 'moment';
 
-function Archive() {
-  const searchData = useContext(SearchDataContext);
-  const [newData, setNewData] = useState([])
 
-  useEffect(() => {
-    if (typeof(searchData) === 'string'){
-      setNewData(JSON.parse(searchData))
-    }
-  }, [])
+function Archive() {
+  const [newData, setNewData] = useState([])
+  const [ {search} ] = Object.values(useStateValue())
+ 
   
-  console.log(newData, "searchData")
+  console.log(search.data[0], "searchData")
   return (
     <div className={styles.main_div}>
-     {newData.map(data => (
+     {search?.data?.length > 0 ? (
+      search?.data?.map(data => (
       <div className={styles.main_sub_div} key={data?.id}>
         <div className={styles.main_sub_icon}>
           <Icon
@@ -37,7 +34,7 @@ function Archive() {
                   height={"16.5px"}
                 />
               </span>
-              <div className={styles.main_sub_content_time}>{moment(data?.DateTime, 'YYYY-MM-DD')}</div>
+              <div className={styles.main_sub_content_time}>{moment(data?.created_at).format('ll')}</div>
             </div>
             <div className={styles.main_sub_con}>
               <span className={styles.main_sub_content_timeicon1}>
@@ -47,7 +44,7 @@ function Archive() {
                   height={"18px"}
                 />
               </span>
-              <div className={styles.main_sub_content_time}>{moment(data?.DateTime, 'HH:mm:ss')}</div>
+              <div className={styles.main_sub_content_time}>{moment(data?.created_at).format('LT')}</div>
             </div>
             <div className={styles.main_sub_con}>
               <span className={styles.main_sub_content_archor}>
@@ -61,7 +58,7 @@ function Archive() {
           </div>
         </div>
       </div>
-      ))}
+      ))) : ""}
     </div>
   );
 }
