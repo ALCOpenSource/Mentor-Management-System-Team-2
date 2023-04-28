@@ -1,15 +1,25 @@
 import Link from "next/link";
-import { useState } from "react";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 import { Layout, Menu, Typography } from "antd";
 import { Icon } from "components/Icon/Icon";
 import { SidebarMenu } from "components/SidebarMenu";
 
-import styles from "styles/sidebar.module.css";
+import { clsx } from "clsx";
+import styles from "styles/sidebar.module.scss";
 
 const SideBar = ({ user }) => {
+  const router = useRouter();
   const [state, setState] = useState({ name: "James", role: "Admin" });
+  const [activeMenu, setActiveMenu] = useState("");
+
   const { Sider } = Layout;
-  const { Title, Paragraph } = Typography;
+  const { Paragraph } = Typography;
+
+  useEffect(() => {
+    const pathname = router.pathname?.split('/')[1];
+    setActiveMenu(pathname)
+  }, [router.pathname]);
 
   return (
     <Sider
@@ -20,26 +30,21 @@ const SideBar = ({ user }) => {
       collapsedWidth="0"
       onBreakpoint={() => {}}
       onCollapse={(collapsed, type) => {}}>
-      <Typography style={{ padding: "32px 55px" }}>
-        <Title level={4} style={{ margin: 0 }}>
+      <Typography className={styles.welcome_text_header}>
+        <p className={styles.welcome_text}>
           Hi, {state?.name}
-        </Title>
+        </p>
         <Paragraph>{state?.role}</Paragraph>
       </Typography>
       <Menu
-        className={styles.sidebar_menu}
-        style={{ background: "none", border: "none" }}>
+        className={styles.sidebar_menu}>
         {SidebarMenu.map((menu, idx) => (
           <Menu.Item
             key={`${idx}`}
-            style={{
-              paddingLeft: "55px",
-              margin: 0,
-              width: "100%",
-            }}
+            className={clsx(styles.item, menu.path.match(activeMenu) ? styles.active : "")}
             icon={<Icon name={`${menu.icon}`} />}>
             <Link href={`${menu.path}`}>
-              <a className={`${styles.sidebar_link} text-light`}>{menu.name}</a>
+              <a className={styles.link}>{menu.name}</a>
             </Link>
           </Menu.Item>
         ))}

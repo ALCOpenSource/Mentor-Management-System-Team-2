@@ -1,4 +1,4 @@
-name: ALX_Team-2
+name: ALX_Team_2
 
 # Trigger deployment only on push to master branch
 on:

@@ -4,27 +4,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: "Dancing Script", cursive;
-}
-
-.theme-primary {
-  color: #058b94;
-}
-
-.theme-light {
-  color: #f7feff;
-}
-
-.text-light {
-  color: #808080;
-}
-
-.text-dark {
-  color: #141414;
-}
-
-.text-default {
-  color: #333;
+  font-family: "Mukta", sans-serif;
 }
 
 * {
