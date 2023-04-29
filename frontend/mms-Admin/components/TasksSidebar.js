@@ -95,14 +95,14 @@ function TasksSidebar(props) {
     { items.length > 0 ? (
         items.map(item => (
         <>
-        <div key={item.id} className={styles.side_container} onClick={() => handleCombinedActions(item.id, item)}>
-            <div className={styles.side_div_logo}>
+        <div key={item.id} className={styles.side_container}>
+            <div className={styles.side_div_logo} onClick={() => handleCombinedActions(item.id, item)}>
               <Icon
                 icon={"/assets/images/task.svg"}
                 width={"40px"}
                 height={"40px"} />
             </div>
-            <div className={styles.side_div_item}>
+            <div className={styles.side_div_item} onClick={() => handleCombinedActions(item.id, item)}>
               <p>
                 {item.title.slice(0, 29)}...
               </p>
