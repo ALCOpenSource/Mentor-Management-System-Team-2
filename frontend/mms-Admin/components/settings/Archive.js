@@ -10,7 +10,6 @@ function Archive() {
   const [ {search} ] = Object.values(useStateValue())
  
   
-  console.log(search.data[0], "searchData")
   return (
     <div className={styles.main_div}>
      {search?.data?.length > 0 ? (

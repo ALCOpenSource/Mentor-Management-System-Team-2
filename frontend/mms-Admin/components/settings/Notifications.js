@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styles from "../componentStyles/notifications.module.css";
-import { Switch } from "antd";
-import { AiOutlineCheck, AiOutlineClose } from "react-icons/ai";
 import ToggleInput from  "components/ToggleInput"
-import axios from "pages/api/axios";
+import { fetchNotificationSettings , updateNotificationSettings } from "pages/api/setting"
+import { Loader } from "components/Loader"
+import debounce from "lodash.debounce";
+import { useStateValue } from "store/context";
 
 function Notifications() {
 
@@ -39,30 +40,88 @@ function Notifications() {
       push: "push"
     }
   ];
-  const [settings, setSettings] = useState({});
-  
-  const loadNotificationSettings = () => {
-      
-    const token = 'Mw.SamgyKJGsQjp7z8LIzvDrLDCWpmyqB6fMaf-r1AWksT9A6ExAB-gHFUBOOjs';
 
-    axios.get('notification-settings', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(response => {
-        const newItems = response?.data?.settings?.general?.notifications;
-        setSettings(newItems);
-      })
-      .catch(error => {
-        console.error('Error loading more items:', error);
-      });
+  const discussionInputFields = [
+    {
+      name: "comments_on_post",
+      label: "Comments on post",
+      email: "email",
+      push: "push"
+    },
+    {
+      name: "posts",
+      label: "Posts",
+      email: "email",
+      push: "push"
+    },
+    {
+      name: "comments",
+      label: "Comments",
+      email: "email",
+      push: "push"
+    },
+    {
+      name: "mentions",
+      label: "Mentions",
+      email: "email",
+      push: "push"
+    },
+    {
+      name: "direct_message",
+      label: "Direct Message",
+      email: "email",
+      push: "push"
+    }
+  ];
+
+  const [settings, setSettings] = useState({});
+  const [disSettings, setDisSettings] = useState({});
+  const [_, dispatch] = Object.values(useStateValue());
+  const [loading, setLoading] = useState(false);
+  
+  const loadNotificationSettings = async () => {
+    try {
+      setLoading(true)
+      const { data: {settings} } = await fetchNotificationSettings()
+      setSettings(settings?.general?.notifications);
+      setDisSettings(settings?.discussion?.notifications)
+      setLoading(false)
+    } catch (error) {}
   };
 
   useEffect(() => {
     loadNotificationSettings()
   }, [])
-  console.log(settings)
+
+  const handleUpdateGen = debounce(async () => {
+    const payload = {
+      general_notification: settings
+    };
+    try {
+      const response = await updateNotificationSettings(payload);
+      if (response.status == 200) {
+        dispatch({
+          type: "UPDATE_NOTIFICATION_SETTINGS",
+          payload: response?.data
+        });
+      }
+    } catch (error) {}
+  }, 2000);
+
+  const handleUpdateDis = debounce(async () => {
+    const payload = {
+      discussion_notification: disSettings
+    };
+    try {
+      const response = await updateNotificationSettings(payload);
+      if (response.status == 200) {
+        dispatch({
+          type: "UPDATE_NOTIFICATION_SETTINGS",
+          payload: response?.data
+        });
+      }
+    } catch (error) {}
+  }, 2000);
 
   const handleChange = (name,type) => {
     setSettings((prevState) => {
@@ -70,8 +129,23 @@ function Notifications() {
         ...prevState, [name]: {...prevState[name], [type]:!prevState[name][type]}
       }
     });
-    handleUpdate();
+    handleUpdateGen();
   };
+  const handleChangeDis = (name,type) => {
+    setDisSettings((prevState) => {
+      return {
+        ...prevState, [name]: {...prevState[name], [type]:!prevState[name][type]}
+      }
+    });
+    handleUpdateDis();
+  };
+  if (loading) {
+    return (
+      <div className={styles.spin}>
+        <Loader size="large" />
+      </div>
+    );
+  }
 
   return (
     <div className={styles.main_div}>
@@ -104,159 +178,34 @@ function Notifications() {
       </div>
         
       </div>
-      {/* 
       <div className={styles.discussion_div}>
         <p>Discussion Notifications</p>
         <div className={styles.noti_span}>
           <span className={styles.email_span}>Email</span>
           <span className={styles.inapp_span}>In-app</span>
         </div>
-        <div className={styles.item_dis}>
-          <span className={styles.head}>Comments on my post</span>
-          <span className={styles.item_dis_span1}>
-            <Switch
-              checkedChildren={
-                <AiOutlineCheck size={10} style={{ marginTop: "6px" }} />
-              }
-              unCheckedChildren={
-                <AiOutlineClose size={10} style={{ marginTop: "6px" }} />
-              }
-              style={{ backgroundColor: checked ? "#058B94" : "#B3B3B3" }}
-              checked={checked}
-              onChange={handleChange}
-            />
-          </span>
-          <span className={styles.item_dis_span2}>
-            <Switch
-              checkedChildren={
-                <AiOutlineCheck size={10} style={{ marginTop: "6px" }} />
-              }
-              unCheckedChildren={
-                <AiOutlineClose size={10} style={{ marginTop: "6px" }} />
-              }
-              style={{ backgroundColor: checked ? "#058B94" : "#B3B3B3" }}
-              checked={checked}
-              onChange={handleChange}
-            />
-          </span>
-        </div>
-        <div className={styles.item_dis1}>
-          <span className={styles.head}>Posts</span>
-          <span className={styles.item_dis1_span1}>
-            <Switch
-              checkedChildren={
-                <AiOutlineCheck size={10} style={{ marginTop: "6px" }} />
-              }
-              unCheckedChildren={
-                <AiOutlineClose size={10} style={{ marginTop: "6px" }} />
-              }
-              style={{ backgroundColor: checked ? "#058B94" : "#B3B3B3" }}
-              checked={checked}
-              onChange={handleChange}
-            />
-          </span>
-          <span className={styles.item_dis1_span2}>
-            <Switch
-              checkedChildren={
-                <AiOutlineCheck size={10} style={{ marginTop: "6px" }} />
-              }
-              unCheckedChildren={
-                <AiOutlineClose size={10} style={{ marginTop: "6px" }} />
-              }
-              style={{ backgroundColor: checked ? "#058B94" : "#B3B3B3" }}
-              checked={checked}
-              onChange={handleChange}
-            />
-          </span>
-        </div>
-        <div className={styles.item_dis2}>
-          <span className={styles.head}>Comments</span>
-          <span className={styles.item_dis2_span1}>
-            <Switch
-              checkedChildren={
-                <AiOutlineCheck size={10} style={{ marginTop: "6px" }} />
-              }
-              unCheckedChildren={
-                <AiOutlineClose size={10} style={{ marginTop: "6px" }} />
-              }
-              style={{ backgroundColor: checked ? "#058B94" : "#B3B3B3" }}
-              checked={checked}
-              onChange={handleChange}
-            />
-          </span>
-          <span className={styles.item_dis2_span2}>
-            <Switch
-              checkedChildren={
-                <AiOutlineCheck size={10} style={{ marginTop: "6px" }} />
-              }
-              unCheckedChildren={
-                <AiOutlineClose size={10} style={{ marginTop: "6px" }} />
-              }
-              style={{ backgroundColor: checked ? "#058B94" : "#B3B3B3" }}
-              checked={checked}
-              onChange={handleChange}
-            />
-          </span>
-        </div>
-        <div className={styles.item_dis3}>
-          <span className={styles.head}>Mentions</span>
-          <span className={styles.item_dis3_span1}>
-            <Switch
-              checkedChildren={
-                <AiOutlineCheck size={10} style={{ marginTop: "6px" }} />
-              }
-              unCheckedChildren={
-                <AiOutlineClose size={10} style={{ marginTop: "6px" }} />
-              }
-              style={{ backgroundColor: checked ? "#058B94" : "#B3B3B3" }}
-              checked={checked}
-              onChange={handleChange}
-            />
-          </span>
-          <span className={styles.item_dis3_span2}>
-            <Switch
-              checkedChildren={
-                <AiOutlineCheck size={10} style={{ marginTop: "6px" }} />
-              }
-              unCheckedChildren={
-                <AiOutlineClose size={10} style={{ marginTop: "6px" }} />
-              }
-              style={{ backgroundColor: checked ? "#058B94" : "#B3B3B3" }}
-              checked={checked}
-              onChange={handleChange}
-            />
-          </span>
-        </div>
-        <div className={styles.item_dis4}>
-          <span className={styles.head}>Direct Message</span>
-          <span className={styles.item_dis4_span1}>
-            <Switch
-              checkedChildren={
-                <AiOutlineCheck size={10} style={{ marginTop: "6px" }} />
-              }
-              unCheckedChildren={
-                <AiOutlineClose size={10} style={{ marginTop: "6px" }} />
-              }
-              style={{ backgroundColor: checked ? "#058B94" : "#B3B3B3" }}
-              checked={checked}
-              onChange={handleChange}
-            />
-          </span>
-          <span className={styles.item_dis4_span2}>
-            <Switch
-              checkedChildren={
-                <AiOutlineCheck size={10} style={{ marginTop: "6px" }} />
-              }
-              unCheckedChildren={
-                <AiOutlineClose size={10} style={{ marginTop: "6px" }} />
-              }
-              style={{ backgroundColor: checked ? "#058B94" : "#B3B3B3" }}
-              checked={checked}
-              onChange={handleChange}
-            />
-          </span>
-        </div>
-      </div>*/}
+        <div className={styles.main}>
+        {discussionInputFields.map((field) => (
+          <div className={styles.item} key={field.name}>
+          <span className={styles.head}>{field.label}</span>
+            <div className={styles.toggle_div}>
+              <span className={styles.item_span1}>
+              <ToggleInput
+                key={field.name}
+                checked={disSettings[field.name]?.email}
+                handleChange={() => handleChangeDis(field.name,field.email)} />
+                </span>
+                <span className={styles.item_span2}>
+                <ToggleInput
+                  key={field.name}
+                  checked={disSettings[field.name]?.push}
+                  handleChange={() => handleChangeDis(field.name, field.push)} />
+                </span>
+            </div>
+           </div>
+        ))}
+      </div>
+      </div>
     </div>
   );
 }

@@ -8,14 +8,11 @@ export const GlobalContext = createContext({
   setUserData: () => "",
   isMobileSideBarOpen: false,
   setMobileSideBarState: (state) => state,
-  searchData: [],
-  setSearchData: () => {}
 });
 
 export const GlobalContextProvider = ({ children }) => {
   const [userData, setUserData] = useState("");
   const [isMobileSideBarOpen, setMobileSideBarState] = useState(false);
-  const [searchData,setSearchData] = useState([]);
   const matches = useMediaQuery('(max-width: 768px)')
   useEffect(()=>{
     setMobileSideBarState(matches)
@@ -29,8 +26,6 @@ export const GlobalContextProvider = ({ children }) => {
         isMobileSideBarOpen,
         setMobileSideBarState,
         isMobile: matches,
-        searchData,
-        setSearchData,
       }}>
       {children}
     </GlobalContext.Provider>

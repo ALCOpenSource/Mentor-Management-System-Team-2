@@ -1,4 +1,4 @@
-import  { useContext, useReducer, createContext } from 'react';
+import { useContext, useReducer,createContext } from 'react';
 import mainReducer from './providers/mainReducer';
 import initialState from './providers/initialState';
 

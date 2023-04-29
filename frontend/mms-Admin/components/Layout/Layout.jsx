@@ -12,17 +12,22 @@ import { CustomButton } from "../formInputs/CustomInput";
 import { useStateValue } from "store/context";
 import { GlobalContextProvider } from "../../Context/store";
 import axios from "../../pages/api/axios";
+import { fetchArchive } from "pages/api/archive"
+import { convertToURLQuery } from "utils/extractTitleFromUrl"
+
 
 const AppLayout = ({ children }) => {
   const [headerTitle, setHeaderTitle] = useState("");
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
   const router = useRouter();
+  const [loading, setLoading] = useState(false)
+  const [total, setTotal] = useState({});
   const { Content } = Layout;
   const [ _, dispatch ] = Object.values(useStateValue())
 
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
+    setPage(newPage);
   };
 
   useEffect(() => {
@@ -31,33 +36,24 @@ const AppLayout = ({ children }) => {
     else setHeaderTitle(extractTitleFromUrl(pathname?.slice(1)));
   }, [router]);
   
-
-  const loadMore = () => {
-      
-
-    const token = 'Mw.SamgyKJGsQjp7z8LIzvDrLDCWpmyqB6fMaf-r1AWksT9A6ExAB-gHFUBOOjs';
-
-    axios.get(`archive?page=${currentPage}&limit=${pageSize}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(response => {
-        const newData =  response?.data
-        console.log(newData)
-        dispatch({
-          type: 'ARCHIVE_SEARCH',
-          payload: newData
-        })
+  const loadMore = async () => {
+    const query = { page, limit }
+    try {
+      setLoading(true)
+      const { data } = await fetchArchive(convertToURLQuery(query))
+      const newData = data;
+      setTotal(data?.meta)
+      dispatch({
+        type: 'ARCHIVE_SEARCH',
+        payload: newData
       })
-      .catch(error => {
-        console.error('Error loading more items:', error);
-      });
+      setLoading(false)
+    } catch (error) {}
   };
 
   useEffect(() => {
     loadMore()
-  }, [currentPage]);
+  }, [page]);
 
   return (
     <GlobalContextProvider>
@@ -79,8 +75,8 @@ const AppLayout = ({ children }) => {
                         required
                       />
                       <Pagination
-                        total={20}
-                        currentPage={currentPage}
+                        total={total?.total}
+                        currentPage={page}
                         onPageChange={handlePageChange}
                       />
                     </>
