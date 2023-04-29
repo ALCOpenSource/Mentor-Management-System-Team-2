@@ -3,8 +3,8 @@ import styles from "../componentStyles/faq.module.css";
 import Icon from "../Icon";
 import { Collapse } from "antd";
 import { CiCircleRemove } from "react-icons/ci";
-import { fetchFaqs } from "pages/api/faq"
-import { Loader } from "components/Loader"
+import { fetchFaqs } from "pages/api/faq";
+import { Loader } from "components/Loader";
 
 
 const { Panel } = Collapse;

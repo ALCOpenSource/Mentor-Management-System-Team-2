@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styles from "../componentStyles/notifications.module.css";
-import ToggleInput from  "components/ToggleInput"
-import { fetchNotificationSettings , updateNotificationSettings } from "pages/api/setting"
-import { Loader } from "components/Loader"
+import ToggleInput from  "components/ToggleInput";
+import { fetchNotificationSettings , updateNotificationSettings } from "pages/api/setting";
+import { Loader } from "components/Loader";
 import debounce from "lodash.debounce";
 import { useStateValue } from "store/context";
 
@@ -114,7 +114,7 @@ function Notifications() {
     };
     try {
       const response = await updateNotificationSettings(payload);
-      if (response.status == 200) {
+      if (response.status === 200) {
         dispatch({
           type: "UPDATE_NOTIFICATION_SETTINGS",
           payload: response?.data

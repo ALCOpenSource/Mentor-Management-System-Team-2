@@ -12,10 +12,10 @@ export const updatePrivacySettings = async (payload) => {
 
 export const fetchNotificationSettings = async () => {
   const url = "/notification-settings";
-  return await Http.get(url);
+  return await http.get(url);
 };
 
 export const updateNotificationSettings = async (payload) => {
   const url = "/notification-settings";
-  return await Http.put(url, payload);
+  return await http.put(url, payload);
 };

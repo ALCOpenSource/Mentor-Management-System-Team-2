@@ -4,10 +4,10 @@ import Icon from "./Icon";
 import TasksModal from "./TasksModal";
 import axios from '../pages/api/axios';
 import moment from 'moment';
-import { useLogin } from '../hooks/useLogin'
-import { fetchTasks } from "pages/api/task"
-import { Loader } from "components/Loader"
-import { convertToURLQuery } from "utils/extractTitleFromUrl"
+import { useLogin } from '../hooks/useLogin';
+import { fetchTasks } from "pages/api/task";
+import { Loader } from "components/Loader";
+import { convertToURLQuery } from "utils/extractTitleFromUrl";
 
 function TasksSidebar(props) {
   const {token} = useLogin()

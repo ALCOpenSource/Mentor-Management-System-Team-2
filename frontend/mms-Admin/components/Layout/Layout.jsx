@@ -24,7 +24,7 @@ const AppLayout = ({ children }) => {
   const [loading, setLoading] = useState(false)
   const [total, setTotal] = useState({});
   const { Content } = Layout;
-  const [ _, dispatch ] = Object.values(useStateValue())
+  const { dispatch } = useStateValue();
 
   const handlePageChange = (newPage) => {
     setPage(newPage);
