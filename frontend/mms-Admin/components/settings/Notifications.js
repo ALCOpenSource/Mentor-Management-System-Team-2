@@ -86,7 +86,10 @@ function Notifications() {
       setSettings(settings?.general?.notifications);
       setDisSettings(settings?.discussion?.notifications)
       setLoading(false)
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred while loading data:", error);
+      setLoading(false)
+    }
   };
 
   useEffect(() => {

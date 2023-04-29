@@ -35,7 +35,10 @@ function Faq() {
       setGeneral(data?.general);
       setTechnical(data?.technical)
       setLoading(false)
-    } catch (error) {}
+    } catch (error) {
+      console.error("An error occurred while loading data:", error);
+      setLoading(false)
+    }
   };
   
   useEffect(() => {
