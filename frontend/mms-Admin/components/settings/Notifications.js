@@ -99,7 +99,7 @@ function Notifications() {
     };
     try {
       const response = await updateNotificationSettings(payload);
-      if (response.status == 200) {
+      if (response.status === 200) {
         dispatch({
           type: "UPDATE_NOTIFICATION_SETTINGS",
           payload: response?.data
