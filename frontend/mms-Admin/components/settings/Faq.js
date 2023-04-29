@@ -29,6 +29,7 @@ function Faq() {
   };
 
   const loadData = async () => {
+    setLoading(true)
     try {
       setLoading(true)
       const { data } = await fetchFaqs()

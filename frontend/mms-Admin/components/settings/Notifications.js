@@ -80,6 +80,7 @@ function Notifications() {
   const [loading, setLoading] = useState(false);
   
   const loadNotificationSettings = async () => {
+    setLoading(true)
     try {
       setLoading(true)
       const { data: {settings} } = await fetchNotificationSettings()
