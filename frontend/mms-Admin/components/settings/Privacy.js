@@ -46,7 +46,6 @@ const Privacy = () => {
   }, []);
   
   const handleChange = (name) => {
-    console.log(name)
     setSettings((prevState) => {
       return {
         ...prevState, [name]: !prevState[name]
