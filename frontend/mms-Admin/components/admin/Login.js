@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 
-import { Button, Form, Input } from "antd";
-import axios from "axios";
-import Cookie from "js-cookie";
+import { Form, Input, Button } from "antd";
 
 import Icon from "../Icon";
 import styles from "../componentStyles/login.module.css";
 import { postLogin } from "utils/http";
 import { useRouter } from "next/router";
 import { validateInputs } from "../../utils/validateInputs";
+import { useLogin } from '../../hooks/useLogin'
 
 const Login = ({ showPassword, setShowPassword }) => {
+  const [loading, setLoading] = useState(false);
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
+  const {setToken, token} = useLogin()
+
 
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
-  const [token, setToken] = useState("");
   const router = useRouter();
   const { data, status } = useSession();
 
   useEffect(() => {
-    if (JSON.parse(localStorage.getItem("token"))) {
-      setToken(JSON.parse(localStorage.getItem("token")));
+    if (token) {
       router.push("/dashboard");
     }
   }, []);
@@ -40,25 +40,23 @@ const Login = ({ showPassword, setShowPassword }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const valid = validateInputs(loginData);
+    setLoading(true);
 
+    const valid = validateInputs(loginData);
     if (valid) {
       try {
         const response = await postLogin(loginData);
 
         if (response.status === 200) {
-          localStorage.setItem(
-            "token",
-            JSON.stringify(response.data.token.token),
-          );
+          setToken(response.data.token.token);
           localStorage.setItem("userid", JSON.stringify(response.data.user.id));
-          setToken(response.data);
           router.push("/dashboard");
         }
 
         if (response.status === 401 || response.status === 400) {
           setMessage(response.message);
         }
+        setLoading(false);
       } catch (e) {}
     }
   };
@@ -96,8 +94,11 @@ const Login = ({ showPassword, setShowPassword }) => {
           onChange={handleOnchange}
         />
         <div className={styles.login_button_container}>
-          <Button onClick={handleSubmit} className={styles.login_button}>
-            Login
+          <Button
+            onClick={handleSubmit}
+            className={styles.login_button}
+            loading={loading}>
+              Login
           </Button>
         </div>
         <p
@@ -117,11 +118,9 @@ const Login = ({ showPassword, setShowPassword }) => {
               height={"38px"}
             />
 
-            <div className={styles.signin_text}>signin with Google</div>
+            <div className={styles.signin_text}>Sign in with Google</div>
           </Button>
         </div>
-
-        <p className={styles.signup}>New User? Signup</p>
       </Form>
     </div>
   );
