@@ -99,8 +99,9 @@ function Notifications() {
 
   const handleUpdateGen = debounce(async () => {
     const payload = {
-      general_notification: settings
+      general: settings
     };
+    console.log(payload)
     try {
       const response = await updateNotificationSettings(payload);
       if (response.status === 200) {
@@ -114,7 +115,7 @@ function Notifications() {
 
   const handleUpdateDis = debounce(async () => {
     const payload = {
-      discussion_notification: disSettings
+      discussion: disSettings
     };
     try {
       const response = await updateNotificationSettings(payload);
@@ -135,6 +136,7 @@ function Notifications() {
     });
     handleUpdateGen();
   };
+
   const handleChangeDis = (name,type) => {
     setDisSettings((prevState) => {
       return {
