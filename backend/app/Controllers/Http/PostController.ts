@@ -10,7 +10,7 @@ export default class PostsController {
     }
     const payload = await request.validate({
       schema: schema.create({
-        imageUrl: schema.file({
+        imageUrl: schema.file.optional({
           size: '2mb',
           extnames: ['jpg', 'png'],
         }),

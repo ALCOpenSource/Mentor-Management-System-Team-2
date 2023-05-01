@@ -73,15 +73,15 @@ export default class CommentsController {
           extnames: ['jpg', 'png'],
         }),
       }),
-    });
+    })
 
-    comment.comment = payload.comment;
-    comment.emoji = payload.emoji ?? comment.emoji;
-  
+    comment.comment = payload.comment
+    comment.emoji = payload.emoji ?? comment.emoji
+
     if (payload.imageUrl) {
-      const commentImage = request.file('imageUrl');
-      await commentImage?.moveToDisk('upload_file');
-      comment.imageUrl = commentImage?.fileName ?? comment.imageUrl;
+      const commentImage = request.file('imageUrl')
+      await commentImage?.moveToDisk('upload_file')
+      comment.imageUrl = commentImage?.fileName ?? comment.imageUrl
     }
 
     await comment.save()

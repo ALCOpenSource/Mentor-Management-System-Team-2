@@ -32,14 +32,11 @@ export default class TaskReportController {
       if (!task) {
         return response.notFound({ message: 'Task not found', status: 'Error' })
       }
-      
-      const isMentorManager = task.mentors.some(
-        (mentorManager) => mentorManager.id === user?.id
-      )
+
+      const isMentorManager = task.mentors.some((mentorManager) => mentorManager.id === user?.id)
       if (!isMentorManager) {
         return response.unauthorized({ message: 'You are not authorized to perform this action' })
       }
-    
 
       const taskReport = await Database.transaction(async (trx) => {
         const newReport = new TaskReport()
