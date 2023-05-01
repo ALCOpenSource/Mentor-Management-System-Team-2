@@ -44,27 +44,24 @@ const Privacy = () => {
 
     getSettings();
   }, []);
-
-  const handleChange = ({ name , action }) => {
+  
+  const handleChange = (name) => {
+    console.log(name)
     setSettings((prevState) => {
-      const updatedSettings = {
-        ...prevState,
-        [name]: {
-          ...prevState[name], action
-        },
-      };
-      handleUpdate(updatedSettings);
-      return updatedSettings;
+      return {
+        ...prevState, [name]: !prevState[name]
+      }
     });
+    handleUpdate();
   };
 
   const handleModal = () => {
     setModalOpen(!modalOpen);
   };
 
-  const handleUpdate = debounce(async (updatedSettings) => {
+  const handleUpdate = debounce(async () => {
     const payload = {
-      privacy: updatedSettings
+      privacy: settings
     };
     try {
       const response = await updatePrivacySettings(payload);
@@ -85,7 +82,7 @@ const Privacy = () => {
           key={field.name}
           label={field.label}
           checked={settings[field.name]}
-          handleChange={(action) => handleChange({...field, action})} />
+          handleChange={() => handleChange(field.name)} />
       ))}
 
       <SuccessMessage

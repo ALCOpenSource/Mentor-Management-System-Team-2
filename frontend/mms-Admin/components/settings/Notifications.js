@@ -5,6 +5,7 @@ import { fetchNotificationSettings , updateNotificationSettings } from "pages/ap
 import { Loader } from "components/Loader";
 import debounce from "lodash.debounce";
 import { useStateValue } from "store/context";
+import SuccessMessage from "components/SuccessMessage";
 
 function Notifications() {
 
@@ -78,6 +79,7 @@ function Notifications() {
   const [disSettings, setDisSettings] = useState({});
   const [_, dispatch] = Object.values(useStateValue());
   const [loading, setLoading] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
   
   const loadNotificationSettings = async () => {
     setLoading(true)
@@ -105,6 +107,7 @@ function Notifications() {
     try {
       const response = await updateNotificationSettings(payload);
       if (response.status === 200) {
+        setModalOpen(true);
         dispatch({
           type: "UPDATE_NOTIFICATION_SETTINGS",
           payload: response?.data,
@@ -121,6 +124,7 @@ function Notifications() {
     try {
       const response = await updateNotificationSettings(payload);
       if (response.status === 200) {
+        setModalOpen(true);
         dispatch({
           type: "UPDATE_NOTIFICATION_SETTINGS",
           payload: response?.data
@@ -156,6 +160,10 @@ function Notifications() {
       return updatedSettings;
     });
   };  
+
+  const handleModal = () => {
+    setModalOpen(!modalOpen);
+  };
 
   if (loading) {
     return (
@@ -194,7 +202,12 @@ function Notifications() {
            </div>
         ))}
       </div>
-        
+        <SuccessMessage
+        image={"/assets/images/success.png"}
+          message={"Notification Settings Saved Successfully"}
+          isModalOpen={modalOpen}
+          setIsModalOpen={handleModal}
+        />
       </div>
       <div className={styles.discussion_div}>
         <p>Discussion Notifications</p>
@@ -223,6 +236,12 @@ function Notifications() {
            </div>
         ))}
       </div>
+        <SuccessMessage
+          image={"/assets/images/user_phone.svg"}
+            message={"Notification Settings Saved Successfully"}
+            isModalOpen={modalOpen}
+            setIsModalOpen={handleModal}
+        />
       </div>
     </div>
   );
