@@ -49,7 +49,7 @@ export default class AuthenticationController {
       return
     }
     const mentorManagers = await User.query()
-      .where('roleId', 3)
+      .where('roleId', Roles.MENTOR_MANAGER)
       .select(['id', 'firstName', 'lastName'])
     return { status: 'success', message: 'Fetched all mentor mangers successful', mentorManagers}
   }

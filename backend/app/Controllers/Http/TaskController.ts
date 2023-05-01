@@ -5,6 +5,7 @@ import TaskMentor from 'App/Models/TaskMentor'
 import TaskMentorManager from 'App/Models/TaskMentorManager'
 import Database from '@ioc:Adonis/Lucid/Database'
 
+
 export default class TaskController {
   async create({ auth, request, response }: HttpContextContract) {
     const adminUser = await auth.authenticate()
@@ -165,8 +166,6 @@ export default class TaskController {
     if (!task) {
       return response.notFound({ message: 'Task not found' })
     }
-
-    console.log(task)
 
     const result = 
        {
