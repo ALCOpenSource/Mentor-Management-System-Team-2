@@ -4,82 +4,70 @@ import BroadcastHeader from "components/NavHeader/BroadcastHeader";
 import { Mentions } from "antd";
 import BroadcastTextArea from "components/formInputs/BroadcastTextArea";
 import styles from "../../componentStyles/broadcast.module.css";
-import {
-  createBroadcast,
-  fetchBroadcast,
-  searchUsers,
-} from "../../../pages/api/broadcast";
+import { broadcastService } from "../../../services/broadcast.service";
 
 const BroadcastMessage = () => {
   const [messages, setMessages] = useState();
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState();
   const [users, setUsers] = useState([]);
+  const [userToken, setUserToken] = useState(undefined);
+  const [page, setPage] = useState(1);
   const ref = useRef();
-
-  const loadUsers = async (query) => {
-    if (!query) {
+  
+  const loadUsers = (key) => { 
+    // TODO: Get users
+    if (!key) {
       setUsers([]);
       return;
     }
-    const { data } = await searchUsers(query);
-    if (ref.current !== query) return;
-
-    setLoading(false);
-    setUsers(data.slice(0, 10));
+    broadcastService
+      .searchProfile(key, userToken)
+      .then((res) => res)
+      .then(({ items = [] }) => {
+        if (ref.current !== key) return;
+        setLoading(false);
+        console.log({items})
+        setUsers(items.slice(0, 10));
+        console.log(items.slice(0, 10))
+      });
   };
-
-  const loadUsersCallback = useCallback(loadUsers, []);
-  const onSearch = (query) => {
-    console.log("Search:", query);
-    ref.current = query;
-    setLoading(!!query);
-    setUsers([]);
-    loadUsersCallback(query);
-  };
-
   useEffect(() => {
-    loadMessages();
+    const user = localStorage.getItem("user");
+    const userObject = JSON.parse(user);
+    const token = `${userObject.token.type} ${userObject.token.token}`;
+    setUserToken(token);
+    loadMessages(token);
   }, []);
 
-  const loadMessages = async () => {
-    try {
-      const { data } = await fetchBroadcast();
-      setMessages(data.data);
-    } catch (error) {
-      setError(error);
-    }
+  const loadMessages = (token) => {
+    broadcastService.index(page, token).then((res) => {
+      setMessages(res.data);
+    });
+  };
+
+  const loadUser = useCallback(loadUsers, []);
+
+  const onSearch = (search) => {
+    console.log("Search:", search);
+    ref.current = search;
+    setLoading(!!search);
+    setUsers([]);
+
+    loadUser(search);
   };
 
   const handleSubmit = (text) => {
     const recipient = [10];
     const message = { message: text, recipient };
-    createBroadcast(message);
+    broadcastService.send(message, userToken);
     //TODO: upload files and message text
   };
-
-  const mentionValue = (value) => {
-    return value.split("@")[0]
-  }
   return (
     <>
       <div>
         <div className={styles.broadcast_panel}>
           <BroadcastHeader />
-          <Mentions
-            loading={loading}
-            options={users.map(({ id, first_name, last_name, email }) => ({
-              key: mentionValue(email),
-              value: mentionValue(email),
-              className: "antd-demo-dynamic-option",
-              label: (
-                <>
-                  <span>{`${first_name} ${last_name}`}</span>
-                </>
-              ),
-            }))}
-            onSearch={onSearch}
-          />
+          <Mentions loading={loading} users={users} onSearch={onSearch} />
           <div className={styles.broadcast_board}>
             {messages &&
               messages.map((message) => (
