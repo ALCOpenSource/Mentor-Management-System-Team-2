@@ -39,7 +39,7 @@ Route.group(() => {
     Route.get('/mentors', 'UserController.getAllMentors')
     Route.get('/mentor-managers', 'UserController.getAllMentorManagers')
   }).prefix('user')
-  
+
   Route.group(() => {
     Route.get('/:channelName', 'ChatController.getAllChat')
     Route.post('/channel', 'ChatController.authChatChannel')
