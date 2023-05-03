@@ -1,21 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import styles from "../../styles/tasks.module.css";
-import TasksSidebar from '../../components/TasksSidebar';
-import Icon from '../../components/Icon';
-import { CustomButton } from '../../components/formInputs/CustomInput';
 import moment from 'moment';
-import { Card } from 'antd';
-import toast from 'react-hot-toast';
+import React, { useState } from "react";
+import Link from "next/link";
+import styles from "styles/tasks.module.css";
+import TasksSidebar from 'components/TasksSidebar';
+import Icon from 'components/Icon';
+import { Loader } from "components/Loader";
+import { CustomButton } from 'components/formInputs/CustomInput';
 import DeleteTask from 'components/DeleteTask';
-
-const { Meta } = Card;
 
 
 function tasks() {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  
-  
+
   const handleDataChange = newData => {
     setData(newData);
   };
@@ -104,7 +100,6 @@ function tasks() {
                 </div>
               </div>
 
-
               <div className={styles.side_div_item_des2}>
                 <div className={styles.side_div_mentor_managers1}>
                   <Icon
@@ -138,7 +133,9 @@ function tasks() {
               </button>
 
               <CustomButton>
-                Edit Task
+                <Link href={`/tasks/${data?.id}`}>
+                  <a className={styles.edit_link_text}>Edit Task</a>
+                </Link>
               </CustomButton>
             </div>
             {isDeleteOpen && (
@@ -153,14 +150,10 @@ function tasks() {
               />
             )}
             </>
-          ):(
-            <>
-            <div>
-            <Card style={{ width: "100%"}} loading={loading} className={styles.card_div}></Card>
-            <Card style={{ width: "100%"}} loading={loading} className={styles.card_div}></Card>
-            <Card style={{ width: "100%"}} loading={loading} className={styles.card_div}></Card>
-            </div>
-            </>
+          ) : (
+          <div className={styles.spin}>
+            <Loader size="large" />
+          </div>
           )}
        </div>
      </div>

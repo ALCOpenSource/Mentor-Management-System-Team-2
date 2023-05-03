@@ -55,18 +55,18 @@ const Privacy = () => {
   
   const handleChange = (name) => {
     setSettings((prevState) => {
+      handleUpdate({ ...prevState, [name]: !prevState[name] });
       return {
         ...prevState, [name]: !prevState[name]
       }
     });
-    handleUpdate();
   };
 
   const handleModal = () => {
     setModalOpen(!modalOpen);
   };
 
-  const handleUpdate = debounce(async () => {
+  const handleUpdate = debounce(async (settings) => {
     const payload = {
       privacy: settings
     };
@@ -80,7 +80,7 @@ const Privacy = () => {
         setModalOpen(true);
       }
     } catch (error) {}
-  }, 2000);
+  }, 4000);
 
   return (
     <div className={styles.main}>

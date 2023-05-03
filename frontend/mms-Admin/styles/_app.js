@@ -1,4 +1,9 @@
 export const styles = `
+  .ant-layout-sider {
+    position: sticky !important;
+    top: 0 !important;
+    height: 100vh !important;
+  }
   .ant-btn-default:hover {
     color: #fff !important;
   }
@@ -22,11 +27,11 @@ export const styles = `
     width: 2em;
     height: 2em;
   }
-  .ant-layout{
+  .ant-layout {
     background-color: #fff;
   }
-  .navbar_navbar_search__yIy6C .ant-input-prefix {
-    margin-inline-end: 20px !important;
+  .ant-input-prefix {
+    margin-inline-end: 25px !important;
   }
   @media (max-width: 992px) {
     .ant-layout-sider {

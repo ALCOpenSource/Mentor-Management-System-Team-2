@@ -41,6 +41,13 @@ Route.group(() => {
   }).prefix('user')
 
   Route.group(() => {
+    Route.get('/:channelName', 'ChatController.getAllChat')
+    Route.post('/channel', 'ChatController.authChatChannel')
+    Route.post('/', 'ChatController.authChatUser')
+    Route.post('/:receiverId', 'ChatController.saveChat')
+  }).prefix('chat')
+
+  Route.group(() => {
     Route.get('/', 'ProfilesController.getByUserId')
     Route.put('/', 'ProfilesController.update')
     Route.put('/delete/:userId', 'ProfilesController.delete')

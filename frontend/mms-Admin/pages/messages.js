@@ -5,8 +5,9 @@ import { Avatar } from "antd";
 import { fetchUsers } from "./api/user"
 import Icon from "../components/Icon";
 import NotificationIcon from '../components/NotificationIcon';
+import SocketProvider from 'Context/socket';
 
-function messages() {
+function Messages() {
   
   const [selectedUser, setSelectedUser] = useState('');
   const [page, setPage] = useState(1);
@@ -122,4 +123,5 @@ function messages() {
 
 }
 
-export default messages
+
+export default Messages
