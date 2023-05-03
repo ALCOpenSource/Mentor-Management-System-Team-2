@@ -29,8 +29,16 @@ const inputFields = [
     label: "Show Twitter",
   }
 ];
+
+const initialSettings = {
+  show_contact_info: false,
+  show_github: false,
+  show_instagram: false,
+  show_linkedin: false,
+  show_twitter: false,
+};
 const Privacy = () => {
-  const [settings, setSettings] = useState({});
+  const [settings, setSettings] = useState(initialSettings);
   const [modalOpen, setModalOpen] = useState(false);
   const { dispatch } = useStateValue();
 

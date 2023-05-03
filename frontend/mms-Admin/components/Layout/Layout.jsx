@@ -20,6 +20,7 @@ const AppLayout = ({ children }) => {
   const [headerTitle, setHeaderTitle] = useState("");
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(10);
+  const [search, setSearch] = useState("");
   const router = useRouter();
   const [loading, setLoading] = useState(false)
   const [total, setTotal] = useState({});
@@ -30,6 +31,11 @@ const AppLayout = ({ children }) => {
     setPage(newPage);
   };
 
+  const handleOnchange = (event) => {
+    event.preventDefault();
+    setSearch(event.target.value);
+  };
+
   useEffect(() => {
     let pathname = router?.pathname;
     if (pathname === "/") setHeaderTitle("");
@@ -37,7 +43,7 @@ const AppLayout = ({ children }) => {
   }, [router]);
   
   const loadMore = async () => {
-    const query = { page, limit }
+    const query = { search, page, limit }
     try {
       setLoading(true)
       const { data } = await fetchArchive(convertToURLQuery(query))
@@ -53,7 +59,7 @@ const AppLayout = ({ children }) => {
 
   useEffect(() => {
     loadMore()
-  }, [page]);
+  }, [page, search]);
 
   return (
     <GlobalContextProvider>
@@ -73,6 +79,8 @@ const AppLayout = ({ children }) => {
                         placeholder="Search Archive"
                         type="archive"
                         required
+                        value={search}
+                        onChange={handleOnchange}
                       />
                       <Pagination
                         total={total?.total}

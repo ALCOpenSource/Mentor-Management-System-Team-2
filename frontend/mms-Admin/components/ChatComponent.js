@@ -1,19 +1,36 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import styles from "./componentStyles/chatcomponent.module.css";
 import { CustomInput } from './formInputs/CustomInput';
 import EmojiPicker from 'emoji-picker-react';
+import Pusher from "pusher-js";
 import Icon from './Icon';
+
 
 
 function ChatComponent({isModelChatClose}) {
   const [messages, setMessages] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
   const [message, setMessage] = useState('');
+  let allMessages = [];
 
     React.useEffect(() => {
       const mediaQuery = window.matchMedia("(max-width: 992px)");
       setIsMobile(mediaQuery.matches);
     }, []);
+
+    useEffect(() => {
+      // Pusher.logToConsole = true;
+
+      const pusher = new Pusher('f6e2b78d4c39d6321a45', {
+          cluster: 'eu'
+      });
+
+      const channel = pusher.subscribe('chat');
+      channel.bind('message', function (data) {
+          allMessages.push(data);
+          setMessages(allMessages);
+      });
+  });
 
     const [selectedfile, setSelectedFile] = useState(null);
     const fileInput = useRef(null);
@@ -60,12 +77,51 @@ function ChatComponent({isModelChatClose}) {
         </div>
         {messages.length > 0 ? (
             messages.map((message) => (
+                <>
                 <div
                   key={message.id}
                   className={`${styles.message} ${message.sent ? styles.sent : ''}`}
                 >
                   {message.text}
                 </div>
+                      <div className={styles.input_div}>
+                      <div className={styles.input_icon}>
+                        <div className={styles.input_icon1} onClick={() => setShowPicker(val => !val)}>
+                          <Icon
+                          icon={"/assets/images/smiley.svg"}
+                          width={"20px"}
+                          height={"20px"}
+                          />
+                        </div>
+                        <div className={styles.input_icon2} onClick={() => fileInput.current.click()}>
+                          <Icon
+                          icon={"/assets/images/attachment_clip.svg"}
+                          width={"20px"}
+                          height={"20px"}
+                          />
+                            <input
+                              type="file"
+                              accept="image/*"
+                              onChange={handleFileChange}
+                              style={{ display: 'none' }}
+                              ref={fileInput}
+                          />
+                        </div>
+                      </div>
+                      <div className={styles.input}>
+                        <CustomInput
+                          type="text"
+                          value={message}
+                          onChange={(e) => setMessage(e.target.value)}
+                          className={styles.input_chat}
+                          placeholder="Type a message..."
+                          onKeyDown={handleKeyDown}
+                          selectedfile={selectedfile}
+                          />
+                    </div>
+                  </div>
+                  {showPicker &&  <EmojiPicker onEmojiClick={onEmojiClick} />}
+                </>
               ))
         ): (
             

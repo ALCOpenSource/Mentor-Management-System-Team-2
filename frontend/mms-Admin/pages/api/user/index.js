@@ -18,3 +18,8 @@ export const updateUserProfile = async (payload) => {
   const url = "/profile";
   return await http.put(url, payload);
 };
+
+export const fetchUsers = async (query) => {
+  const url = "/user" + query;
+  return await http.put(url);
+};

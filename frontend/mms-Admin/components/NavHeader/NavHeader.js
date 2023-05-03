@@ -5,7 +5,7 @@ import styles from "styles/navheader.module.css";
 const NavHeader = ({ title, children }) => {
   return (
     <header className={styles.module_header}>
-      {title === "profile" || title==="discussion" ? (
+      {title === "profile" || title==="discussion" || title === "messages"? (
         ""
       ) : (
         <h2 className={styles.module_header_title}>{capitalize(title)}</h2>

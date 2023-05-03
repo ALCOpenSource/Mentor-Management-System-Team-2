@@ -2,51 +2,54 @@ import React, { useState, useEffect, useRef } from 'react'
 import ChatComponent from '../components/ChatComponent';
 import styles from "../styles/messages.module.css";
 import { Avatar } from "antd";
+import { fetchUsers } from "./api/user"
 import Icon from "../components/Icon";
 import NotificationIcon from '../components/NotificationIcon';
 
 function messages() {
   
-  const [selectedUser, setSelectedUser] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [usersList, setUsersList] = useState([]);
+  const [selectedUser, setSelectedUser] = useState('');
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [items, setItems] = useState([]);
   const containerRef = useRef(null);
 
-  const loadMore = () => {
-    fetch(`https://api.punkapi.com/v2/beers?page=${currentPage}&per_page=${pageSize}`)
-      .then(response => response.json())
-      .then(userItems => {
-        const updatedUser = usersList.concat(userItems);
-        setUsersList(updatedUser);
-        setCurrentPage(currentPage + 1);
-      })
-      .catch(error => {
-        console.error('Error loading more items:', error);
-      });
+  const loadMore = async () => {
+    const query = { page, limit }
+    try {
+      const { data } = await fetchUsers(convertToURLQuery(query))
+      console.log(data)
+      const newItems = data?.data;
+      setItems(newItems);
+      setPage(page + 1);
+    } catch (error) {}
   };
   
+  
+  useEffect(() => {
+    loadMore()
+  }, [])
+
   const handleScroll = () => {
-    // const element = document.getElementById('scroll-container');
     const element = containerRef.current;
     if (!element) return;
     const { scrollTop, scrollHeight, clientHeight } = element;
     if (scrollTop + clientHeight >= scrollHeight) {
       loadMore();
-    } else if (scrollTop === 0 && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      setPage(currentPage += 1);
+    } else if (scrollTop === 0 && page > 1) {
+      setPage(page -= 1);
     }
   };
-
+  
   useEffect(() => {
-    // const element = document.getElementById('scroll-container');
     const element = containerRef.current;
     if (element) element.addEventListener('scroll', handleScroll);
     return () => {
       if (element) element.removeEventListener('scroll', handleScroll);
     };
-  });
 
+  }, []);
   const [isMobile, setIsMobile] = useState(false);
   
   const handleUserClick = (userId) => {
@@ -63,9 +66,9 @@ function messages() {
   return (
     <div className={styles.main_div}>
         {!isMobile && (
-            <div className={styles.side_div} id="scroll-container" ref={containerRef}>
-                {usersList.length > 0 ? (
-                    usersList.map(user => (
+            <div className={styles.side_div} ref={containerRef}>
+                {items.length > 0 ? (
+                  items.map(user => (
                         <div className={styles.side_div_sub} key={user.id} onClick={() => handleUserClick(user.id)}>
                             Helo
                         </div>
