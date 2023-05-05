@@ -4,33 +4,43 @@ import { CustomInput } from './formInputs/CustomInput';
 import EmojiPicker from 'emoji-picker-react';
 import Pusher from "pusher-js";
 import Icon from './Icon';
+import { authChatChannel, authChatUser, saveChat, getAllChat } from "pages/api/chat";
+import moment from "moment";
 
 
-
-function ChatComponent({isModelChatClose}) {
+function ChatComponent({receiverId,isModelChatClose}) {
   const [messages, setMessages] = useState([]);
   const [isMobile, setIsMobile] = useState(false);
   const [message, setMessage] = useState('');
+  const [senderId, setSenderId] = useState(Number(''))
   let allMessages = [];
-
+  const today = new Date().toLocaleDateString();
     React.useEffect(() => {
       const mediaQuery = window.matchMedia("(max-width: 992px)");
       setIsMobile(mediaQuery.matches);
     }, []);
 
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_APP_KEY, {
+      // userAuthentication: {
+      //   endpoint: authChatUser,
+      // },
+      // channelAuthorization: {
+      //   endpoint: authChatChannel,
+      // },
+      cluster: 'eu'
+    });
+
+    const channelName = `${receiverId}-${senderId}`;
     useEffect(() => {
-      // Pusher.logToConsole = true;
-
-      const pusher = new Pusher('f6e2b78d4c39d6321a45', {
-          cluster: 'eu'
-      });
-
-      const channel = pusher.subscribe('chat');
+      const sender = localStorage.getItem('userid');
+      setSenderId(sender)
+      Pusher.logToConsole = true;
+      const channel = pusher.subscribe(channelName);
       channel.bind('message', function (data) {
           allMessages.push(data);
           setMessages(allMessages);
       });
-  });
+  }, [receiverId]);
 
     const [selectedfile, setSelectedFile] = useState(null);
     const fileInput = useRef(null);
@@ -48,12 +58,21 @@ function ChatComponent({isModelChatClose}) {
         setShowPicker(false);
     };
 
-   const handleKeyDown = (event) => {
+   const handleKeyDown = async (event) => {
+    const payload = { message , receiverId, senderId, channelName }
     if (event.key === "Enter" && event.shiftKey) {
       setMessage((prevInput) => prevInput + "\n");
     } else if (event.key === "Enter") {
-      event.preventDefault();
-      setMessage('')
+        event.preventDefault();
+        try{
+          console.log("Hello")
+          const response = await saveChat(receiverId, payload)
+          console.log(response)
+          setMessage('')
+        } catch (e) {
+            console.log(e)
+        }
+        
     }
   };
 
@@ -72,7 +91,7 @@ function ChatComponent({isModelChatClose}) {
       
         <div className={styles.line_div}>
             <hr className={styles.line1}/>
-            <span className={styles.started}>Conversation Started, 15 Oct</span>
+            <span className={styles.started}>Conversation Started, {moment(today).format("DD MMM")}</span>
             <hr className={styles.line2}/>
         </div>
         {messages.length > 0 ? (
@@ -82,7 +101,7 @@ function ChatComponent({isModelChatClose}) {
                   key={message.id}
                   className={`${styles.message} ${message.sent ? styles.sent : ''}`}
                 >
-                  {message.text}
+                {message.message}
                 </div>
                       <div className={styles.input_div}>
                       <div className={styles.input_icon}>
@@ -127,7 +146,7 @@ function ChatComponent({isModelChatClose}) {
             
             <>
             <div className={styles.message}>
-                message.text message.text message.text message.text message.text message.text message.text
+                Start a chat
             </div>
             <div className={styles.input_div}>
                 <div className={styles.input_icon}>

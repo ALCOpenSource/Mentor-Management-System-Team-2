@@ -21,5 +21,5 @@ export const updateUserProfile = async (payload) => {
 
 export const fetchUsers = async (query) => {
   const url = "/user" + query;
-  return await http.put(url);
+  return await http.get(url);
 };

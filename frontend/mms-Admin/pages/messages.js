@@ -5,13 +5,15 @@ import { Avatar } from "antd";
 import { fetchUsers } from "./api/user"
 import Icon from "../components/Icon";
 import NotificationIcon from '../components/NotificationIcon';
-import SocketProvider from 'Context/socket';
+import { convertToURLQuery } from "utils/extractTitleFromUrl";
+// import SocketProvider from 'Context/socket';
 
 function Messages() {
   
   const [selectedUser, setSelectedUser] = useState('');
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(5);
+  const [maxPage, setMaxPage] = useState(null);
   const [items, setItems] = useState([]);
   const containerRef = useRef(null);
 
@@ -19,25 +21,23 @@ function Messages() {
     const query = { page, limit }
     try {
       const { data } = await fetchUsers(convertToURLQuery(query))
-      console.log(data)
-      const newItems = data?.data;
-      setItems(newItems);
-      setPage(page + 1);
+      const newItems = data?.users?.data ?? [];
+      setItems(prevItems => [...prevItems, ...newItems]);
+      setMaxPage(data?.meta?.last_page ?? maxPage);
     } catch (error) {}
   };
   
   
   useEffect(() => {
     loadMore()
-  }, [])
+  }, [page])
 
   const handleScroll = () => {
     const element = containerRef.current;
     if (!element) return;
     const { scrollTop, scrollHeight, clientHeight } = element;
     if (scrollTop + clientHeight >= scrollHeight) {
-      loadMore();
-      setPage(currentPage += 1);
+      setPage(page += 1);
     } else if (scrollTop === 0 && page > 1) {
       setPage(page -= 1);
     }
@@ -68,8 +68,8 @@ function Messages() {
     <div className={styles.main_div}>
         {!isMobile && (
             <div className={styles.side_div} ref={containerRef}>
-                {items.length > 0 ? (
-                  items.map(user => (
+                {items?.length > 0 ? (
+                  items?.map(user => (
                         <div className={styles.side_div_sub} key={user.id} onClick={() => handleUserClick(user.id)}>
                             Helo
                         </div>
@@ -111,11 +111,11 @@ function Messages() {
             </div>
         )}
         <div className={styles.chat_div}>
-            {<ChatComponent userId={selectedUser} />}
+            {<ChatComponent receiverId={selectedUser} />}
         </div>
         {isMobile && selectedUser && (
             <div className={styles.chat_div_mobile}>
-                <ChatComponent userId={selectedUser} isModelChatClose={handleUserClose}/>
+                <ChatComponent receiverId={selectedUser} isModelChatClose={handleUserClose}/>
             </div>
         )}
     </div>

@@ -23,25 +23,24 @@ function TasksSidebar(props) {
       setData(data?.data);
       const newItems = data?.data;
       setItems(newItems);
-      setPage(page + 1);
       setLoading(false)
     } catch (error) {}
   };
   
   useEffect(() => {
     loadMore()
-  }, [])
+  }, [page])
   const handleScroll = () => {
     const element = containerRef.current;
     if (!element) return;
     const { scrollTop, scrollHeight, clientHeight } = element;
     if (scrollTop + clientHeight >= scrollHeight) {
-      loadMore();
-      setPage(currentPage += 1);
+      setPage(prevPage => prevPage + 1);
     } else if (scrollTop === 0 && page > 1) {
-      setPage(page -= 1);
+      setPage(prevPage => prevPage - 1);
     }
   };
+  
   
   useEffect(() => {
     const element = containerRef.current;
