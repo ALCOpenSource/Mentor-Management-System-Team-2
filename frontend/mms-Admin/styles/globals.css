@@ -16,3 +16,38 @@ body {
   color: #fff;
   font-weight: 600;
 }
+
+.flex {
+  display: flex;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-justify-center {
+  justify-content: center;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+.flex-justify-between {
+  justify-content: space-between;
+}
+
+.flex-align-between {
+  align-items: space-between;
+}
+
+.gap-10 {
+  gap: 10px;
+}
+.relative {
+  position: relative;
+}
