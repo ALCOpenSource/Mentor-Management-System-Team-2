@@ -2,7 +2,6 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Task from 'App/Models/Task'
 import User from 'App/Models/User'
 import TaskMentorManager from 'App/Models/TaskMentorManager'
-import Database from '@ioc:Adonis/Lucid/Database'
 import Roles from 'App/Enums/Roles'
 
 export default class MentorManagerController {
@@ -69,13 +68,11 @@ export default class MentorManagerController {
         }
       })
 
-      return response
-        .status(200)
-        .json({
-          status: 'success',
-          message: 'Mentor Manager Tasks fetched successfully',
-          data: tasksWithCounts,
-        })
+      return response.status(200).json({
+        status: 'success',
+        message: 'Mentor Manager Tasks fetched successfully',
+        data: tasksWithCounts,
+      })
     } catch (error) {
       return response.status(500).send({ message: 'Error fetching task.' })
     }
@@ -104,38 +101,6 @@ export default class MentorManagerController {
       return response.ok({ status: 'success', message: 'Mentor manager removed from task' })
     } catch (error) {
       return response.status(500).send({ message: 'Error removing mentor manager from task.' })
-    }
-  }
-
-  async deleteAMentorManager({ auth, params, response }: HttpContextContract) {
-    const user = auth.user
-    if (!user || !user.isAdmin) {
-      response.unauthorized({ message: 'You are not authorized to access this resource.' })
-      return
-    }
-    const { mentorManagerId } = params
-
-    try {
-      await Database.transaction(async (trx) => {
-        const result = await User.query()
-          .where('id', mentorManagerId)
-          .andWhere('roleId', Roles.MENTOR_MANAGER)
-          .firstOrFail()
-        result.useTransaction(trx).delete()
-        const taskMentorManagers = await TaskMentorManager.query()
-          .where('id', mentorManagerId)
-          .preload('task')
-          .useTransaction(trx)
-        taskMentorManagers.map(async (taskMentorManager) => {
-          await taskMentorManager.useTransaction(trx).delete()
-          const task = taskMentorManager.task
-          await task.related('mentorManagers').detach([mentorManagerId])
-        })
-      })
-
-      return response.ok({ message: 'Mentor Manager deleted successfully' })
-    } catch (error) {
-      response.badRequest({ message: 'Error deleting User', status: 'Error' })
     }
   }
 }
