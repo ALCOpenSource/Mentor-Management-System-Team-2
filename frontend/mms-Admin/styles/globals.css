@@ -41,6 +41,10 @@ body {
   justify-content: space-between;
 }
 
+.flex-justify-around {
+  justify-content: space-around;
+}
+
 .flex-align-between {
   align-items: space-between;
 }
