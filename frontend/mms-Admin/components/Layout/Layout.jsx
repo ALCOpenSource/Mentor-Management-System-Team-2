@@ -8,32 +8,58 @@ import Pagination from "../Pagination";
 import { extractTitleFromUrl } from "../../utils/extractTitleFromUrl";
 import styles from "styles/layout.module.css";
 import Icon from "../Icon";
-import { CustomButton } from "../formInputs/CustomInput";
+import { CustomButton, CustomInput } from "../formInputs/CustomInput";
 import { useStateValue } from "store/context";
 import { GlobalContextProvider } from "../../Context/store";
 import { fetchArchive } from "pages/api/archive"
+import { fetchTasks } from "pages/api/task";
 import { convertToURLQuery } from "utils/extractTitleFromUrl"
 
 
 const AppLayout = ({ children }) => {
   const [headerTitle, setHeaderTitle] = useState("");
   const [page, setPage] = useState(1);
+  const [mentorPage, setMentorPage] = useState(1);
   const [limit, setLimit] = useState(10);
   const [search, setSearch] = useState("");
+  const [searchMentor, setSearchMentor] = useState("");
+  const [searchTask, setSearchTask] = useState("");
   const router = useRouter();
   const [loading, setLoading] = useState(false)
+  const [showMentorSearch, setShowMentorSearch] = useState(false)
   const [total, setTotal] = useState({});
   const { Content } = Layout;
   const { dispatch } = useStateValue();
-
+  const [ {taskSearch} ] = Object.values(useStateValue())
+  const pageNumber = taskSearch?.page
+  console.log(pageNumber)
   const handlePageChange = (newPage) => {
     setPage(newPage);
+  };
+
+  const handleMentorPageChange = (newPage) => {
+    setMentorPage(newPage);
   };
 
   const handleOnchange = (event) => {
     event.preventDefault();
     setSearch(event.target.value);
   };
+
+  const handleOnchangeMentor = (event) => {
+    event.preventDefault();
+    setSearchMentor(event.target.value);
+  }
+
+  const handleOnchangeTask = (event) => {
+    event.preventDefault();
+    setSearchTask(event.target.value);
+  }
+  const handleShow = (event) => {
+    event.preventDefault();
+    setShowMentorSearch(!showMentorSearch);
+  };
+  
 
   useEffect(() => {
     let pathname = router?.pathname;
@@ -42,6 +68,7 @@ const AppLayout = ({ children }) => {
   }, [router]);
   
   const loadMore = async () => {
+    taskSearch
     const query = { search, page, limit }
     try {
       setLoading(true)
@@ -59,6 +86,25 @@ const AppLayout = ({ children }) => {
   useEffect(() => {
     loadMore()
   }, [page, search]);
+
+  const loadTask = async () => {
+    const query = { search:searchTask, page:pageNumber, limit }
+    console.log(query)
+    try {
+      setLoading(true)
+      const { data } = await fetchTasks(convertToURLQuery(query))
+      const newData = data;
+      dispatch({
+        type: 'TASK_SEARCH',
+        payload: newData
+      })
+      setLoading(false)
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    loadTask()
+  }, [pageNumber, searchTask]);
 
   return (
     <GlobalContextProvider>
@@ -90,8 +136,21 @@ const AppLayout = ({ children }) => {
                   )}
                   {router?.pathname === "/tasks" && (
                     <>
+                    {
+                      showMentorSearch !== false ? (
+                        <CustomInput
+                        className={[styles.archive_input]}
+                        size="large"
+                        placeholder="Search Task"
+                        type="task"
+                        required
+                        value={searchTask}
+                        onChange={handleOnchangeTask}
+                      />
+                      ): ''
+                     }
                       <div className={[styles.task_icon]}>
-                        <div className={[styles.task_search_icon]}>
+                        <div className={[styles.task_search_icon]} onClick={handleShow}>
                           <Icon
                             icon={"/assets/images/search.svg"}
                             width={"20px"}
@@ -125,10 +184,78 @@ const AppLayout = ({ children }) => {
                         </div>
                       </div>
                       <span className={[styles.task_create]}>
-                        <CustomButton className={styles.taskbutton}>
+                        <CustomButton className={styles.taskbutton} onClick={() => router.push("/broadcast")}>
                           Send Broadcast Message
                         </CustomButton>
                       </span>
+                    </>
+                  )}
+                  {router?.pathname === "/mentors" && (
+                    <>
+
+                    <span className={[styles.task_memtor]}>
+                        <CustomButton className={styles.mentorbutton1} onClick={() => router.push("/broadcast")}>
+                         Send Broadcast Message
+                        </CustomButton>
+                        <CustomButton className={styles.mentorbutton}>
+                          Add New Mentor
+                        </CustomButton>
+                      </span>
+                     <Pagination
+                        total={30}
+                        currentPage={mentorPage}
+                        onPageChange={handleMentorPageChange}
+                      />
+                     {
+                      showMentorSearch !== false ? (
+                        <CustomInput
+                        className={[styles.archive_input]}
+                        size="large"
+                        placeholder="Search Mentor"
+                        type="mentor"
+                        required
+                        value={searchMentor}
+                        onChange={handleOnchangeMentor}
+                      />
+                      ): ''
+                     }
+                     {
+                      showMentorSearch !== false ? (
+                        <div className={[styles.mentor_icon1]}>
+                        <div className={[styles.task_search_icon]} onClick={handleShow}>
+                          <Icon
+                            icon={"/assets/images/search.svg"}
+                            width={"20px"}
+                            height={"20px"}
+                          />
+                        </div>
+                        <div className={[styles.task_filter_icon]}>
+                          <Icon
+                            icon={"/assets/images/filter.svg"}
+                            width={"25px"}
+                            height={"25px"}
+                          />
+                        </div>
+                      </div>
+                      ) : (
+                        <div className={[styles.mentor_icon]}>
+                        <div className={[styles.task_search_icon]} onClick={handleShow}>
+                          <Icon
+                            icon={"/assets/images/search.svg"}
+                            width={"20px"}
+                            height={"20px"}
+                          />
+                        </div>
+                        <div className={[styles.task_filter_icon]}>
+                          <Icon
+                            icon={"/assets/images/filter.svg"}
+                            width={"25px"}
+                            height={"25px"}
+                          />
+                        </div>
+                      </div>
+                      )
+                     }
                     </>
                   )}
                 </div>

@@ -71,7 +71,50 @@ function Messages() {
                 {items?.length > 0 ? (
                   items?.map(user => (
                         <div className={styles.side_div_sub} key={user.id} onClick={() => handleUserClick(user.id)}>
-                            Helo
+                              <div className={styles.side_div_sub_chat}>
+                              {user.profile_image_path !== null ? (
+                                <Avatar
+                                  size={43}
+                                  icon={
+                                      <Icon
+                                          icon={"/assets/images/admin_avatar.png"}
+                                          width={"43px"}
+                                          height={"43px"}
+                                      />
+                                  }
+                              />
+
+                              ) : (
+                                <Avatar
+                                  size={43}
+                                  icon={
+                                    <Icon
+                                      icon={"/assets/images/admin_avatar.png"}
+                                      width={"43px"}
+                                      height={"43px"}
+                                      />
+                                  }
+                                />
+                              )}
+                          </div>
+                            <div className={styles.side_div_sub_desc}>
+                              <div className={styles.side_div_sub_detail}>
+                                  <div className={styles.name}>
+                                      {user.first_name} {user.last_name}
+                                  </div>
+                                  <div className={styles.detail}>
+                                      {user.bio.slice(0, 25)} ...
+                                  </div>
+                              </div>
+                                {/*<div className={styles.side_div_sub_detail2}>
+                                  <div className={styles.time}>
+                                      30m
+                                  </div>
+                                  <div className={styles.notic}>
+                                      <NotificationIcon count={3}/>
+                                  </div>
+                                </div>*/}
+                          </div>
                         </div>
                     ))
                 ) : (

@@ -4,24 +4,24 @@ import { Modal } from "antd";
 import styles from "./componentStyles/splashscreen.module.css";
 import { CustomButton } from "./formInputs/CustomInput";
 import toast from 'react-hot-toast';
-import { deleteTask } from "pages/api/task";
-function DeleteTask({
+import { deleteMentor } from "pages/api/task";
+function DeleteMentor({
   image,
   message,
   width,
   height,
   isDeleteOpen,
   setIsDeleteOpen,
-  data
+  mentorId
 }) {
   const handleClose = () => {
     setIsDeleteOpen(false);
   };
 
-  const DeleteTask = async (taskId) => {
+  const DeleteMentor = async (mentorId) => {
 
     try {
-      const response = await deleteTask(taskId);
+      const response = await deleteMentor(mentorId);
       if (response.status === 200) {
         toast.success(response?.data?.message);
         setIsDeleteOpen(false);
@@ -54,7 +54,7 @@ function DeleteTask({
           </div>
           <div>
             <CustomButton onClick={handleClose} className={styles.modal_b1}>Undo</CustomButton>
-            <CustomButton onClick={()=> DeleteTask(data.id)} className={styles.modal_b2}>Done</CustomButton>
+            <CustomButton onClick={()=> DeleteMentor(mentorId)} className={styles.modal_b2}>Done</CustomButton>
           </div>
         </div>
       </Modal>
@@ -62,4 +62,4 @@ function DeleteTask({
   );
 }
 
-export default DeleteTask;
+export default DeleteMentor;

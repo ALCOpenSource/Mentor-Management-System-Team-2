@@ -23,7 +23,7 @@ function Archive() {
           />
         </div>
         <div className={styles.main_sub_content}>
-          <p>{data?.name}</p>
+          <p>{data?.name.slice(0, 50)}</p>
           <div className={styles.main_sub_con_main}>
             <div className={styles.main_sub_con}>
               <span className={styles.main_sub_content_timeicon}>

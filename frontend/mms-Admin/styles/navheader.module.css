@@ -4,6 +4,12 @@
   justify-content: space-between;
 }
 
+.module_header_span {
+  margin-top: 0.6rem;
+  display: inline-block;
+  margin-left: 2rem;
+}
+
 .module_header_title {
   color: #141414;
   margin-bottom: 0.5rem;

@@ -13,6 +13,9 @@ function ChatComponent({receiverId,isModelChatClose}) {
   const [isMobile, setIsMobile] = useState(false);
   const [message, setMessage] = useState('');
   const [senderId, setSenderId] = useState(Number(''))
+  const [selectedfile, setSelectedFile] = useState(null);
+  const [fileName, setFileName] = useState("");
+  const fileInput = useRef(null);
   let allMessages = [];
   const today = new Date().toLocaleDateString();
     React.useEffect(() => {
@@ -29,26 +32,36 @@ function ChatComponent({receiverId,isModelChatClose}) {
       // },
       cluster: 'eu'
     });
-
     const channelName = `${receiverId}-${senderId}`;
+    const formData = new FormData();
+    const recipientId = receiverId
+    formData.append("imageUrl", selectedfile);
+    formData.append("message", message);
+    formData.append("recipientId", recipientId);
+    formData.append("senderId", senderId);
+    formData.append("channelName", channelName);
+    
+
     useEffect(() => {
       const sender = localStorage.getItem('userid');
       setSenderId(sender)
       Pusher.logToConsole = true;
       const channel = pusher.subscribe(channelName);
-      channel.bind('message', function (data) {
-          allMessages.push(data);
-          setMessages(allMessages);
+      // channel.bind(channelName, (formData) => {
+      //     allMessages.push(formData);
+      //     setMessages(allMessages);
+      //     console.log(messages, "helo")
+      // });
+      channel.bind(channelName, (formData) => {
+        setMessages(prevMessages => [...prevMessages, formData]);
       });
   }, [receiverId]);
-
-    const [selectedfile, setSelectedFile] = useState(null);
-    const fileInput = useRef(null);
+    
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
         setSelectedFile(file);
-        setMessage(file.name);
+        setFileName(file?.name);
     };
 
     const [showPicker, setShowPicker] = useState(false);
@@ -59,18 +72,23 @@ function ChatComponent({receiverId,isModelChatClose}) {
     };
 
    const handleKeyDown = async (event) => {
-    const payload = { message , receiverId, senderId, channelName }
+    
+    // const payload = { message , receiver, senderId, channelName, selectedfile }
     if (event.key === "Enter" && event.shiftKey) {
       setMessage((prevInput) => prevInput + "\n");
     } else if (event.key === "Enter") {
         event.preventDefault();
         try{
           console.log("Hello")
-          const response = await saveChat(receiverId, payload)
+          const response = await saveChat(receiverId, formData)
           console.log(response)
-          setMessage('')
         } catch (e) {
             console.log(e)
+        }
+        finally {
+          setMessage('')
+          setSelectedFile(null)
+          setFileName('')
         }
         
     }
@@ -125,6 +143,7 @@ function ChatComponent({receiverId,isModelChatClose}) {
                               style={{ display: 'none' }}
                               ref={fileInput}
                           />
+                          {fileName && <p>Selected file: {fileName}</p>}
                         </div>
                       </div>
                       <div className={styles.input}>
@@ -170,6 +189,7 @@ function ChatComponent({receiverId,isModelChatClose}) {
                         style={{ display: 'none' }}
                         ref={fileInput}
                     />
+                    {fileName && <span>{fileName}</span>}
                   </div>
                 </div>
                 <div className={styles.input}>
