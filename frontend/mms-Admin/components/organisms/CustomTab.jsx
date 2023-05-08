@@ -1,20 +1,29 @@
 import styles from "./styles/custom_tab.module.scss";
+import Link from "next/link";
 
-export const CustomTab = ({ tabData }) => {
+export const CustomTab = ({ children }) => {
   return (
     <div>
       <div
         className={`${styles.tab_header} flex flex-justify-around`}
         style={{ borderBottom: "1px solid #CCCCCC" }}>
-        <div className={styles.tab_title}>About</div>
-        <div className={styles.tab_title}>Programs</div>
-        <div className={styles.tab_title}>Tasks</div>
-        <div className={styles.tab_title}>Certificates</div>
+        <div className={styles.tab_title}>
+          <Link href="about">About</Link>
+        </div>
+        <div className={styles.tab_title}>
+          <Link href="programs">Programs</Link>
+        </div>
+        <div className={styles.tab_title}>
+          <Link href="tasks">Tasks</Link>
+        </div>
+        <div className={styles.tab_title}>
+          <Link href="certificates">Certificates</Link>
+        </div>
       </div>
       <div
         className="flex flex-justify-center flex-align-center"
         style={{ height: "50vh" }}>
-        Content goes here
+        {children}
       </div>
     </div>
   );

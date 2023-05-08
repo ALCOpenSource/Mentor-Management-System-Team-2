@@ -12,6 +12,7 @@ import { useLogin } from "../hooks/useLogin";
 import { useEffect } from "react";
 
 const App = ({ Component, pageProps, session }) => {
+  const getLayout = Component.getLayout || ((page) => page);
   const { token } = useLogin();
   const router = useRouter();
 
@@ -37,7 +38,7 @@ const App = ({ Component, pageProps, session }) => {
       <ContextProvider>
         <SessionProvider session={session}>
           <WithAuth
-            component={<Component {...pageProps} />}
+            component={getLayout(<Component {...pageProps} />)}
             route={router?.route}
           />
         </SessionProvider>
