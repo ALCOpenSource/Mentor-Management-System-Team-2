@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 const generateButtonStyle = (variant, size, bordered) => ({
   ...pickBtnTheme(variant),
   ...generateBtnPadding(size),
-  border: bordered ? "1px solid ##058B94" : "none",
+  border: bordered ? "1px solid #058B94" : "none",
   cursor: "pointer",
 });
 
@@ -27,7 +27,7 @@ const generateBtnPadding = (size) => {
     case "small":
       return { padding: "8px 16px", borderRadius: "5px", fontSize: "10px" };
     case "large":
-      return { padding: "16px 40px", borderRadius: "10px" };
+      return { padding: "14px 28px", borderRadius: "10px" };
     default:
       return { padding: "1rem", borderRadius: "10px" };
   }
@@ -35,7 +35,9 @@ const generateBtnPadding = (size) => {
 
 export const Button = (props) => {
   return (
-    <button {...props} style={generateButtonStyle(props.variant, props.size)}>
+    <button
+      {...props}
+      style={generateButtonStyle(props.variant, props.size, props.bordered)}>
       {props.children}
     </button>
   );

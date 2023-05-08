@@ -2,7 +2,7 @@ import { Button } from "../atoms/Button";
 import { CustomTab } from "./CustomTab";
 import styles from "./styles/mentor_details.module.scss";
 
-export const MentorDetails = ({ mentorData, children }) => {
+export const MentorDetails = ({ mentorData, children, subPages }) => {
   return (
     <>
       <div
@@ -24,7 +24,7 @@ export const MentorDetails = ({ mentorData, children }) => {
           </Button>
         </div>
       </div>
-      <CustomTab>{children}</CustomTab>
+      <CustomTab tabs={subPages}>{children}</CustomTab>
     </>
   );
 };
