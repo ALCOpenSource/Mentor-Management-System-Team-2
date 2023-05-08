@@ -128,9 +128,9 @@ div.broadcast_message:not(:last-child) {
   border: 1px solid #e6fdfe;
   background: #f7feff;
   top: 1.5rem;
-  height: 48px !important;
-  display: flex !important;
-  align-items: center !important;
+  height: 48px;
+  display: flex;
+  align-items: center;
 }
 
 .message_input {
