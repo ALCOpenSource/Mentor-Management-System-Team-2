@@ -9,7 +9,6 @@ const BroadcastTextArea = ({ handleSubmit }) => {
   const { TextArea } = Input;
   const [file, setFile] = useState(null);
   const [message, setMessage] = useState("");
-  // const [emoji, setEmoji] = useState(false);
   const [emojiPickerActive, setEmojiPickerActive] = useState(false);
   const fileList = [];
   const handleMessageChange = (e) => {
@@ -50,12 +49,6 @@ const BroadcastTextArea = ({ handleSubmit }) => {
         </div>
       )}
 
-      {/* <Upload
-        action="#"
-        listType="picture"
-        defaultFileList={[...fileList]}>
-        
-      </Upload> */}
       <Icon name={"Attachment"} />
 
       <Input
@@ -65,14 +58,6 @@ const BroadcastTextArea = ({ handleSubmit }) => {
         onChange={handleMessageChange}
         onKeyDown={handleKeyDown}
       />
-      {/* <TextArea
-        className={styles.text_message_area}
-        placeholder="| Type a message..."
-        value={message}
-        onChange={handleMessageChange}
-        onKeyDown={handleKeyDown}
-        autoSize={{ minRows: 1, maxRows: 6 }}
-      /> */}
     </div>
   );
 };

@@ -6,14 +6,10 @@ import { Button } from "../../../components/atoms/Button";
 import { Accordion } from "../../../components/molecules/Accordion";
 
 function MentorTasks() {
-  // const [open, setOpen] = useState(false);
-
   return (
     <div class={styles.wrapper}>
       {[1, 2, 3, 4, 5].map(() => (
         <Accordion
-          // isOpen={open}
-          // setOpen={setOpen}
           header={
             <div className="flex flex-justify-between flex-align-center">
               <div className="flex flex-align-center">

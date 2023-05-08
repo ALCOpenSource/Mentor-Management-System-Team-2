@@ -33,24 +33,6 @@ export const CustomTab = (props) => {
   );
 };
 
-// [{
-//   name: "",
-//   createdAt: "",
-//   designation: "",
-//   programs: [],
-//   tasks: [],
-//   about: {},
-//   certificates: []
-// }, {
-//   name: "",
-//   createdAt: "",
-//   designation: "",
-//   programs: [],
-//   tasks: [],
-//   about: {},
-//   certificates: []
-// }]
-
 CustomTab.prototype = {
   children: PropTypes.node,
   tabs: PropTypes.array,
