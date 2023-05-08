@@ -1,5 +1,7 @@
 .wrapper {
   padding: 1rem 0;
+  overflow-y: scroll;
+  max-height: 62vh;
 }
 
 .task_title {

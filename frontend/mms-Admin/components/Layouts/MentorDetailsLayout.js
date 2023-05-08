@@ -2,6 +2,7 @@ import React from "react";
 import { MentorsList } from "../organisms/MentorList";
 import { MentorDetails } from "../organisms/MentorDetails";
 import { useRouter } from "next/router";
+import styles from "../../styles/mentors/mentors.module.scss";
 
 const MentorDetailsLayout = ({ children }) => {
   const router = useRouter();
@@ -22,10 +23,10 @@ const MentorDetailsLayout = ({ children }) => {
 
   return (
     <div className="flex">
-      <div style={{ width: "25%", padding: "1rem" }}>
+      <div className={styles.mentor_list_container}>
         <MentorsList />
       </div>
-      <div style={{ width: "75%", padding: "1rem" }}>
+      <div className={styles.mentor_details_container}>
         <MentorDetails subPages={subPages}>{children}</MentorDetails>
       </div>
     </div>
