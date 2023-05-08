@@ -10,13 +10,13 @@ import {
 import styles from "../styles/admin/discussionForum.module.css";
 import { Icon } from "./Icon/Icon";
 import EmojiPicker from "emoji-picker-react";
-import { createPost } from "pages/api/forum";
+import { editPost } from "pages/api/forum";
 
-export const CustomFormModal = ({
+export const EditPostModal = ({
   newTopic,
   setNewTopic,
-  posts,
-  setPosts,
+  data,
+  success,
   setSuccess,
 }) => {
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -24,11 +24,11 @@ export const CustomFormModal = ({
   const [file, setFile] = useState();
   const [uploading, setUploading] = useState(false);
   const [postData, setPostData] = useState({
-    title: "",
-    description: "",
+    title: data?.title,
+    description: data?.description,
     emoji: "happy face",
   });
-  const [message, setMessage]= useState("")
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -55,7 +55,6 @@ export const CustomFormModal = ({
   const handleSubmit = async (event) => {
     //call api here
     event.preventDefault();
-    console.log(postData);
     try {
       if (!postData.title || !postData.description) {
         setConfirmLoading(false);
@@ -63,7 +62,7 @@ export const CustomFormModal = ({
       }
 
       setConfirmLoading(true);
-      setMessage("")
+      setMessage("");
 
       const formData = new FormData();
       formData.append("imageUrl", file);
@@ -71,29 +70,23 @@ export const CustomFormModal = ({
       formData.append("description", postData.description);
       formData.append("emoji", JSON.stringify(postData.emoji));
 
-      const response = await createPost(formData);
+      const response = await editPost(data.id, formData);
 
-      if (response?.status === 201) {
-        setConfirmLoading(true);
-        setPostData({});
+      if (response?.status === 200) {
+        setConfirmLoading(false);
         setNewTopic(false);
         setSuccess(true);
+        setMessage(response.message);
       }
 
-      if (
-        response?.status === 401 ||
-        response?.status === 400 ||
-        response?.status === 403
-      ) {
+      if ( response?.status === 401 || response?.status === 400 || response?.status === 403) {
         setConfirmLoading(false);
-        setMessage(response?.message)
+        setMessage(response?.message);
         throw response;
       }
     } catch (e) {
       setConfirmLoading(false);
-      setMessage(e.message)
-      
-
+      setMessage(e.message);
     }
   };
   const handleCancel = () => {
@@ -109,16 +102,15 @@ export const CustomFormModal = ({
         width={866}
         footer={
           <CustomButton loading={confirmLoading} onClick={handleSubmit}>
-            Post to forum
+            Save Changes
           </CustomButton>
         }
         confirmLoading={confirmLoading}
         closable={false}>
         <Row className={styles.modal_container}>
-        {message && <p>{message}</p>}
+          {message && <p>{message}</p>}
 
           <Row className={styles.header_row}>
-
             <div className={styles.topic}>New Topic</div>
             <div style={{ cursor: "pointer" }} onClick={handleCancel}>
               <Icon name="Close" />
@@ -151,7 +143,7 @@ export const CustomFormModal = ({
                   <Icon name="SmileyFace" />
                 </Col>
 
-                <Upload  {...props} >
+                <Upload {...props}>
                   <Icon name="Pin" color="#058B94" />
                 </Upload>
               </Row>

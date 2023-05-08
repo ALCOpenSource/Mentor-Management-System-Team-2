@@ -17,6 +17,7 @@ const Login = ({ showPassword, setShowPassword }) => {
     password: "",
   });
   const { setToken, token } = useLogin();
+   
 
 
   const [errors, setErrors] = useState({});
@@ -43,17 +44,14 @@ const Login = ({ showPassword, setShowPassword }) => {
 
         if (response.status === 200) {
           setToken(response.data.token.token);
-          console.log("here we are");
-          router.back()
+          router.push("/profile");
         }
 
         if (response.status === 401 || response.status === 400) {
           setMessage(response.message);
         }
         setLoading(false);
-      } catch (e) {
-        setMessage(response.message);
-      }
+      } catch (e) {}
     }
   };
 

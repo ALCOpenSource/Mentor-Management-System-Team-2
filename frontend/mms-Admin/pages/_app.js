@@ -16,15 +16,13 @@ const App = ({ Component, pageProps, session }) => {
   const router = useRouter();
 
   if (!token) {
-    console.log("here");
     return (
       <>
         <ContextProvider>
           <SessionProvider session={session}>
-            <Login />;
+            <Login />
           </SessionProvider>
         </ContextProvider>
-        ;
       </>
     );
   }

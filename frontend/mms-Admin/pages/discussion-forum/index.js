@@ -9,6 +9,9 @@ import styles from "styles/admin/discussionForum.module.css";
 import usePostFetch from "../../hooks/usePostFetch";
 import { useStateValue } from "store/context";
 import { Loader } from "components/Loader";
+import { fetchPosts } from "../api/forum";
+import { useRouter } from "next/router";
+
 
 function DiscussionForum() {
   const [newTopic, setNewTopic] = useState(false);
@@ -16,11 +19,35 @@ function DiscussionForum() {
   const [posts, setPosts] = useState([]);
   const [success, setSuccess] = useState(false);
   const [pageNumber, setPageNumber] = useState(1);
-  const { data, error, loading, hasMore } = usePostFetch(pageNumber,success);
+  // const { data, error, loading, hasMore } = usePostFetch(pageNumber,success);
   const { state, dispatch } = useStateValue();
+  const observer = useRef();
+const router = useRouter()
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [hasMore, setHasMore] = useState(true);
 
-  const observer = useRef(); 
+   
 
+  useEffect(() => {
+    fetchPosts(pageNumber)
+      .then((res) => {
+        setData((prevData) => {
+          return [...prevData, ...res.data?.posts?.data];
+        });
+        setError(false);
+        setLoading(false);
+        setPageNumber(res.data?.posts?.meta?.current_page);
+        if (!res.data.posts?.meta?.next_page_url) {
+          setHasMore(false);
+        }
+      }) 
+      .catch((e) => {
+        setError(true);
+        setLoading(false);
+      });
+  }, [pageNumber]);
 
   const lastPostElementRef = useCallback(
     (node) => {
@@ -101,6 +128,7 @@ function DiscussionForum() {
           height={"165px"}
           isModalOpen={success}
           setIsModalOpen={setSuccess}
+          success
         />
       )}
     </>
