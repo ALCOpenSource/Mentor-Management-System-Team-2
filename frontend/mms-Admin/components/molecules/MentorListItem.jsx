@@ -7,12 +7,8 @@ export const MentorListItem = () => {
     <div
       className={`flex flex-align-center flex-justify-between ${styles.wrapper}`}>
       <div className="flex">
-        <div className={styles.user_img}></div>
-        <div className="flex flex-justify-center flex-column">
-          {/* We need to reset padding and margin for p and all heading elements to avoid this */}
-          <p className={styles.user_name}>Anna Jane</p>
-          <p className={styles.date_joined}>Added 0ct. 10 2022</p>
-        </div>
+        <UserAvatar />
+        <UserDetails />
       </div>
       <div>
         <Button variant="normal" size="small" bordered>
@@ -22,3 +18,17 @@ export const MentorListItem = () => {
     </div>
   );
 };
+
+function UserDetails() {
+  return (
+    <div className="flex flex-justify-center flex-column">
+      {/* We need to reset padding and margin for p and all heading elements to avoid this */}
+      <p className={styles.user_name}>Anna Jane</p>
+      <p className={styles.date_joined}>Added 0ct. 10 2022</p>
+    </div>
+  );
+}
+
+function UserAvatar() {
+  return <div className={styles.user_img}></div>;
+}

@@ -1,4 +1,4 @@
-import styles from "../../styles/mentors/about.module.scss";
+import styles from "./styles/custom_tab.module.scss";
 
 export const CustomTab = ({ tabData }) => {
   return (
@@ -11,7 +11,11 @@ export const CustomTab = ({ tabData }) => {
         <div className={styles.tab_title}>Tasks</div>
         <div className={styles.tab_title}>Certificates</div>
       </div>
-      <div>Tab content</div>
+      <div
+        className="flex flex-justify-center flex-align-center"
+        style={{ height: "50vh" }}>
+        Content goes here
+      </div>
     </div>
   );
 };
