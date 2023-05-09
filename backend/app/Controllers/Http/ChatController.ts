@@ -106,7 +106,6 @@ export default class ChatController {
         })
         .orderBy('created_at', 'asc')
         .paginate(page || 1, limit || 10)
-      console.log(messages)
       if (!messages) {
         return response.notFound({
           message: `No previous conversations`,
