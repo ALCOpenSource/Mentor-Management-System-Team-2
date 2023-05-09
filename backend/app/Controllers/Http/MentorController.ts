@@ -24,6 +24,21 @@ export default class MentorController {
     return { status: 'success', message: 'Fetched all mentors successful', mentors }
   }
 
+  async search({ request, response }: HttpContextContract) {
+    const query = request.input('query')
+
+    const res = await User.query()
+      .where((queryBuilder) => {
+        queryBuilder
+          .whereRaw('lower(first_name) like ?', [`%${query.toLowerCase()}%`])
+          .orWhereRaw('lower(last_name) like ?', [`%${query.toLowerCase()}%`])
+      })
+      .where('role_id', Roles.MENTOR)
+      .whereNull('deleted_at')
+
+    return response.ok(res)
+  }
+
   async getMentorTask({ auth, params, request, response }: HttpContextContract) {
     const user = auth.user
     if (!user || !user.isAdmin) {

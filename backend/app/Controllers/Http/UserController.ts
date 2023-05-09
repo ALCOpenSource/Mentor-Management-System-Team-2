@@ -7,8 +7,6 @@ import Mail from '@ioc:Adonis/Addons/Mail'
 import { nanoid } from 'nanoid'
 import Env from '@ioc:Adonis/Core/Env'
 import Mail from '@ioc:Adonis/Addons/Mail'
-import { schema } from '@ioc:Adonis/Core/Validator'
-import Document from 'App/Models/Document'
 
 export default class AuthenticationController {
   async getAllUsers({ auth, request, response }: HttpContextContract) {
@@ -94,7 +92,7 @@ export default class AuthenticationController {
       const inviteCode = nanoid()
       const user = await User.findBy('email', email)
 
-      if(user) throw new Error("User already exist");
+      if (user) throw new Error('User already exist')
 
       const newUser = new User()
       newUser.fill({ email, firstName, lastName, roleId, inviteCode, password })
