@@ -52,7 +52,9 @@ const Login = ({ showPassword, setShowPassword }) => {
           setMessage(response.message);
         }
         setLoading(false);
-      } catch (e) {}
+      } catch (e) {
+        setMessage(e.message);
+      }
     }
   };
 

@@ -37,12 +37,17 @@ Route.group(() => {
   Route.group(() => {
     Route.get('/', 'UserController.getAllUsers')
     Route.get('/:userId/about', 'UserController.getAboutUser')
-    Route.get('/mentor-managers', 'UserController.getAllMentorManagers')
+    Route.post('/invite', 'UserController.inviteUser')
     Route.post('/document', 'UserController.uploadDocument')
   }).prefix('user')
 
   Route.group(() => {
+    Route.get('/:userId/certificates', 'ProgramsCertificateController.getUserCertificates')
+  }).prefix('certificate')
+
+  Route.group(() => {
     Route.get('/', 'MentorController.getAllMentors')
+    Route.get('/search', 'MentorController.search')
     Route.get('/:mentorId/tasks', 'MentorController.getMentorTask')
     Route.delete('/delete/:mentorId', 'MentorController.deleteAMentor')
     Route.delete('/:taskId/:mentorId', 'MentorController.removeMentorFromTask')
@@ -50,13 +55,14 @@ Route.group(() => {
 
   Route.group(() => {
     Route.get('/', 'MentorManagerController.getAllMentorManagers')
+    Route.get('/search', 'MentorManagerController.search')
     Route.get('/:mentorManagerId/tasks', 'MentorManagerController.getMentorManagerTask')
     Route.delete('/delete/:mentorManagerId', 'MentorManagerController.deleteAMentorManager')
     Route.delete('/:taskId/:mentorManagerId', 'MentorManagerController.removeMentorManagerFromTask')
   }).prefix('mentor-manager')
 
   Route.group(() => {
-    Route.get('/:channelName', 'ChatController.getAllChat')
+    Route.get('/:senderId/:recipientId', 'ChatController.getAllChat')
     Route.post('/channel', 'ChatController.authChatChannel')
     Route.post('/', 'ChatController.authChatUser')
     Route.post('/:receiverId', 'ChatController.saveChat')
