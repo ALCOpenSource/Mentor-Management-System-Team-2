@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "../atoms/Button";
 import styles from "./styles/mentor_list_item.module.scss";
-import Link from "next/link";
 import { format } from "date-fns";
 
 export const MentorListItem = ({ data }) => {
