@@ -60,7 +60,7 @@ Route.group(() => {
   }).prefix('mentor-manager')
 
   Route.group(() => {
-    Route.get('/:channelName', 'ChatController.getAllChat')
+    Route.get('/:senderId/:recipientId', 'ChatController.getAllChat')
     Route.post('/channel', 'ChatController.authChatChannel')
     Route.post('/', 'ChatController.authChatUser')
     Route.post('/:receiverId', 'ChatController.saveChat')
