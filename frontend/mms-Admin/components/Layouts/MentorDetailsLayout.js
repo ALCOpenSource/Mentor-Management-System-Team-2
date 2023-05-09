@@ -7,7 +7,6 @@ import styles from "../../styles/mentors/mentors.module.scss";
 import { fetchMentors } from "pages/api/user";
 
 const MentorDetailsLayout = ({ children }) => {
-  const router = useRouter();
   const {
     data: mentors,
     isLoading,
@@ -18,18 +17,13 @@ const MentorDetailsLayout = ({ children }) => {
 
   if (isError) return "An error occured";
 
-  function selectMentor() {
-    const id = router.query.mentorID;
-    return mentors.filter((mentor) => mentor.id !== id)[0];
-  }
-
   return (
     <div className="flex">
       <div className={styles.mentor_list_container}>
         <MentorsList mentors={mentors} />
       </div>
       <div className={styles.mentor_details_container}>
-        <MentorDetails data={selectMentor()}>{children}</MentorDetails>
+        <MentorDetails mentors={mentors}>{children}</MentorDetails>
       </div>
     </div>
   );

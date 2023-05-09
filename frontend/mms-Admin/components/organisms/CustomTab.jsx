@@ -19,10 +19,7 @@ export const CustomTab = (props) => {
               className={`${activeTab ? styles.active : ""} ${
                 styles.link_wrapper
               }`}>
-              <Link
-                key={item.name}
-                className={styles.tab_title}
-                href={`${item.link}`}>
+              <Link className={styles.tab_title} href={item.link}>
                 {item.name}
               </Link>
             </div>

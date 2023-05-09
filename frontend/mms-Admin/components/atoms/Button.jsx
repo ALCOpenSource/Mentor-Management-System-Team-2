@@ -1,3 +1,4 @@
+import Link from "next/link";
 import PropTypes from "prop-types";
 
 const generateButtonStyle = (variant, size, bordered) => ({
@@ -36,6 +37,22 @@ const generateBtnPadding = (size) => {
 export const Button = (props) => {
   const otherProps = { ...props };
   delete otherProps.bordered;
+
+  if (props.type === "link")
+    return (
+      <Link href={props.url}>
+        <button
+          {...otherProps}
+          style={generateButtonStyle(
+            props.variant,
+            props.size,
+            props.bordered,
+          )}>
+          {props.children}
+        </button>
+      </Link>
+    );
+
   return (
     <button
       {...otherProps}
