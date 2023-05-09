@@ -1,8 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { MentorsList } from "../organisms/MentorList";
 import { MentorDetails } from "../organisms/MentorDetails";
-import { useRouter } from "next/router";
 import styles from "../../styles/mentors/mentors.module.scss";
 import { fetchMentors } from "pages/api/user";
 
