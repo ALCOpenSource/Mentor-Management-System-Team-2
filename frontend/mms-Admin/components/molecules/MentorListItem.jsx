@@ -2,6 +2,7 @@ import React from "react";
 import { Button } from "../atoms/Button";
 import styles from "./styles/mentor_list_item.module.scss";
 import { format } from "date-fns";
+import Image from "next/image";
 
 export const MentorListItem = ({ data }) => {
   const { first_name, last_name, id, isAdmin, isMentorManager, created_at } =
@@ -18,8 +19,14 @@ export const MentorListItem = ({ data }) => {
   return (
     <div
       className={`flex flex-align-center flex-justify-between ${styles.wrapper}`}>
-      <div className="flex">
-        <UserAvatar />
+      <div className="flex gap-10">
+        <Image
+          width={60}
+          height={60}
+          src={"/assets/images/user_img.png"}
+          alt="User profile image"
+          className={styles.user_img}
+        />
         <UserDetails name={fullName} createdAt={created_at} />
       </div>
 

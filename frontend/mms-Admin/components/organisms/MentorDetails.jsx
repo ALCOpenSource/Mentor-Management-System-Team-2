@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { Button } from "../atoms/Button";
 import { CustomTab } from "./CustomTab";
 import styles from "./styles/mentor_details.module.scss";
+import Image from "next/image";
 
 export const MentorDetails = ({ children }) => {
   const router = useRouter();
@@ -43,8 +44,15 @@ export const MentorDetails = ({ children }) => {
     <>
       <div
         className={`flex flex-align-center flex-justify-between ${styles.wrapper}`}>
-        <div className="flex">
-          <div className={styles.user_img}></div>
+        <div className="flex gap-10">
+          {/* <div className={styles.user_img}></div> */}
+          <Image
+            width={90}
+            height={90}
+            src={"/assets/images/user_img.png"}
+            alt="User profile image"
+            className={styles.user_img}
+          />
           <div className="flex flex-justify-center flex-column">
             <h2 className={styles.user_name}>{`${fullName}`}</h2>
             <p className={styles.designation}>{designation}</p>
