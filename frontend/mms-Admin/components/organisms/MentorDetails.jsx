@@ -45,11 +45,10 @@ export const MentorDetails = ({ children }) => {
       <div
         className={`flex flex-align-center flex-justify-between ${styles.wrapper}`}>
         <div className="flex gap-10">
-          {/* <div className={styles.user_img}></div> */}
           <Image
             width={90}
             height={90}
-            src={avatar ? avatar : "/assets/images/user_img.png"}
+            src={avatar ? avatar : "/assets/images/user_img.svg"}
             alt="User profile image"
             className={styles.user_img}
           />

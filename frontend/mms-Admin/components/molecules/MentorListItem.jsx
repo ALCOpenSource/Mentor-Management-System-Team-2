@@ -33,7 +33,7 @@ export const MentorListItem = ({ data }) => {
           src={
             profile_image_path
               ? profile_image_path
-              : "/assets/images/user_img.png"
+              : "/assets/images/user_img.svg"
           }
           alt="User profile image"
           className={styles.user_img}
