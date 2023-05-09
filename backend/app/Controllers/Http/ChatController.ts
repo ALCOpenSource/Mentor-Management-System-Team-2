@@ -14,7 +14,7 @@ export const pusher = new Pusher({
 })
 
 export default class ChatController {
-  async authChatChannel({ auth, response, request }: HttpContextContract) {
+  public async authChatChannel({ auth, response, request }: HttpContextContract) {
     try {
       const user = auth.user
       if (!user) {
@@ -35,7 +35,7 @@ export default class ChatController {
       return response.badRequest(error)
     }
   }
-  async authChatUser({ auth, response, request }: HttpContextContract) {
+  public async authChatUser({ auth, response, request }: HttpContextContract) {
     try {
       const user = auth.user
       if (!user) {
@@ -76,39 +76,37 @@ export default class ChatController {
       const postImage = request.file('imageUrl')
       await postImage?.moveToDisk('upload_file')
 
-      pusher.trigger(payload.channelName, payload.channelName, { chat })
-
       const chat = await Message.create({
         ...payload,
         imageUrl: postImage?.fileName,
         sentAt: DateTime.local(),
       })
-
+      pusher.trigger(payload.channelName, payload.channelName, { chat })
       return response.created({ status: 'success', message: 'Chat saved', chat })
     } catch (error) {
       return response.badRequest(error)
     }
   }
-  public async getAllChat({ auth, response, params }: HttpContextContract) {
+  public async getAllChat({ auth, response, request }: HttpContextContract) {
     try {
       const user = auth.user
       if (!user) {
         return response.unauthorized({ error: 'You must be logged in to chat' })
       }
-      const { channelName } = params
+      const { senderId, recipientId, page, limit } = request.all()
 
-      const channel = await Message.findBy('channel_name', channelName)
+      const messages = await Message.query()
+        .whereBetween('sender_id', [senderId, recipientId])
+        .andWhereBetween('recipient_id', [recipientId, senderId])
+        .orderBy('created_at', 'asc')
+        .paginate(page || 1, limit || 10)
 
-      if (!channel) {
+      if (!messages) {
         return response.notFound({
-          message: `No conversation for channel '${channelName}'`,
+          message: `No previous conversations`,
         })
       }
 
-      const messages = await Message.query()
-        .where('channel_name', channelName)
-        .orderBy('created_at', 'asc')
-        .exec()
       return response.ok({
         status: 'success',
         message: 'All Chat fetched successfully',
