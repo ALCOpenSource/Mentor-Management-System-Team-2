@@ -7,6 +7,11 @@ const gridStateReducer = (gridState, action) => {
         ...gridState,
         ...action.payload
       };
+      case GridActionTypes.MENTOR_DATA_STATE:
+      return {
+        ...gridState,
+        mentors: action.payload
+      };
     default:
       return gridState;
   }

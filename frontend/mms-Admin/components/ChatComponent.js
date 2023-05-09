@@ -7,6 +7,7 @@ import Icon from './Icon';
 import { authChatChannel, authChatUser, saveChat, getAllChat } from "pages/api/chat";
 import moment from "moment";
 import { useLogin } from '../hooks/useLogin';
+import { convertToURLQuery } from "utils/extractTitleFromUrl";
 
 
 
@@ -18,6 +19,10 @@ function ChatComponent({receiverId,isModelChatClose}) {
   const [fileName, setFileName] = useState("");
   const fileInput = useRef(null);
   const chatBoxRef = useRef(null);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+  const [maxPage, setMaxPage] = useState(null);
+  const containerRef = useRef(null);
   const {user} = useLogin()
   let allMessages = [];
   const today = new Date().toLocaleDateString();
@@ -35,8 +40,13 @@ function ChatComponent({receiverId,isModelChatClose}) {
       // },
       cluster: 'eu'
     });
+
+    useEffect(() => {
+      setMessages([]); // clear the messages state when receiverId changes
+    }, [receiverId]);
     
     const formData = new FormData();
+    
     let channelName = '';
     if (receiverId) {
       channelName = `${receiverId}-${user?.id}`;
@@ -58,7 +68,52 @@ function ChatComponent({receiverId,isModelChatClose}) {
       }
       
     }
+
     
+
+
+    const loadChat = async () => {
+      const payload = { senderId: user?.id, recipientId:receiverId, page, limit };
+      try{
+        const response = await getAllChat(channelName, convertToURLQuery(payload))
+        // console.log(response?.data?.messages?.meta)
+        // setMessages(response?.data?.messages?.data)
+        const newItems = response?.data?.messages?.data ?? [];
+        setMessages(prevItems => [...prevItems, ...newItems]);
+        setMaxPage(response?.data?.messages?.meta?.last_page ?? maxPage);
+        // console.log(response)
+
+      } catch (e) {
+          console.log(e)
+      }
+    };
+    useEffect(() => {
+      if (!receiverId) {
+        return;
+      }
+      loadChat()
+    }, [receiverId, page])
+    
+    const handleScroll = () => {
+      const element = containerRef.current;
+      if (!element) return;
+      const { scrollTop, scrollHeight, clientHeight } = element;
+      if (scrollTop + clientHeight >= scrollHeight) {
+        setPage(prevPage => prevPage + 1);
+      } else if (scrollTop === 0 && page > 1) {
+        setPage(prevPage => prevPage - 1);
+      }
+    };
+    
+
+    useEffect(() => {
+      const element = containerRef.current;
+      if (element) element.addEventListener('scroll', handleScroll);
+      return () => {
+        if (element) element.removeEventListener('scroll', handleScroll);
+      };
+  
+    }, [messages]);
 
     useEffect(() => {
       if (!receiverId) {
@@ -69,7 +124,7 @@ function ChatComponent({receiverId,isModelChatClose}) {
       channel.bind(channelName, (data) => {
         // allMessages.push(data?.chat);
         // setMessages(allMessages);
-        console.log(data)
+        // console.log(data)
         setMessages((prevState) => [
           ...prevState,data?.chat,
         ]);
@@ -97,7 +152,7 @@ function ChatComponent({receiverId,isModelChatClose}) {
         event.preventDefault();
         try{
           const response = await saveChat(receiverId, formData)
-          console.log(response)
+          // console.log(response)
         } catch (e) {
             console.log(e)
         }
@@ -134,7 +189,7 @@ function ChatComponent({receiverId,isModelChatClose}) {
             <span className={styles.started}>Conversation Started, {moment(today).format("DD MMM")}</span>
             <hr className={styles.line2}/>
         </div>
-        <div className={styles.chatBox_main}>
+        <div className={styles.chatBox_main} ref={containerRef}>
         {messages.length > 0 ? (
             messages.map((msg) => (
                 <>
@@ -194,7 +249,9 @@ function ChatComponent({receiverId,isModelChatClose}) {
                     />
               </div>
           </div>
-          {showPicker &&  <EmojiPicker onEmojiClick={onEmojiClick} />}     
+          <div>
+            {showPicker &&  <EmojiPicker onEmojiClick={onEmojiClick}/>}   
+          </div>  
           </>
       </div>
     </div>

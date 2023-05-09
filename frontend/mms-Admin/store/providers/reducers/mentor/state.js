@@ -1,7 +1,8 @@
 
 const gridState = {
   showGrid: true,
-  showList: false
+  showList: false,
+  mentors: {}
 };
 export default gridState;
 
