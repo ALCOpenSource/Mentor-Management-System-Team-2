@@ -42,6 +42,10 @@ Route.group(() => {
   }).prefix('user')
 
   Route.group(() => {
+    Route.get('/:userId/certificates', 'ProgramsCertificateController.getUserCertificates')
+  }).prefix('certificate')
+
+  Route.group(() => {
     Route.get('/', 'MentorController.getAllMentors')
     Route.get('/:mentorId/tasks', 'MentorController.getMentorTask')
     Route.delete('/delete/:mentorId', 'MentorController.deleteAMentor')

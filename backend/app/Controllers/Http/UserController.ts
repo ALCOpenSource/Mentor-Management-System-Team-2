@@ -1,8 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import Roles from 'App/Enums/Roles'
-import { schema } from '@ioc:Adonis/Core/Validator'
-import Document from 'App/Models/Document'
+
 
 export default class AuthenticationController {
   async getAllUsers({ auth, request, response }: HttpContextContract) {
