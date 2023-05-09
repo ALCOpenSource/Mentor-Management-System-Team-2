@@ -6,8 +6,8 @@ import Image from "next/image";
 
 export const MentorDetails = ({ children }) => {
   const router = useRouter();
-  const { fullName, designation } = router.query;
-  const urlQuery = { fullName, designation };
+  const { fullName, designation, avatar } = router.query;
+  const urlQuery = { fullName, designation, avatar };
 
   const subPages = [
     {
@@ -49,7 +49,7 @@ export const MentorDetails = ({ children }) => {
           <Image
             width={90}
             height={90}
-            src={"/assets/images/user_img.png"}
+            src={avatar ? avatar : "/assets/images/user_img.png"}
             alt="User profile image"
             className={styles.user_img}
           />

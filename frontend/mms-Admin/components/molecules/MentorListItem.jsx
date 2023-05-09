@@ -5,8 +5,15 @@ import { format } from "date-fns";
 import Image from "next/image";
 
 export const MentorListItem = ({ data }) => {
-  const { first_name, last_name, id, isAdmin, isMentorManager, created_at } =
-    data;
+  const {
+    first_name,
+    last_name,
+    id,
+    isAdmin,
+    isMentorManager,
+    created_at,
+    profile_image_path,
+  } = data;
   const designation = getDesignation();
 
   const fullName = `${first_name} ${last_name}`;
@@ -23,7 +30,11 @@ export const MentorListItem = ({ data }) => {
         <Image
           width={60}
           height={60}
-          src={"/assets/images/user_img.png"}
+          src={
+            profile_image_path
+              ? profile_image_path
+              : "/assets/images/user_img.png"
+          }
           alt="User profile image"
           className={styles.user_img}
         />
@@ -36,7 +47,11 @@ export const MentorListItem = ({ data }) => {
         size="small"
         url={{
           pathname: `/mentors/about/${id}`,
-          query: { fullName, designation },
+          query: {
+            fullName,
+            designation,
+            avatar: profile_image_path,
+          },
         }}>
         View
       </Button>
