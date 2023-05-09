@@ -9,10 +9,10 @@ export const MentorListItem = ({ data }) => {
       className={`flex flex-align-center flex-justify-between ${styles.wrapper}`}>
       <div className="flex">
         <UserAvatar />
-        <UserDetails />
+        <UserDetails name={`${data.first_name} ${data.last_name}`} />
       </div>
       <Link href={`/mentors/about/${data.id}`}>
-        <Button variant="normal" size="small" bordered>
+        <Button variant="normal" size="small" bordered={true}>
           View
         </Button>
       </Link>
@@ -20,11 +20,11 @@ export const MentorListItem = ({ data }) => {
   );
 };
 
-function UserDetails(name, createdAt) {
+function UserDetails({ name, createdAt }) {
   return (
     <div className="flex flex-justify-center flex-column">
-      {/* We need to reset padding and margin for p and all heading elements to avoid this */}
-      <p className={styles.user_name}>Anna Jane</p>
+      {/* TODO: We need to reset padding and margin for p and all heading elements to avoid this */}
+      <p className={styles.user_name}>{name}</p>
       <p className={styles.date_joined}>Added 0ct. 10 2022</p>
     </div>
   );

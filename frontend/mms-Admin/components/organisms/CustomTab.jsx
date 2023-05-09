@@ -15,6 +15,7 @@ export const CustomTab = (props) => {
 
           return (
             <div
+              key={item.name}
               className={`${activeTab ? styles.active : ""} ${
                 styles.link_wrapper
               }`}>

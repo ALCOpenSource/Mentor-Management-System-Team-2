@@ -34,9 +34,11 @@ const generateBtnPadding = (size) => {
 };
 
 export const Button = (props) => {
+  const otherProps = { ...props };
+  delete otherProps.bordered;
   return (
     <button
-      {...props}
+      {...otherProps}
       style={generateButtonStyle(props.variant, props.size, props.bordered)}>
       {props.children}
     </button>
@@ -49,4 +51,5 @@ Button.propTypes = {
   type: PropTypes.string,
   children: PropTypes.any,
   onClick: PropTypes.func,
+  bordered: PropTypes.bool,
 };

@@ -5,7 +5,7 @@ export const Accordion = ({ header, body, footer, defaultOpen = false }) => {
   const [open, setOpen] = useState(defaultOpen);
 
   return (
-    <div class={styles.accordion}>
+    <div className={styles.accordion}>
       <div className={styles.header} onClick={() => setOpen((prev) => !prev)}>
         {header}
       </div>
