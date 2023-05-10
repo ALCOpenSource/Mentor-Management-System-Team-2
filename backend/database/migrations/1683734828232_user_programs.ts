@@ -1,7 +1,7 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'program_certificates'
+  protected tableName = 'user_programs'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
@@ -9,14 +9,17 @@ export default class extends BaseSchema {
       table
         .integer('user_id')
         .unsigned()
+        .notNullable()
         .references('id')
         .inTable('users')
         .onDelete('CASCADE')
+      table
+        .integer('program_id')
+        .unsigned()
         .notNullable()
-      table.string('program_name_url').notNullable()
-      table.string('certification').notNullable()
-      table.string('logo_url').nullable()
-      table.string('signature').nullable()
+        .references('id')
+        .inTable('programs')
+        .onDelete('CASCADE')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
