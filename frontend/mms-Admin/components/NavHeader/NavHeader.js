@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { capitalize } from "../../utils/capitalize";
 import styles from "styles/navheader.module.css";
 import Icon from "../Icon";
@@ -10,6 +11,9 @@ const NavHeader = ({ title, children }) => {
   const [showGrid, setShowGrid] = React.useState(true)
   const [showList, setShowList] = React.useState(false)
   const { dispatch } = useStateValue();
+  const router = useRouter();
+  const hideItem = router.pathname.includes('/mentors/');
+  const showItem = router.pathname.includes('/mentors');
 
   // const handleGrid = (event) => {
   //   event.preventDefault();
@@ -39,7 +43,7 @@ const NavHeader = ({ title, children }) => {
   }, [])
   return (
     <GlobalContextProvider>
-    <header className={styles.module_header}>
+    <header className={styles.module_header} style={{ display: hideItem ? 'none' : (showItem ? 'flex' : 'flex') }}>
       {title === "profile" || title==="discussion" || title === "messages" || title === "mentors" ? (
         ""
       ) : (
@@ -48,6 +52,7 @@ const NavHeader = ({ title, children }) => {
       {title === "messages" ? (
         <h2 className={styles.module_header_title}>{capitalize("Chats")}</h2>
       ) : ""}
+
       {title === "mentors" ? (
         <h2 className={styles.module_header_title}>{capitalize("Mentors")}
           <span className={styles.module_header_span} onClick={handleGrid}>

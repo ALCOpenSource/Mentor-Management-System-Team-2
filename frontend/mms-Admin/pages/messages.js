@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react'
-import ChatComponent from '../components/ChatComponent';
+import React, { useState, useEffect, useRef } from "react";
+import ChatComponent from "../components/ChatComponent";
 import styles from "../styles/messages.module.css";
 import { Avatar } from "antd";
 import { fetchUsers } from "./api/user"
@@ -45,23 +45,23 @@ function Messages() {
   
   useEffect(() => {
     const element = containerRef.current;
-    if (element) element.addEventListener('scroll', handleScroll);
+    if (element) element.addEventListener("scroll", handleScroll);
     return () => {
-      if (element) element.removeEventListener('scroll', handleScroll);
+      if (element) element.removeEventListener("scroll", handleScroll);
     };
 
   }, []);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   const handleUserClick = (userId) => {
     setSelectedUser(userId);
     if (window.innerWidth <= 992) {
-        setIsMobile(true);
+      setIsMobile(true);
     }
   };
-  
+
   const handleUserClose = () => {
-    setIsMobile(false)
+    setIsMobile(false);
   };
 
   return (
@@ -70,9 +70,9 @@ function Messages() {
             <div className={styles.side_div} ref={containerRef}>
                 {items?.length > 0 ? (
                   items?.map(user => (
-                        <div className={styles.side_div_sub} key={user.id} onClick={() => handleUserClick(user.id)}>
+                        <div className={styles.side_div_sub} key={user.id} onClick={() => handleUserClick(user?.id)}>
                               <div className={styles.side_div_sub_chat}>
-                              {user.profile_image_path !== null ? (
+                              {user?.profile_image_path !== null ? (
                                 <Avatar
                                   size={43}
                                   icon={
@@ -100,10 +100,10 @@ function Messages() {
                             <div className={styles.side_div_sub_desc}>
                               <div className={styles.side_div_sub_detail}>
                                   <div className={styles.name}>
-                                      {user.first_name} {user.last_name}
+                                      {user?.first_name} {user?.last_name}
                                   </div>
                                   <div className={styles.detail}>
-                                      {user.bio.slice(0, 25)} ...
+                                      {user?.bio?.slice(0, 25)} ...
                                   </div>
                               </div>
                                 {/*<div className={styles.side_div_sub_detail2}>
@@ -162,9 +162,7 @@ function Messages() {
             </div>
         )}
     </div>
-  )
-
+  );
 }
 
-
-export default Messages
+export default Messages;

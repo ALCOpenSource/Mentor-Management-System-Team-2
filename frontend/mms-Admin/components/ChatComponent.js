@@ -126,7 +126,7 @@ function ChatComponent({receiverId,isModelChatClose}) {
       channel.bind(channelName, (data) => {
         // allMessages.push(data?.chat);
         // setMessages(allMessages);
-        // console.log(data)
+        console.log(data)
         setMessages((prevState) => [
           ...prevState,data?.chat,
         ]);
@@ -208,7 +208,7 @@ function ChatComponent({receiverId,isModelChatClose}) {
             
             <>
             <div className={styles.message}>
-                Start a chat with a user
+                Select a user to chat with
             </div>  
             </>
         )}

@@ -4,17 +4,23 @@ import Icon from "./Icon";
 import styles from "./componentStyles/gridmentor.module.css"
 import DeleteMentor from './DeleteMentor';
 import { useStateValue } from "store/context";
+import Link from "next/link";
 
 function GridMentor() {
   const [isDeleteOpen, setIsDeleteOpen] = React.useState(false);
   const [mentorId, setMentorId] = React.useState(null);
+  const [Id, setId] = React.useState(null);
   const [ {gridState} ] = Object.values(useStateValue())
-  console.log(gridState,"gridState")
+
   const handleClickDelete = (itemId) => {
     // e.preventDefault();
     setIsDeleteOpen(true);
     setMentorId(itemId)
   };
+
+  const getMentor = (itemId) => {
+    setId(itemId)
+  }
   return (
     <div className={styles.container}>
         <Row gutter={[18, 16]}>
@@ -23,6 +29,16 @@ function GridMentor() {
           <Col xs={12} sm={12} md={12} lg={12} key={item?.id}>
             <div className={styles.gutter_box}>
               <div className={styles.gutter_box_container}>
+              <Link
+                href={{
+                pathname: `/mentors/tasks/${item?.id}`,
+                query: {
+                  id: item?.id,
+                  fullName: `${item?.first_name} ${item?.last_name}`,
+                  avatar: '',
+                  designation: 'Mentor'
+                },
+              }}>
                 <div className={styles.gutter_box_avatar}>
                 {item?.profile_image_path !== null ? (
                   <Avatar
@@ -50,6 +66,7 @@ function GridMentor() {
                 )}
                   
                 </div>
+                </Link>
                 <div className={styles.gutter_box_main}>
                   <div className={styles.gutter_box_main_title}>
                     <h1 className={styles.gutter_box_main_header}>{item?.first_name} {item?.last_name}</h1>

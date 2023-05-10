@@ -4,6 +4,7 @@ import Icon from "./Icon";
 import styles from "./componentStyles/listmentor.module.css"
 import DeleteMentor from './DeleteMentor';
 import { useStateValue } from "store/context";
+import Link from "next/link";
 
 function ListMentor() {
 
@@ -23,6 +24,16 @@ function ListMentor() {
           <Col xs={24} sm={24} md={24} lg={24} key={item?.id}>
             <div className={styles.gutter_box}>
               <div className={styles.gutter_box_container}>
+              <Link
+                href={{
+                pathname: `/mentors/tasks/${item?.id}`,
+                query: {
+                  id: item?.id,
+                  fullName: `${item?.first_name} ${item?.last_name}`,
+                  avatar: '',
+                  designation: 'Mentor'
+                },
+              }}>
                 <div className={styles.gutter_box_avatar}>
                 {item?.profile_image_path !== null ? (
                   <Avatar
@@ -49,6 +60,7 @@ function ListMentor() {
                   />
                 )}
                 </div>
+                </Link>
                 <div className={styles.gutter_box_main}>
                   <div className={styles.gutter_box_main_title}>
                     <Col className={styles.gutter_box_main_title_sub} xs={18} sm={18} md={18} lg={18}>

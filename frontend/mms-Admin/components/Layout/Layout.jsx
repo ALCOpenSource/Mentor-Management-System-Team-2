@@ -36,7 +36,8 @@ const AppLayout = ({ children }) => {
   const [ {taskSearch} ] = Object.values(useStateValue())
   const [isOpen, setIsOpen] = useState(false);
   const pageNumber = taskSearch?.page
-  console.log(pageNumber)
+  
+  
   const handlePageChange = (newPage) => {
     setPage(newPage);
   };
@@ -75,20 +76,20 @@ const AppLayout = ({ children }) => {
     if (pathname === "/") setHeaderTitle("");
     else setHeaderTitle(extractTitleFromUrl(pathname?.slice(1)));
   }, [router]);
-  
+
   const loadMore = async () => {
     taskSearch
     const query = { search, page, limit }
     try {
-      setLoading(true)
-      const { data } = await fetchArchive(convertToURLQuery(query))
+      setLoading(true);
+      const { data } = await fetchArchive(convertToURLQuery(query));
       const newData = data;
-      setTotal(data?.meta)
+      setTotal(data?.meta);
       dispatch({
-        type: 'ARCHIVE_SEARCH',
-        payload: newData
-      })
-      setLoading(false)
+        type: "ARCHIVE_SEARCH",
+        payload: newData,
+      });
+      setLoading(false);
     } catch (error) {}
   };
 
@@ -100,7 +101,7 @@ const AppLayout = ({ children }) => {
     const query = { query:searchMentor, page:mentorPage, limit }
     try {
       setLoading(true)
-      const { data } = await getAllmentor()
+      const { data } = await getAllmentor(convertToURLQuery(query))
       const newData = data;
       setMentorTotal(data?.mentors?.meta)
       dispatch({
@@ -193,23 +194,12 @@ const AppLayout = ({ children }) => {
                           />
                         </div>
                       </div>
-                      <span className={[styles.task_create]}>
-                        <CustomButton className={styles.taskbutton} onClick={() => router.push("/tasks/create")}>
-                          Create New Task
-                        </CustomButton>
-                      </span>
-                    </>
-                  )}
-                  {router?.pathname === "/messages" && (
-                    <>
-                      <div className={[styles.task_icon]}>
-                        <div className={[styles.msg_search_icon]}>
-                          <Icon
-                            icon={"/assets/images/search.svg"}
-                            width={"20px"}
-                            height={"20px"}
-                          />
-                        </div>
+                      <div className={[styles.task_filter_icon]}>
+                        <Icon
+                          icon={"/assets/images/filter.svg"}
+                          width={"25px"}
+                          height={"25px"}
+                        />
                       </div>
                       <span className={[styles.task_create]}>
                         <CustomButton className={styles.taskbutton} onClick={() => router.push("/broadcast")}>
@@ -305,4 +295,4 @@ const AppLayout = ({ children }) => {
   );
 };
 
-export default AppLayout;
+export default AppLayout;
