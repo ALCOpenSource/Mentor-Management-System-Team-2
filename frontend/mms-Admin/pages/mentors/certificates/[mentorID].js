@@ -24,7 +24,7 @@ function MentorCertificates() {
 
   return (
     <div className={styles.wrapper}>
-      {certificates.data.length < 1 ? (
+      {certificates.data.length > 0 ? (
         <>
           {certificates.data.map((item, idx) => (
             <Accordion
