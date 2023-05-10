@@ -4,8 +4,8 @@ export const fetchMentors = async () => {
   return response.data.mentors.data;
 };
 
-export const fetchMentorTasks = async (id, search) => {
-  const response = await http.get(`/mentor/${id}/tasks` + search);
+export const fetchMentorTasks = async (id) => {
+  const response = await http.get(`/mentor/${id}/tasks`);
   return response.data.data;
 };
 

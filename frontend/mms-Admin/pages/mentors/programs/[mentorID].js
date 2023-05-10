@@ -2,13 +2,14 @@ import React, { useState, useEffect } from "react";
 import MentorDetailsLayout from "../../../components/Layouts/MentorDetailsLayout";
 import { Accordion } from "../../../components/molecules/Accordion";
 import { useQuery } from "@tanstack/react-query";
-import { fetchMentorTasks } from "pages/api/user";
 import { useRouter } from "next/router";
 import styles from "../../../components/componentStyles/archive.module.css";
 import Icon from "../../../components/Icon";
 import moment from 'moment';
 import { CustomInput } from "../../../components/formInputs/CustomInput";
 import { convertToURLQuery } from "../../../utils/extractTitleFromUrl";
+import { getUserProgram } from "pages/api/program";
+
 
 
 function MentorPrograms() {
@@ -20,7 +21,8 @@ function MentorPrograms() {
     data: programs,
     isLoading,
     isError,
-  } = useQuery(["mentor_tasks", search], () => fetchMentorTasks(router.query.mentorID, convertToURLQuery(query)));
+  } = useQuery(["mentor_program", search], () => getUserProgram(router.query.mentorID, convertToURLQuery(query)));
+  console.log(programs, "oh")
 
   if (!search) {
     if (isLoading) return "loading tasks...";
