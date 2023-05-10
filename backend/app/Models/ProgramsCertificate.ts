@@ -11,7 +11,7 @@ export default class ProgramCertificate extends BaseModel {
 
   @column()
   public programNameUrl: string
-  
+
   @column()
   public certification: string
 
