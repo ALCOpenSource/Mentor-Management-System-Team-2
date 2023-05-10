@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { memo, useState } from "react";
 import MentorDetailsLayout from "../../../components/Layouts/MentorDetailsLayout";
 import { Icons } from "../../../components/atoms/Icons";
 import styles from "../../../styles/mentors/certificates.module.scss";
