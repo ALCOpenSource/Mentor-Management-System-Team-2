@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React from "react";
 import { formatDistance } from "date-fns";
 import MentorDetailsLayout from "../../../components/Layouts/MentorDetailsLayout";
 import { Icons } from "../../../components/atoms/Icons";
