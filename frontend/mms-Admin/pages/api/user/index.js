@@ -9,6 +9,11 @@ export const fetchMentorTasks = async (id) => {
   return response.data.data;
 };
 
+export const fetchMentorCertificates = async (id) => {
+  const response = await http.get(`/mentor/${id}/tasks`);
+  return response.data.data;
+};
+
 export const fetchMentorManagers = async () => {
   const url = "/user/mentor-managers";
   return await http.get(url);
