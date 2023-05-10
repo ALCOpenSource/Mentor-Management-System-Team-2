@@ -7,11 +7,28 @@ import Image from "next/image";
 import { Accordion } from "../../../components/molecules/Accordion";
 import { Select } from "antd";
 import { useRouter } from "next/router";
+import { fetchMentorCertificates } from "pages/api/user";
+import { useQuery } from "@tanstack/react-query";
 function MentorCertificates() {
   const [downloadFormat, setDownloadFormat] = useState("PDF");
+  const router = useRouter();
+  const {
+    data: certificates,
+    isLoading,
+    isError,
+  } = useQuery(["fetch_certificates"], () =>
+    fetchMentorCertificates(router.query.mentorID),
+  );
+
+  if (isLoading) return "loading certificates...";
+
+  if (isError) return "An error occured";
+
   const handleChange = (value) => {
     console.log(`selected ${value}`);
   };
+
+  console.log(certificates);
 
   return (
     <div className={styles.wrapper}>
