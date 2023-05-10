@@ -148,6 +148,8 @@ export default class ArchivesController {
 
     const { page, limit, search } = request.qs()
     const userPrograms = await UserProgram.query()
+      .preload('user')
+      .preload('program')
       .whereHas('program', (query) => {
         query
           .where('is_archive', false)
