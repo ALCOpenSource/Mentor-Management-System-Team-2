@@ -11,7 +11,7 @@ export const fetchMentorTasks = async (id) => {
 
 export const fetchMentorCertificates = async (id) => {
   const response = await http.get(`/certificate/${id}/certificates`);
-  return response.data.result;
+  return response.data.certificates;
 };
 
 export const fetchMentorManagers = async () => {
