@@ -13,8 +13,7 @@ const Certificate = ({
   fullName,
 }) => {
   const ref = useRef(null);
-  const [downloadFormat, setDownloadFormat] = useState("PDF");
-  const downLoadRef = useRef(null);
+  const [downloadFormat, setDownloadFormat] = useState("JPG");
   const [imageJPG, setImageJPG] = useState();
 
   const onButtonClick = useCallback(() => {
@@ -78,10 +77,6 @@ const Certificate = ({
           defaultValue={downloadFormat}
           onChange={handleChange}
           options={[
-            {
-              value: "PDF",
-              label: "PDF",
-            },
             {
               value: "JPG",
               label: "JPG",
