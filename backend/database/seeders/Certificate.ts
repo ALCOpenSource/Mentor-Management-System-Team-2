@@ -7,33 +7,40 @@ export default class extends BaseSeeder {
     Certificate.createMany([
       {
         userId:1,
-        programName: 'Google Cloud',
+        programNameUrl: 'https://tinyurl.com/gprogramlogo',
         certification:'Associate Cloud Engineer',
-        logoUrl:"https://tinyurl.com/programnlogo"
+        logoUrl:"https://tinyurl.com/gcertificatelogo",
+        signatureUrl:"https://tinyurl.com/programsign"
+
       },
       {
         userId:4,
-        programName: 'Google Cloud',
+        programNameUrl: 'https://tinyurl.com/gprogramlogo',
         certification:'Associate Cloud Engineer',
-        logoUrl:"https://tinyurl.com/programnlogo"
+        logoUrl:"https://tinyurl.com/gcertificatelogo",
+        signatureUrl:"https://tinyurl.com/programsign"
+        
       },
       {
         userId:2,
-        programName: 'Google Cloud',
+        programNameUrl: 'https://tinyurl.com/gprogramlogo',
         certification:'Associate Cloud Engineer',
-        logoUrl:"https://tinyurl.com/programnlogo"
+        logoUrl:"https://tinyurl.com/gcertificatelogo",
+        signatureUrl:"https://tinyurl.com/programsign"
       },
       {
         userId:3,
-        programName: 'Google Cloud',
+        programNameUrl: 'https://tinyurl.com/gprogramlogo',
         certification:'Associate Cloud Engineer',
-        logoUrl:"https://tinyurl.com/programnlogo"
+        logoUrl:"https://tinyurl.com/gcertificatelogo",
+        signatureUrl:"https://tinyurl.com/programsign"
       },
       {
         userId:6,
-        programName: 'Google Cloud',
+        programNameUrl: 'https://tinyurl.com/gprogramlogo',
         certification:'Associate Cloud Engineer',
-        logoUrl:"https://tinyurl.com/programnlogo"
+        logoUrl:"https://tinyurl.com/gcertificatelogo",
+        signatureUrl:"https://tinyurl.com/programsign"
       },
     ])
   }
