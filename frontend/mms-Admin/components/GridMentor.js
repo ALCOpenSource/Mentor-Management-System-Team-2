@@ -3,10 +3,13 @@ import { Row, Col, Avatar } from 'antd';
 import Icon from "./Icon";
 import styles from "./componentStyles/gridmentor.module.css"
 import DeleteMentor from './DeleteMentor';
+import { useStateValue } from "store/context";
 
 function GridMentor() {
   const [isDeleteOpen, setIsDeleteOpen] = React.useState(false);
   const [mentorId, setMentorId] = React.useState(null);
+  const [ {gridState} ] = Object.values(useStateValue())
+  console.log(gridState,"gridState")
   const handleClickDelete = (itemId) => {
     // e.preventDefault();
     setIsDeleteOpen(true);
@@ -15,10 +18,13 @@ function GridMentor() {
   return (
     <div className={styles.container}>
         <Row gutter={[18, 16]}>
-          <Col xs={12} sm={12} md={12} lg={12}>
+        {gridState?.mentors?.mentors?.data.length > 0 ? (
+          gridState?.mentors?.mentors?.data?.map(item => (
+          <Col xs={12} sm={12} md={12} lg={12} key={item?.id}>
             <div className={styles.gutter_box}>
               <div className={styles.gutter_box_container}>
                 <div className={styles.gutter_box_avatar}>
+                {item?.profile_image_path !== null ? (
                   <Avatar
                     size={73}
                     icon={
@@ -29,10 +35,24 @@ function GridMentor() {
                     />
                     }
                   />
+
+                ) : (
+                  <Avatar
+                    size={73}
+                    icon={
+                    <Icon
+                    icon={"/assets/images/admin_avatar.png"}
+                    width={"73px"}
+                    height={"73px"}
+                    />
+                    }
+                  />
+                )}
+                  
                 </div>
                 <div className={styles.gutter_box_main}>
                   <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
+                    <h1 className={styles.gutter_box_main_header}>{item?.first_name} {item?.last_name}</h1>
                     <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
                     <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
                   </div>
@@ -44,7 +64,7 @@ function GridMentor() {
                         height={"20px"}
                     />
                     </div>
-                    <div className={styles.gutter_box_main_icon2} onClick={()=> handleClickDelete(itemId)}>
+                    <div className={styles.gutter_box_main_icon2} onClick={()=> handleClickDelete(item?.id)}>
                      <Icon 
                         icon={"/assets/images/trash-delete.svg"}
                         width={"20px"}
@@ -56,457 +76,10 @@ function GridMentor() {
               </div>
             </div>
           </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className={styles.gutter_box}>
-              <div className={styles.gutter_box_container}>
-                <div className={styles.gutter_box_avatar}>
-                  <Avatar
-                    size={73}
-                    icon={
-                    <Icon
-                    icon={"/assets/images/admin_avatar.png"}
-                    width={"73px"}
-                    height={"73px"}
-                    />
-                    }
-                  />
-                </div>
-                <div className={styles.gutter_box_main}>
-                  <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
-                    <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
-                    <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
-                  </div>
-                  <div className={styles.gutter_box_main_icon}>
-                    <div className={styles.gutter_box_main_icon1}>
-                        <Icon 
-                        icon={"/assets/images/circle-chat.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                    />
-                    </div>
-                    <div className={styles.gutter_box_main_icon2}>
-                     <Icon 
-                        icon={"/assets/images/trash-delete.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                     />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className={styles.gutter_box}>
-              <div className={styles.gutter_box_container}>
-                <div className={styles.gutter_box_avatar}>
-                  <Avatar
-                    size={73}
-                    icon={
-                    <Icon
-                    icon={"/assets/images/admin_avatar.png"}
-                    width={"73px"}
-                    height={"73px"}
-                    />
-                    }
-                  />
-                </div>
-                <div className={styles.gutter_box_main}>
-                  <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
-                    <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
-                    <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
-                  </div>
-                  <div className={styles.gutter_box_main_icon}>
-                    <div className={styles.gutter_box_main_icon1}>
-                        <Icon 
-                        icon={"/assets/images/circle-chat.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                    />
-                    </div>
-                    <div className={styles.gutter_box_main_icon2}>
-                     <Icon 
-                        icon={"/assets/images/trash-delete.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                     />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className={styles.gutter_box}>
-              <div className={styles.gutter_box_container}>
-                <div className={styles.gutter_box_avatar}>
-                  <Avatar
-                    size={73}
-                    icon={
-                    <Icon
-                    icon={"/assets/images/admin_avatar.png"}
-                    width={"73px"}
-                    height={"73px"}
-                    />
-                    }
-                  />
-                </div>
-                <div className={styles.gutter_box_main}>
-                  <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
-                    <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
-                    <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
-                  </div>
-                  <div className={styles.gutter_box_main_icon}>
-                    <div className={styles.gutter_box_main_icon1}>
-                        <Icon 
-                        icon={"/assets/images/circle-chat.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                    />
-                    </div>
-                    <div className={styles.gutter_box_main_icon2}>
-                     <Icon 
-                        icon={"/assets/images/trash-delete.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                     />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className={styles.gutter_box}>
-              <div className={styles.gutter_box_container}>
-                <div className={styles.gutter_box_avatar}>
-                  <Avatar
-                    size={73}
-                    icon={
-                    <Icon
-                    icon={"/assets/images/admin_avatar.png"}
-                    width={"73px"}
-                    height={"73px"}
-                    />
-                    }
-                  />
-                </div>
-                <div className={styles.gutter_box_main}>
-                  <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
-                    <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
-                    <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
-                  </div>
-                  <div className={styles.gutter_box_main_icon}>
-                    <div className={styles.gutter_box_main_icon1}>
-                        <Icon 
-                        icon={"/assets/images/circle-chat.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                    />
-                    </div>
-                    <div className={styles.gutter_box_main_icon2}>
-                     <Icon 
-                        icon={"/assets/images/trash-delete.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                     />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className={styles.gutter_box}>
-              <div className={styles.gutter_box_container}>
-                <div className={styles.gutter_box_avatar}>
-                  <Avatar
-                    size={73}
-                    icon={
-                    <Icon
-                    icon={"/assets/images/admin_avatar.png"}
-                    width={"73px"}
-                    height={"73px"}
-                    />
-                    }
-                  />
-                </div>
-                <div className={styles.gutter_box_main}>
-                  <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
-                    <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
-                    <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
-                  </div>
-                  <div className={styles.gutter_box_main_icon}>
-                    <div className={styles.gutter_box_main_icon1}>
-                        <Icon 
-                        icon={"/assets/images/circle-chat.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                    />
-                    </div>
-                    <div className={styles.gutter_box_main_icon2}>
-                     <Icon 
-                        icon={"/assets/images/trash-delete.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                     />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className={styles.gutter_box}>
-              <div className={styles.gutter_box_container}>
-                <div className={styles.gutter_box_avatar}>
-                  <Avatar
-                    size={73}
-                    icon={
-                    <Icon
-                    icon={"/assets/images/admin_avatar.png"}
-                    width={"73px"}
-                    height={"73px"}
-                    />
-                    }
-                  />
-                </div>
-                <div className={styles.gutter_box_main}>
-                  <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
-                    <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
-                    <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
-                  </div>
-                  <div className={styles.gutter_box_main_icon}>
-                    <div className={styles.gutter_box_main_icon1}>
-                        <Icon 
-                        icon={"/assets/images/circle-chat.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                    />
-                    </div>
-                    <div className={styles.gutter_box_main_icon2}>
-                     <Icon 
-                        icon={"/assets/images/trash-delete.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                     />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className={styles.gutter_box}>
-              <div className={styles.gutter_box_container}>
-                <div className={styles.gutter_box_avatar}>
-                  <Avatar
-                    size={73}
-                    icon={
-                    <Icon
-                    icon={"/assets/images/admin_avatar.png"}
-                    width={"73px"}
-                    height={"73px"}
-                    />
-                    }
-                  />
-                </div>
-                <div className={styles.gutter_box_main}>
-                  <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
-                    <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
-                    <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
-                  </div>
-                  <div className={styles.gutter_box_main_icon}>
-                    <div className={styles.gutter_box_main_icon1}>
-                        <Icon 
-                        icon={"/assets/images/circle-chat.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                    />
-                    </div>
-                    <div className={styles.gutter_box_main_icon2}>
-                     <Icon 
-                        icon={"/assets/images/trash-delete.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                     />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className={styles.gutter_box}>
-              <div className={styles.gutter_box_container}>
-                <div className={styles.gutter_box_avatar}>
-                  <Avatar
-                    size={73}
-                    icon={
-                    <Icon
-                    icon={"/assets/images/admin_avatar.png"}
-                    width={"73px"}
-                    height={"73px"}
-                    />
-                    }
-                  />
-                </div>
-                <div className={styles.gutter_box_main}>
-                  <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
-                    <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
-                    <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
-                  </div>
-                  <div className={styles.gutter_box_main_icon}>
-                    <div className={styles.gutter_box_main_icon1}>
-                        <Icon 
-                        icon={"/assets/images/circle-chat.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                    />
-                    </div>
-                    <div className={styles.gutter_box_main_icon2}>
-                     <Icon 
-                        icon={"/assets/images/trash-delete.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                     />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className={styles.gutter_box}>
-              <div className={styles.gutter_box_container}>
-                <div className={styles.gutter_box_avatar}>
-                  <Avatar
-                    size={73}
-                    icon={
-                    <Icon
-                    icon={"/assets/images/admin_avatar.png"}
-                    width={"73px"}
-                    height={"73px"}
-                    />
-                    }
-                  />
-                </div>
-                <div className={styles.gutter_box_main}>
-                  <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
-                    <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
-                    <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
-                  </div>
-                  <div className={styles.gutter_box_main_icon}>
-                    <div className={styles.gutter_box_main_icon1}>
-                        <Icon 
-                        icon={"/assets/images/circle-chat.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                    />
-                    </div>
-                    <div className={styles.gutter_box_main_icon2}>
-                     <Icon 
-                        icon={"/assets/images/trash-delete.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                     />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className={styles.gutter_box}>
-              <div className={styles.gutter_box_container}>
-                <div className={styles.gutter_box_avatar}>
-                  <Avatar
-                    size={73}
-                    icon={
-                    <Icon
-                    icon={"/assets/images/admin_avatar.png"}
-                    width={"73px"}
-                    height={"73px"}
-                    />
-                    }
-                  />
-                </div>
-                <div className={styles.gutter_box_main}>
-                  <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
-                    <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
-                    <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
-                  </div>
-                  <div className={styles.gutter_box_main_icon}>
-                    <div className={styles.gutter_box_main_icon1}>
-                        <Icon 
-                        icon={"/assets/images/circle-chat.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                    />
-                    </div>
-                    <div className={styles.gutter_box_main_icon2}>
-                     <Icon 
-                        icon={"/assets/images/trash-delete.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                     />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col>
-          <Col xs={12} sm={12} md={12} lg={12}>
-            <div className={styles.gutter_box}>
-              <div className={styles.gutter_box_container}>
-                <div className={styles.gutter_box_avatar}>
-                  <Avatar
-                    size={73}
-                    icon={
-                    <Icon
-                    icon={"/assets/images/admin_avatar.png"}
-                    width={"73px"}
-                    height={"73px"}
-                    />
-                    }
-                  />
-                </div>
-                <div className={styles.gutter_box_main}>
-                  <div className={styles.gutter_box_main_title}>
-                    <h1 className={styles.gutter_box_main_header}>Alison Davis</h1>
-                    <h2 className={styles.gutter_box_main_p}>Program Assistant, Andela, He/him</h2>
-                    <span className={styles.gutter_box_main_span1}>PROGRAM ASST.</span>  <span className={styles.gutter_box_main_span2}>MENTOR-GADS.</span>
-                  </div>
-                  <div className={styles.gutter_box_main_icon}>
-                    <div className={styles.gutter_box_main_icon1}>
-                        <Icon 
-                        icon={"/assets/images/circle-chat.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                    />
-                    </div>
-                    <div className={styles.gutter_box_main_icon2}>
-                     <Icon 
-                        icon={"/assets/images/trash-delete.svg"}
-                        width={"20px"}
-                        height={"20px"}
-                     />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Col> 
+          ))
+       ): (
+        <div>No Mentor</div>
+       )}
        </Row>
        {isDeleteOpen && (
         <DeleteMentor

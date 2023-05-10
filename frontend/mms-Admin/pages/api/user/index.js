@@ -23,3 +23,10 @@ export const fetchUsers = async (query) => {
   const url = "/user" + query;
   return await http.get(url);
 };
+
+export const inviteMentor = async (payload) => {
+  const url = "/user/invite";
+  return await http.post(url, payload);
+};
+
+

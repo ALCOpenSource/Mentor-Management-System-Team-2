@@ -4,7 +4,7 @@ import { Modal } from "antd";
 import styles from "./componentStyles/splashscreen.module.css";
 import { CustomButton } from "./formInputs/CustomInput";
 import toast from 'react-hot-toast';
-import { deleteMentor } from "pages/api/task";
+import { deleteMentor } from "pages/api/mentor";
 function DeleteMentor({
   image,
   message,
@@ -23,12 +23,12 @@ function DeleteMentor({
     try {
       const response = await deleteMentor(mentorId);
       if (response.status === 200) {
-        toast.success(response?.data?.message);
+        toast.success(response?.data?.statusText);
         setIsDeleteOpen(false);
       }
     } catch (e) {
       console.error('Delete failed:', e);
-      toast.error(error);
+      toast.error(e);
     } finally {
       setIsDeleteOpen(false);
     }

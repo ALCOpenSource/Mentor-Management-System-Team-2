@@ -13,7 +13,9 @@ import { useStateValue } from "store/context";
 import { GlobalContextProvider } from "../../Context/store";
 import { fetchArchive } from "pages/api/archive"
 import { fetchTasks } from "pages/api/task";
+import { getAllmentor } from "pages/api/mentor";
 import { convertToURLQuery } from "utils/extractTitleFromUrl"
+import AddMentor from "../AddMentor"
 
 
 const AppLayout = ({ children }) => {
@@ -28,13 +30,20 @@ const AppLayout = ({ children }) => {
   const [loading, setLoading] = useState(false)
   const [showMentorSearch, setShowMentorSearch] = useState(false)
   const [total, setTotal] = useState({});
+  const [mentorTotal, setMentorTotal] = useState({});
   const { Content } = Layout;
   const { dispatch } = useStateValue();
   const [ {taskSearch} ] = Object.values(useStateValue())
+  const [isOpen, setIsOpen] = useState(false);
   const pageNumber = taskSearch?.page
   console.log(pageNumber)
   const handlePageChange = (newPage) => {
     setPage(newPage);
+  };
+
+  const handleClickInvite = () => {
+    // e.preventDefault();
+    setIsOpen(true);
   };
 
   const handleMentorPageChange = (newPage) => {
@@ -86,6 +95,25 @@ const AppLayout = ({ children }) => {
   useEffect(() => {
     loadMore()
   }, [page, search]);
+
+  const loadMentor = async () => {
+    const query = { query:searchMentor, page:mentorPage, limit }
+    try {
+      setLoading(true)
+      const { data } = await getAllmentor()
+      const newData = data;
+      setMentorTotal(data?.mentors?.meta)
+      dispatch({
+        type: 'MENTOR_DATA_STATE',
+        payload: newData
+      })
+      setLoading(false)
+    } catch (error) {}
+  };
+
+  useEffect(() => {
+    loadMentor()
+  }, [mentorPage, searchMentor]);
 
   const loadTask = async () => {
     const query = { search:searchTask, page:pageNumber, limit }
@@ -197,12 +225,12 @@ const AppLayout = ({ children }) => {
                         <CustomButton className={styles.mentorbutton1} onClick={() => router.push("/broadcast")}>
                          Send Broadcast Message
                         </CustomButton>
-                        <CustomButton className={styles.mentorbutton}>
+                        <CustomButton className={styles.mentorbutton} onClick={()=> handleClickInvite()}>
                           Add New Mentor
                         </CustomButton>
                       </span>
                      <Pagination
-                        total={30}
+                        total={mentorTotal?.total}
                         currentPage={mentorPage}
                         onPageChange={handleMentorPageChange}
                       />
@@ -256,6 +284,15 @@ const AppLayout = ({ children }) => {
                       </div>
                       )
                      }
+                     {isOpen && (
+                      <AddMentor
+                        message={"Add Mentor"}
+                        width={"400px"}
+                        height={"200px"}
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                      />
+                    )}
                     </>
                   )}
                 </div>

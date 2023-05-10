@@ -73,9 +73,11 @@ function ChatComponent({receiverId,isModelChatClose}) {
 
 
     const loadChat = async () => {
-      const payload = { senderId: user?.id, recipientId:receiverId, page, limit };
+      // const payload = { senderId: user?.id, recipientId:receiverId, page, limit };
+      const senderId = user?.id
+      const recipientId = receiverId
       try{
-        const response = await getAllChat(channelName, convertToURLQuery(payload))
+        const response = await getAllChat(senderId,recipientId)
         // console.log(response?.data?.messages?.meta)
         // setMessages(response?.data?.messages?.data)
         const newItems = response?.data?.messages?.data ?? [];
@@ -92,7 +94,7 @@ function ChatComponent({receiverId,isModelChatClose}) {
         return;
       }
       loadChat()
-    }, [receiverId, page])
+    }, [receiverId])
     
     const handleScroll = () => {
       const element = containerRef.current;

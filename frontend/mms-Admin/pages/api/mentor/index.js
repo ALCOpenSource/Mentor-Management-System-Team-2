@@ -1,21 +1,12 @@
 import http from "services/axios";
 
-export const getAllChat = async (channelName, payload) => {
-  const url = "/chat/" + channelName + "/" + payload;
+export const getAllmentor = async () => {
+  const url = "/mentor";
   return await http.get(url);
 };
 
-export const authChatChannel = async () => {
-  const url = "/chat/channel";
-  return await http.post(url);
+export const deleteMentor = async (mentorId) => {
+  const url = "/profile/delete/" + mentorId;
+  return await http.put(url);
 };
 
-export const authChatUser = async () => {
-  const url = "/chat/";
-  return await http.post(url);
-};
-
-export const saveChat = async (receiverId, payload) => {
-  const url = "/chat/" + receiverId;
-  return await http.post(url, payload);
-};

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { Modal } from "antd";
 import styles from "./componentStyles/splashscreen.module.css";
@@ -25,6 +25,8 @@ function DeleteTask({
       if (response.status === 200) {
         toast.success(response?.data?.message);
         setIsDeleteOpen(false);
+        useEffect(() => {
+        }, [response.status === 200])
       }
     } catch (e) {
       console.error('Delete failed:', e);

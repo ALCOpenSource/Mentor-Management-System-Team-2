@@ -1,7 +1,7 @@
 import http from "services/axios";
 
-export const getAllChat = async (channelName, payload) => {
-  const url = "/chat/" + channelName + "/" + payload;
+export const getAllChat = async (senderId,recipientId) => {
+  const url = "/chat/" + senderId + "/" + recipientId;
   return await http.get(url);
 };
 
