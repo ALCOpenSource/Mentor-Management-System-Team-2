@@ -58,8 +58,8 @@ export const Icons = (props) => {
   if (props.name === "report-sheet")
     return (
       <svg
-        width="18"
-        height="22"
+        width={props.width || "18"}
+        height={props.width || "22"}
         viewBox="0 0 18 22"
         fill="none"
         xmlns="http://www.w3.org/2000/svg">
@@ -72,6 +72,150 @@ export const Icons = (props) => {
         />
       </svg>
     );
+
+  if (props.name === "forward") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={20}
+        height={20}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M11.607 7.679V4.107L17.5 10l-5.893 5.893v-4.027m0-4.18a7.5 7.5 0 0 0-8.873 9.397 7.503 7.503 0 0 1 8.873-5.23"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "download") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={20}
+        height={20}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M2.5 11.667v5c0 .92.746 1.667 1.667 1.667h11.666c.92 0 1.667-.747 1.667-1.667v-5M10 2.5v11.667m0 0L5.833 9.63M10 14.167l4.167-4.537"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "filter") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={24}
+        height={24}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M2 7h20M6 12h12m-7 5h2"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "double-foward") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={24}
+        height={25}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M18.99 6.671V18.33M6.134 4.65A.7.7 0 0 0 5 5.2V19.8a.7.7 0 0 0 1.133.548l9.247-7.3a.7.7 0 0 0 0-1.098l-9.247-7.3Z"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "double-backward") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={24}
+        height={25}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M5.01 6.671V18.33M17.866 4.65A.7.7 0 0 1 19 5.2V19.8a.7.7 0 0 1-1.133.548l-9.247-7.3a.7.7 0 0 1 0-1.098l9.247-7.3Z"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "foward") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={11}
+        height={19}
+        fill="none"
+        {...props}>
+        <path
+          fill="#058B94"
+          d="M.365 17.76c.47.47 1.228.47 1.698 0l7.971-7.971a.955.955 0 0 0 0-1.353L2.063.465a1.198 1.198 0 0 0-1.698 0c-.47.47-.47 1.228 0 1.698L7.31 9.117.355 16.071c-.46.461-.46 1.228.01 1.689Z"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "backward") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={11}
+        height={19}
+        fill="none"
+        {...props}>
+        <path
+          fill="#058B94"
+          d="M10.635 17.76c-.47.47-1.228.47-1.698 0L.966 9.789a.955.955 0 0 1 0-1.353L8.937.465c.47-.47 1.228-.47 1.698 0s.47 1.228 0 1.698L3.69 9.117l6.955 6.954c.46.461.46 1.228-.01 1.689Z"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "close") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={12}
+        height={12}
+        fill="none"
+        {...props}>
+        <path
+          fill="#058B94"
+          stroke="#058B94"
+          d="M11.293 1.05 6.696 5.646 6.343 6l.353.354 4.597 4.596-.343.343-4.596-4.597L6 6.343l-.354.353-4.596 4.597-.343-.343 4.597-4.596L5.657 6l-.353-.354L.707 1.05 1.05.707l4.596 4.597.354.353.354-.353L10.95.707l.343.343Z"
+        />
+      </svg>
+    );
+  }
 
   return null;
 };
