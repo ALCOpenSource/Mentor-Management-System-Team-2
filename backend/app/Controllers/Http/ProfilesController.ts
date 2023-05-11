@@ -1,6 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import User from 'App/Models/User'
 import { DateTime } from 'luxon'
+import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class ProfilesController {
   async getByUserId({ auth, response }: HttpContextContract) {
@@ -21,12 +22,25 @@ export default class ProfilesController {
       if (auth.user?.id) {
         const userId = auth.user?.id
         const profile = await User.findOrFail(userId)
-        const updateProfile = request.body()
-        delete updateProfile['email']
-        delete updateProfile['roleId']
-        profile.merge(updateProfile)
+        const payload = await request.validate({
+          schema: schema.create({
+            profileImagePath: schema.file.optional({
+              size: '2mb',
+              extnames: ['jpg', 'png'],
+            }),
+            bio: schema.string.optional(),
+            website: schema.string.optional(),
+            city: schema.string.optional(),
+            country: schema.string.optional(),
+            socialMediaLinks: schema.object.optional().anyMembers(),
+          }),
+        })
 
-        profile.save()
+        profile.bio = payload.bio ?? profile.bio
+        profile.website = payload.website ?? profile.website
+        profile.city = payload.city ?? profile.city
+        profile.country = payload.country ?? profile.country
+        profile.socialMediaLinks = JSON.stringify(payload.socialMediaLinks) ?? profile.socialMediaLinks
 
         return profile
       }
