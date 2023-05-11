@@ -10,8 +10,6 @@ const TaskAssignees = () => {
   const router = useRouter();
   const { id, role } = router.query;
 
-  console.log(id, role);
-
   return (
     <div>
       <div className="flex flex-justify-between flex-align-center">
