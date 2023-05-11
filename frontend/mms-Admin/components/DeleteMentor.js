@@ -26,7 +26,7 @@ function DeleteMentor({
         setIsDeleteOpen(false);
       }
     } catch (e) {
-      console.error('Delete failed:', e);
+      console.error(e);
       toast.error(e);
     } finally {
       setIsDeleteOpen(false);

@@ -29,7 +29,7 @@ function DeleteTask({
         }, [response.status === 200])
       }
     } catch (e) {
-      console.error('Delete failed:', e);
+      console.error(e);
       toast.error(error);
     } finally {
       setIsDeleteOpen(false);

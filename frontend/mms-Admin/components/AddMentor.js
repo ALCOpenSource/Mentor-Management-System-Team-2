@@ -51,7 +51,7 @@ function AddMentor({
         setLoading(false);
       }
     } catch (e) {
-      console.error('Invite failed:', e);
+      console.error(e);
       toast.error(e);
     }
   };

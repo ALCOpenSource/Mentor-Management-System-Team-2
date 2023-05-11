@@ -19,7 +19,7 @@
   margin-top: 1rem;
   margin-left: 1rem;
 }
-  
+
 .gutter_box_main {
   margin-top: 1.3rem;
   margin-left: 1rem;
@@ -77,7 +77,7 @@
   }
 }
 
-@media (min-width: 1280px) and (max-width: 1280px)  {
+@media (min-width: 1280px) and (max-width: 1280px) {
   .gutter_box_main_icon {
     margin-left: 20rem;
   }
