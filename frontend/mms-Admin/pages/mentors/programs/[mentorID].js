@@ -105,7 +105,7 @@ function MentorPrograms() {
             <h1 className={styles.program_description}>{program?.program?.description}</h1>
             <div
                 className={`flex flex-justify-between flex-align-center ${styles.program_stats}`}>
-                <div className="flex flex-align-center">
+                <div className={`flex flex-align-center ${styles.program_stats_div}`}>
                   <Icons name="report-sheet" />
 
                   <div
