@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { Modal } from "antd";
 import styles from "./componentStyles/splashscreen.module.css";
@@ -17,19 +17,24 @@ function DeleteMentor({
   const handleClose = () => {
     setIsDeleteOpen(false);
   };
+  const [loading, setLoading] = useState(false);
+
 
   const DeleteMentor = async (mentorId) => {
+    setLoading(true);
     try {
       const response = await deleteMentor(mentorId);
       if (response.status === 200) {
         toast.success(response?.data?.statusText);
-        setIsDeleteOpen(false);
+        setIsDeleteOpen();
+        setLoading(false);
       }
     } catch (e) {
       console.error(e);
       toast.error(e);
     } finally {
       setIsDeleteOpen(false);
+      setLoading(false);
     }
   };
 

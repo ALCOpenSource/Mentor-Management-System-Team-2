@@ -38,11 +38,11 @@ function AddMentor({
   };
   
   const InviteMentor = async () => {
+    setLoading(true);
     try {
       const isFormValid = validateForm();
       if (!isFormValid) return;
       
-      setLoading(true);
       const response = await inviteMentor(formData);
       console.log(response)
       if (response.status === 202) {

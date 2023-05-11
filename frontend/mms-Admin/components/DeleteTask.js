@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Modal } from "antd";
 import styles from "./componentStyles/splashscreen.module.css";
@@ -17,14 +17,16 @@ function DeleteTask({
   const handleClose = () => {
     setIsDeleteOpen(false);
   };
+  const [loading, setLoading] = useState(false);
 
   const DeleteTask = async (taskId) => {
-
+    setLoading(true);
     try {
       const response = await deleteTask(taskId);
       if (response.status === 200) {
         toast.success(response?.data?.message);
         setIsDeleteOpen(false);
+        setLoading(false);
         useEffect(() => {
         }, [response.status === 200])
       }
@@ -33,6 +35,7 @@ function DeleteTask({
       toast.error(error);
     } finally {
       setIsDeleteOpen(false);
+      setLoading(false);
     }
   };
 
