@@ -13,7 +13,7 @@ const Reports = () => {
   const [showConfirmSharingByEmail, setShowConfirmSharingByEmail] =
     useState(false);
   const [showDownLoadSuccessModal, setShowDownLoadSuccessModal] =
-    useState(true);
+    useState(false);
 
   return (
     <div className={`flex`}>
@@ -57,6 +57,7 @@ const Reports = () => {
           ))}
         </div>
       </div>
+
       <div className={styles.report_details}>
         {!report && (
           <div
@@ -161,6 +162,7 @@ const Reports = () => {
           )}
         </div>
       </div>
+
       <Modal show={showConfirmSharingByEmail}>
         <ShareReportConfirmationDialogue
           onClose={() => setShowConfirmSharingByEmail(false)}
