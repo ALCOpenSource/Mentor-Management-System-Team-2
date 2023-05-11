@@ -6,6 +6,7 @@ import styles from "../../../styles/programs/reports.module.scss";
 const Reports = () => {
   return (
     <div>
+      {/* TODO: Make this pagination component re-usable but filter and close icons will be conditional */}
       <div className="flex flex-justify-between flex-align-center">
         <h1 className={styles.page_title}>Reports</h1>
         <div className={`flex flex-align-center gap-10`}>
