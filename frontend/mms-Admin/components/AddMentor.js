@@ -39,7 +39,6 @@ function AddMentor({
   
   const InviteMentor = async () => {
     try {
-
       const isFormValid = validateForm();
       if (!isFormValid) return;
       

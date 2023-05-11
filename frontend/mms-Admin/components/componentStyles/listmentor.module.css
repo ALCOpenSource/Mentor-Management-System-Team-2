@@ -14,7 +14,7 @@
 .gutter_box_container {
   display: flex;
 }
-  
+
 .gutter_box_avatar {
   margin-top: 1rem;
   margin-left: 1rem;
@@ -47,7 +47,7 @@
   color: #4d4d4d;
   background: #e6fdfe;
   border-radius: 3px;
-  padding: 0px 8px;
+  padding: 0 8px;
 }
   
 .gutter_box_main_span2 {
@@ -73,7 +73,7 @@
   }
 
   .gutter_box_main_span2 {
-    margin-left: 0rem;
+    margin-left: 0;
   }
 }
 
@@ -94,4 +94,3 @@
     display: block;
   }
 }
-  

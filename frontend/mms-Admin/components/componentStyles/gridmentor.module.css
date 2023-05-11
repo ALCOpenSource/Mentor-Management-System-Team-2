@@ -3,6 +3,7 @@
   height: 80vh;
   overflow-y: scroll;
 }
+
 .gutter_box {
   width: 100%;
   height: 120px;
@@ -46,7 +47,7 @@
   color: #4d4d4d;
   background: #e6fdfe;
   border-radius: 3px;
-  padding: 0px 8px;
+  padding: 0 8px;
 }
 
 .gutter_box_main_span2 {
@@ -68,10 +69,6 @@
 }
 
 @media (max-width: 540px) {
-  .gutter_box_main_icon {
-    margin-left: 0rem;
-  }
-
   .gutter_box_avatar {
     margin-top: 1.3rem;
     margin-left: 0.2rem;
@@ -95,6 +92,7 @@
     display: flex;
     margin-top: 2.5rem;
     justify-content: space-between;
+    margin-left: 0;
   }
 
   .gutter_box_main_header {

@@ -90,12 +90,12 @@
   margin-top: 0.5rem;
 }
 
-.task_memtor >.mentorbutton1:hover {
+.task_memtor > .mentorbutton1:hover {
   color: #058b94;
   border-color: #058b94;
 }
 
-.task_memtor >.mentorbutton:hover {
+.task_memtor > .mentorbutton:hover {
   border-color: #058b94;
   color: #fff;
 }
@@ -103,7 +103,6 @@
 .msg_search_icon {
   margin-left: 5rem;
 }
-
 
 @media (max-width: 1024px) {
   .task_memtor {
@@ -144,6 +143,7 @@
   .mentor_icon {
     margin-top: 1.4rem;
   }
+
   .task_memtor {
     margin-top: 1rem;
   }
@@ -151,7 +151,7 @@
 
 @media (max-width: 540px) {
   .div_input {
-   display: block;
+    display: block;
   }
 
   .task_memtor {

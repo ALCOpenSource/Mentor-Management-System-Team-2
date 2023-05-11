@@ -19,7 +19,6 @@ function DeleteMentor({
   };
 
   const DeleteMentor = async (mentorId) => {
-
     try {
       const response = await deleteMentor(mentorId);
       if (response.status === 200) {
