@@ -42,17 +42,30 @@ export default class ProfilesController {
         profile.country = payload.country ?? profile.country
         profile.socialMediaLinks = JSON.stringify(payload.socialMediaLinks) ?? profile.socialMediaLinks
 
-        return profile
+        if(payload.profileImagePath){
+          const profileImage = request.file('profileImagePath')
+          await profileImage?.moveToDisk('upload_file')
+          profile.profileImagePath = profileImage?.fileName ?? profile.profileImagePath
+        }
+
+        profile.bio = payload.bio ?? profile.bio
+        profile.website = payload.website ?? profile.website
+        profile.city = payload.city ?? profile.city
+        profile.country = payload.country ?? profile.country
+        profile.socialMediaLinks = JSON.stringify(payload.socialMediaLinks) ?? profile.socialMediaLinks
+        await profile.save()
+
+        return response.ok({ status: 'success', message: 'Profile successfully updated', profile })
       }
     } catch (error) {
-      response.badRequest({ message: `invalid user`, status: 'Error' })
+      response.badRequest({ message: `invalid user`, status: `${error}` })
     }
   }
 
   async delete({ auth, params, response }: HttpContextContract) {
     const user = auth.user
-    if(!user || !user.isAdmin) {
-      response.unauthorized({message: 'You are not authorized to access this resource.'})
+    if (!user || !user.isAdmin) {
+      response.unauthorized({ message: 'You are not authorized to access this resource.' })
       return
     }
     try {
@@ -68,8 +81,7 @@ export default class ProfilesController {
   async search({ request, response }: HttpContextContract) {
     const query = request.input('query')
 
-    const res = await User.query()
-    .where((queryBuilder) => {
+    const res = await User.query().where((queryBuilder) => {
       queryBuilder
         .whereRaw('lower(first_name) like ?', [`%${query.toLowerCase()}%`])
         .orWhereRaw('lower(last_name) like ?', [`%${query.toLowerCase()}%`])
