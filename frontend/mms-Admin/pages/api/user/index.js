@@ -9,14 +9,19 @@ export const fetchMentorTasks = async (id) => {
   return response.data.data;
 };
 
+export const fetchMentorAbout = async (id) => {
+  const response = await http.get(`/user/${id}/about`);
+  return response.data;
+};
+
 export const fetchMentorCertificates = async (id) => {
   const response = await http.get(`/certificate/${id}/certificates`);
   return response.data.certificates;
 };
 
 export const fetchMentorManagers = async () => {
-  const url = "/user/mentor-managers";
-  return await http.get(url);
+  const response = await http.get("/mentor-manager");
+  return response.data.mentorManagers;
 };
 
 export const fetchUserProfile = async () => {
@@ -39,4 +44,7 @@ export const inviteMentor = async (payload) => {
   return await http.post(url, payload);
 };
 
-
+export const changePassword = async (payload) => {
+  const url = "/auth/change-password/";
+  return await http.post(url, payload);
+};
