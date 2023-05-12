@@ -15,8 +15,8 @@ export const fetchMentorCertificates = async (id) => {
 };
 
 export const fetchMentorManagers = async () => {
-  const url = "/user/mentor-managers";
-  return await http.get(url);
+  const response = await http.get("/mentor-manager");
+  return response.data.mentorManagers;
 };
 
 export const fetchUserProfile = async () => {
@@ -38,5 +38,3 @@ export const inviteMentor = async (payload) => {
   const url = "/user/invite";
   return await http.post(url, payload);
 };
-
-
