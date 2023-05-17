@@ -1,4 +1,4 @@
-import { Button, Modal, Row, Col, Input, message, Upload } from "antd";
+import { Modal, Row, Col, Input, message, Upload } from "antd";
 import { useState, useEffect } from "react";
 import SuccessMessage from "./SuccessMessage";
 import {
@@ -6,6 +6,7 @@ import {
   CustomInput,
   CustomTextArea,
 } from "./formInputs/CustomInput";
+import { Button } from "../components/atoms/Button";
 
 import styles from "../styles/admin/discussionForum.module.css";
 import { Icon } from "./Icon/Icon";
@@ -28,7 +29,7 @@ export const CustomFormModal = ({
     description: "",
     emoji: "happy face",
   });
-  const [message, setMessage]= useState("")
+  const [message, setMessage] = useState("");
 
   const handleChange = (e) => {
     e.preventDefault();
@@ -63,7 +64,7 @@ export const CustomFormModal = ({
       }
 
       setConfirmLoading(true);
-      setMessage("")
+      setMessage("");
 
       const formData = new FormData();
       formData.append("imageUrl", file);
@@ -86,14 +87,12 @@ export const CustomFormModal = ({
         response?.status === 403
       ) {
         setConfirmLoading(false);
-        setMessage(response?.message)
+        setMessage(response?.message);
         throw response;
       }
     } catch (e) {
       setConfirmLoading(false);
-      setMessage(e.message)
-      
-
+      setMessage(e.message);
     }
   };
   const handleCancel = () => {
@@ -108,17 +107,23 @@ export const CustomFormModal = ({
         onOk={handleSubmit}
         width={866}
         footer={
-          <CustomButton loading={confirmLoading} onClick={handleSubmit}>
+          // <CustomButton loading={confirmLoading} onClick={handleSubmit}>
+          //   Post to forum
+          // </CustomButton>
+          <Button
+            loading={confirmLoading}
+            onClick={handleSubmit}
+            variant="normal"
+            size="large">
             Post to forum
-          </CustomButton>
+          </Button>
         }
         confirmLoading={confirmLoading}
         closable={false}>
         <Row className={styles.modal_container}>
-        {message && <p>{message}</p>}
+          {message && <p>{message}</p>}
 
           <Row className={styles.header_row}>
-
             <div className={styles.topic}>New Topic</div>
             <div style={{ cursor: "pointer" }} onClick={handleCancel}>
               <Icon name="Close" />
@@ -151,7 +156,7 @@ export const CustomFormModal = ({
                   <Icon name="SmileyFace" />
                 </Col>
 
-                <Upload  {...props} >
+                <Upload {...props}>
                   <Icon name="Pin" color="#058B94" />
                 </Upload>
               </Row>

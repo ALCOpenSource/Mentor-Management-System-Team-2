@@ -6,6 +6,7 @@ import styles from "../styles/reports.module.scss";
 import Modal from "../components/molecules/Modal";
 import { ShareReportConfirmationDialogue } from "../components/molecules/ShareReportConfirmationDialogue";
 import { DownloadSuccessModal } from "../components/molecules/DownloadSuccessModal";
+import NoItemSelected from "../components/organisms/NoItemSelected";
 
 const Reports = () => {
   const [report, setReport] = useState(null);
@@ -151,14 +152,7 @@ const Reports = () => {
               </div>
             </div>
           ) : (
-            <div
-              className={`flex flex-align-center flex-justify-center ${styles.empty_report_screen}`}>
-              <div className="flex flex-column flex-align-center">
-                <Icons name="report-details" />
-                <h1>No item selected yet </h1>
-                <p>Select an item from the list to view report details</p>
-              </div>
-            </div>
+            <NoItemSelected />
           )}
         </div>
       </div>
