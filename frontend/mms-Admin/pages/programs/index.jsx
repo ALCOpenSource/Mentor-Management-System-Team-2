@@ -50,7 +50,11 @@ const Programs = () => {
 
       <div className={styles.program_details}>
         <div className={`flex flex-justify-end ${styles.compose_button_area}`}>
-          <Button variant="normal" size="large">
+          <Button
+            variant="normal"
+            size="large"
+            type="link"
+            url="/programs/create">
             Create New Program
           </Button>
         </div>

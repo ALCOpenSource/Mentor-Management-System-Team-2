@@ -382,5 +382,67 @@ export const Icons = (props) => {
     );
   }
 
+  if (props.name === "remove-tag") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={19}
+        height={14}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#99000A"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="m9.426 4.5-5 5m0-5 5 5m3.03-8.333L17.76 7l-5.303 5.833H2.76c-.92 0-1.667-.746-1.667-1.667V2.833c0-.92.746-1.667 1.667-1.667h9.697Z"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "check-good") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={20}
+        height={20}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="m2.5 10 5 5 10-10"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "circle-add") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={20}
+        height={20}
+        fill="none"
+        {...props}>
+        <g
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          clipPath="url(#a)">
+          <path d="M10 5.833v8.334M5.835 10h8.333M10 18.333a8.333 8.333 0 1 0 0-16.666 8.333 8.333 0 0 0 0 16.666Z" />
+        </g>
+        <defs>
+          <clipPath id="a">
+            <path fill="#fff" d="M0 0h20v20H0z" />
+          </clipPath>
+        </defs>
+      </svg>
+    );
+  }
+
   return null;
 };

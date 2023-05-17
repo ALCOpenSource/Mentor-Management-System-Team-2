@@ -5,7 +5,7 @@ import { Button } from "../components/atoms/Button";
 import styles from "../styles/reports.module.scss";
 import Modal from "../components/molecules/Modal";
 import { ShareReportConfirmationDialogue } from "../components/molecules/ShareReportConfirmationDialogue";
-import { DownloadSuccessModal } from "../components/molecules/DownloadSuccessModal";
+import { SuccessModal } from "../components/molecules/SuccessModal";
 import NoItemSelected from "../components/organisms/NoItemSelected";
 
 const Reports = () => {
@@ -166,7 +166,7 @@ const Reports = () => {
         />
       </Modal>
       <Modal show={showDownLoadSuccessModal}>
-        <DownloadSuccessModal
+        <SuccessModal
           onClose={() => setShowDownLoadSuccessModal(false)}
           onConfirm={() => {
             setShowDownLoadSuccessModal(false);
