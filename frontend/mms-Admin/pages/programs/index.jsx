@@ -12,7 +12,7 @@ const Programs = () => {
 
   return (
     <div className={`flex`}>
-      <div className={`${styles.list_wrapper}`}>
+      <div className={`${styles.list_area}`}>
         <div className="flex flex-justify-between flex-align-center mb-1">
           <h1 className={styles.page_title}>Programs</h1>
           <div className={`flex flex-align-center gap-10`}>
@@ -21,29 +21,31 @@ const Programs = () => {
           </div>
         </div>
 
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
-          <ListItem
-            onClick={() => setProgram({})}
-            className="cursor-pointer"
-            key={item}>
-            <div className={`flex gap-16 flex-align-center`}>
-              <Icons name="gads" />
-              <div>
-                <p className={`list_main_text`}>
-                  Google Africa Scholarship Program
-                </p>
-                <div className={`flex gap-10`}>
-                  <p className="flex flex-align-center gap-10 list_sub_text">
-                    <Icons name="calendar" /> Dec 12, 2022
+        <div className={`${styles.list_wrapper}`}>
+          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+            <ListItem
+              onClick={() => setProgram({})}
+              className="cursor-pointer"
+              key={item}>
+              <div className={`flex gap-16 flex-align-center`}>
+                <Icons name="gads" />
+                <div>
+                  <p className={`list_main_text`}>
+                    Google Africa Scholarship Program
                   </p>
-                  <p className="flex flex-align-center gap-10 list_sub_text">
-                    <Icons name="timer" /> 8:00 pm
-                  </p>
+                  <div className={`flex gap-10`}>
+                    <p className="flex flex-align-center gap-10 list_sub_text">
+                      <Icons name="calendar" /> Dec 12, 2022
+                    </p>
+                    <p className="flex flex-align-center gap-10 list_sub_text">
+                      <Icons name="timer" /> 8:00 pm
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </ListItem>
-        ))}
+            </ListItem>
+          ))}
+        </div>
       </div>
 
       <div className={styles.program_details}>
