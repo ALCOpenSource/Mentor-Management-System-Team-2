@@ -109,9 +109,6 @@ export const CustomFormModal = ({
           onOk={handleSubmit}
           width={866}
           footer={
-            // <CustomButton loading={confirmLoading} onClick={handleSubmit}>
-            //   Post to forum
-            // </CustomButton>
             <Button
               loading={confirmLoading}
               onClick={handleSubmit}
