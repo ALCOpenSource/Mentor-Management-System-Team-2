@@ -14,7 +14,6 @@ export const Inputs = (props) => {
 
   if (props.type === "select")
     return (
-      // <input {...props} className={`${styles.input} ${props.className}`} />
       <div className={styles.input_container}>
         <div className={`${styles.select_wrapper}`}>
           <select className={`${styles.select}`}>
