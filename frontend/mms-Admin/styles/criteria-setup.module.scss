@@ -21,7 +21,7 @@
 
   p {
     line-height: 1.8rem;
-    color: #666666;
+    color: #666;
   }
 }
 
@@ -31,7 +31,7 @@
 
 .input_type_options {
   margin: 2rem 0;
-  background: #ffffff;
+  background: #fff;
   box-shadow: 1px 3px 9px rgba(3, 93, 99, 0.2);
   border-radius: 5px;
 }
@@ -52,15 +52,15 @@
   padding: 1.2rem 1rem;
 }
 
+.input_type_options input:checked + div {
+  background-color: #f7feff;
+  font-weight: bold;
+}
+
 .input_type_options > label:first-child input + div {
   border-radius: 5px 5px 0 0;
 }
 
 .input_type_options > label:last-child input + div {
   border-radius: 0 0 5px 5px;
-}
-
-.input_type_options input:checked + div {
-  background-color: #f7feff;
-  font-weight: bold;
 }
