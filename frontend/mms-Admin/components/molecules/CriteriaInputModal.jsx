@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Button } from "../../components/atoms/Button";
 import styles from "../../styles/criteria-setup.module.scss";
+import { Icons } from "../../components/atoms/Icons";
+import { Inputs } from "../../components/atoms/Inputs";
 
 const inputOptions = [
   { id: 1, name: "Single Input" },
@@ -67,34 +69,80 @@ function CriteriaInputOptions({ setSelectedInputOption }) {
 function AddQuestionsScreen({ selectedInputOption }) {
   if (selectedInputOption === "Single Input")
     return (
-      <div>
-        <input
-          className={`${styles.input}`}
-          placeholder="Input question here"
-        />
-      </div>
+      <>
+        <h1 className={styles.input_type_title}>Input Single Question</h1>
+        <Inputs type="text" placeholder="Input question here" />
+      </>
     );
 
   if (selectedInputOption === "Multiple Input")
     return (
       <>
-        <div>
-          <input
-            className={`${styles.input}`}
-            placeholder="Type your question here"
-          />
-        </div>
-        <div className={`${styles.select_wrapper}`}>
-          <select className={`${styles.select}`}>
-            <option value="1">1 input</option>
-            <option value="2">2 inputs</option>
-            <option value="3">3 inputs</option>
-            <option value="4">4 inputs</option>
-            <option value="5">5 inputs</option>
-          </select>
-          <span class="focus"></span>
+        <h1 className={styles.input_type_title}>Multiple Input Question</h1>
+        <Inputs type="text" placeholder="Input question here" />
+        <Inputs
+          type="select"
+          options={[
+            { value: 1, label: "1 Input" },
+            { value: 2, label: "2 Inputs" },
+          ]}
+        />
+      </>
+    );
+
+  if (selectedInputOption === "Yes/No")
+    return (
+      <>
+        <h1 className={styles.input_type_title}>Input Yes or No Question</h1>
+        <Inputs type="text" placeholder="Input question here" />
+        <div className={`flex flex-align-center gap-16`}>
+          <Icons name="circle-add" /> <span>Add another question</span>
         </div>
       </>
     );
-  return <div>{selectedInputOption}</div>;
+
+  if (selectedInputOption === "File Input")
+    return (
+      <>
+        <h1 className={styles.input_type_title}>Input File Request</h1>
+        <Inputs type="text" placeholder="Input question here" />
+        <div className={`flex flex-align-center gap-16`}>
+          <Inputs type="text" placeholder="Input question here" />
+
+          <Inputs
+            type="select"
+            options={[{ value: "0", label: "File type" }]}
+          />
+
+          <Inputs type="select" options={[{ value: "0", label: "Qty" }]} />
+        </div>
+
+        <div className={`flex flex-align-center gap-16`}>
+          <Icons name="circle-add" /> <span>Add field</span>
+        </div>
+      </>
+    );
+
+  if (selectedInputOption === "Multi-Choice")
+    return (
+      <>
+        <h1 className={styles.input_type_title}>
+          Input Multiple Select Option
+        </h1>
+
+        <Inputs type="text" placeholder="Input question here" />
+
+        <Inputs
+          type="text"
+          placeholder="Option 1"
+          icon={<Icons name="subtract" />}
+        />
+
+        <div className={`flex flex-align-center flex-justify-end`}>
+          <Icons name="circle-add" />
+        </div>
+      </>
+    );
+
+  return null;
 }

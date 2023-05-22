@@ -1,83 +1,31 @@
-.wrapper {
-  min-height: 80vh;
-}
-
-.page_title,
-.input_modal_title {
-  font-size: 1.2rem;
-  font-weight: 500;
-}
-
-.input_type_title {
-  font-size: 1.3rem;
-  font-weight: 600;
-  margin-bottom: 1.4rem;
-}
-
-.info_text_area {
-  background-color: #f7feff;
-  padding: 2rem;
-  border-radius: 10px;
-
-  p {
-    line-height: 1.8rem;
-    color: #666666;
-  }
-}
-
-.action_buttons {
-  margin-top: 2.5rem;
-}
-
-.input_type_options {
-  margin: 2rem 0;
-  background: #ffffff;
-  box-shadow: 1px 3px 9px rgba(3, 93, 99, 0.2);
+.input_container {
+  border: 1px solid #e6e6e6;
   border-radius: 5px;
-}
-
-.input_type_options > label {
-  color: black;
-  background: transparent;
-  cursor: pointer;
-  display: block;
   width: 100%;
+  padding: 0 1rem;
 }
 
-.input_type_options input[type="radio"] {
-  display: none;
-}
-
-.input_type_options input + div {
-  padding: 1.2rem 1rem;
-}
-
-.input_type_options > label:first-child input + div {
-  border-radius: 5px 5px 0 0;
-}
-
-.input_type_options > label:last-child input + div {
-  border-radius: 0 0 5px 5px;
-}
-
-.input_type_options input:checked + div {
-  background-color: #f7feff;
-  font-weight: bold;
+.input_container:not(last-child) {
+  margin-bottom: 1rem;
 }
 
 .input {
   height: 50px;
   width: 100%;
-  padding: 10px;
-  border: 1px solid #e6e6e6;
+  padding: 10px 0;
+  border: none;
   border-radius: 5px;
+  outline: 0;
+}
+
+.input:focus {
+  outline: 0;
 }
 
 .select_wrapper {
   width: 100%;
-  border: 1px solid #e6e6e6;
   border-radius: 5px;
-  padding: 10px;
+  padding: 10px 0;
   font-size: 1;
   cursor: pointer;
   line-height: 1.1;
@@ -136,11 +84,6 @@
   bottom: -1px;
   border: 2px solid black;
   border-radius: inherit;
-}
-
-.input:not(last-child),
-.select_wrapper:not(last-child) {
-  margin-bottom: 1rem;
 }
 
 .input::placeholder {
