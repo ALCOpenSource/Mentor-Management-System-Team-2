@@ -12,6 +12,7 @@ export default class DashboardController {
       response.unauthorized({ message: 'You are not authorized to access this resource.' })
       return
     }
+    const currentDate = new Date().toISOString()
 
     try {
       const activePrograms = (await Program.query().where('is_archive', false)).length
@@ -21,15 +22,16 @@ export default class DashboardController {
       const tasks = (await Task.query()).length
       const reports = (await TaskReport.query()).length
       const reportList = await TaskReport.query().limit(3)
-      const taskList = await Task.query().limit(3)
-
+      const completedTaskList = await Task.query().where('end_date', '<', currentDate).limit(3)
+      const inprogressTaskList = await Task.query().where('end_date', '>', currentDate).limit(3)
       response.ok({
         active_programs: activePrograms,
         program_list: programList,
         mentor_managers: mentorManagers,
         mentors,
         tasks,
-        task_list: taskList,
+        completed_task_list: completedTaskList,
+        inprogress_task_list: inprogressTaskList,
         reports,
         report_list: reportList,
       })
