@@ -18,7 +18,7 @@ function Support() {
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [file, setFile] = useState();
-  const [message, setMessage]= useState("")
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     if (JSON.parse(localStorage.getItem("token"))) {
@@ -63,7 +63,6 @@ function Support() {
 
       try {
         if (file) {
-          console.log("here");
           formData.append("imageUrl", file);
         }
         if (email) {
@@ -84,12 +83,12 @@ function Support() {
 
         if (response.status === 401 || response.status === 400) {
           setLoading(false);
-          setMessage('Could not send Request')
+          setMessage("Could not send Request");
 
           throw response;
         }
       } catch (e) {
-        setMessage('Could not send Request')
+        setMessage("Could not send Request");
 
         setLoading(false);
       }
@@ -130,7 +129,7 @@ function Support() {
           placeholder="body"
           required
         />
-              <Label weight={"bold"} title={message} />
+        <Label weight={"bold"} title={message} />
 
         <Row className={styles.space_container}>
           <Upload {...props}>

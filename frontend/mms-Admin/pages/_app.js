@@ -11,6 +11,7 @@ import "styles/globals.css";
 import { styles } from "styles/_app";
 import { useLogin } from "../hooks/useLogin";
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 const queryClient = new QueryClient();
 
@@ -18,8 +19,6 @@ const App = ({ Component, pageProps, session }) => {
   const getLayout = Component.getLayout || ((page) => page);
   const { token } = useLogin();
   const router = useRouter();
-
- 
 
   return (
     <>
@@ -37,6 +36,7 @@ const App = ({ Component, pageProps, session }) => {
             />
           </SessionProvider>
         </ContextProvider>
+        <Toaster position="top-right" />
       </QueryClientProvider>
     </>
   );

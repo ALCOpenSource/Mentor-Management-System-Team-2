@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import format from "date-fns/format";
+import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import styles from "../../styles/programs/programs.module.scss";
 import { Icons } from "../../components/atoms/Icons";
@@ -6,9 +8,19 @@ import { ListItem } from "../../components/atoms/ListItem";
 import { Button } from "../../components/atoms/Button";
 import { Stats } from "../../components/molecules/Stats";
 import NoItemSelected from "../../components/organisms/NoItemSelected";
+import { fetchPrograms } from "pages/api/program";
 
 const Programs = () => {
   const [program, setProgram] = useState(null);
+  const {
+    data: programs,
+    isLoading,
+    isError,
+  } = useQuery(["programs"], fetchPrograms);
+
+  if (isLoading) return "loading...";
+
+  if (isError) return "An error occured";
 
   return (
     <div className={`flex`}>
@@ -22,23 +34,25 @@ const Programs = () => {
         </div>
 
         <div className={`${styles.list_wrapper}`}>
-          {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((item) => (
+          {programs.map((item) => (
             <ListItem
-              onClick={() => setProgram({})}
+              onClick={() => setProgram(item)}
               className="cursor-pointer"
-              key={item}>
+              key={item.id}>
               <div className={`flex gap-16 flex-align-center`}>
-                <Icons name="gads" />
                 <div>
-                  <p className={`list_main_text`}>
-                    Google Africa Scholarship Program
-                  </p>
+                  <Icons name="gads" />
+                </div>
+                <div>
+                  <p className={`list_main_text`}>{item.name}</p>
                   <div className={`flex gap-10`}>
                     <p className="flex flex-align-center gap-10 list_sub_text">
-                      <Icons name="calendar" /> Dec 12, 2022
+                      <Icons name="calendar" />
+                      {format(new Date(item.created_at), "MMM dd, yyyy")}
                     </p>
                     <p className="flex flex-align-center gap-10 list_sub_text">
-                      <Icons name="timer" /> 8:00 pm
+                      <Icons name="timer" />
+                      {format(new Date(item.created_at), "p")}
                     </p>
                   </div>
                 </div>
@@ -66,15 +80,15 @@ const Programs = () => {
                 <div className={`flex gap-16 flex-align-center`}>
                   <Icons name="gads" />
                   <div>
-                    <p className={`list_main_text`}>
-                      Google Africa Scholarship Program
-                    </p>
+                    <p className={`list_main_text`}>{program.name}</p>
                     <div className={`flex gap-10`}>
                       <p className="flex flex-align-center gap-10 list_sub_text">
-                        <Icons name="calendar" /> Dec 12, 2022
+                        <Icons name="calendar" />{" "}
+                        {format(new Date(program.created_at), "MMM dd, yyyy")}
                       </p>
                       <p className="flex flex-align-center gap-10 list_sub_text">
-                        <Icons name="timer" /> 8:00 pm
+                        <Icons name="timer" />{" "}
+                        {format(new Date(program.created_at), "p")}
                       </p>
                     </div>
                   </div>
@@ -85,17 +99,7 @@ const Programs = () => {
               <div className={styles.details_body}>
                 <section>
                   <h1>About:</h1>
-                  <p>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
-                    et massa mi. Aliquam in hendrerit urna. Pellentesque sit
-                    amet sapien fringilla, mattis ligula consectetur, ultrices
-                    mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet
-                    augue. Vestibulum auctor ornare leo, non suscipit magna
-                    interdum eu. Curabitur pellentesque nibh nibh, at maximus
-                    ante fermentum sit amet. Pellentesque commodo lacus at
-                    sodales sodales. Quisque sagittis orci ut diam condimentum,
-                    vel euismod erat placerat.{" "}
-                  </p>
+                  <p>{program.description}</p>
 
                   <Stats
                     icon={<Icons name="mentor-manager" />}
@@ -122,7 +126,11 @@ const Programs = () => {
                       Delete/Archive Program
                     </span>
                   </Link>
-                  <Button onClick={() => {}} variant="normal" size="large">
+                  <Button
+                    type="link"
+                    url={`/programs/edit?${program.id}`}
+                    variant="normal"
+                    size="large">
                     Edit Program
                   </Button>
                 </section>

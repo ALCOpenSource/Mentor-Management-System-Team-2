@@ -67,7 +67,6 @@ function General() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(file);
     setLoading(true);
     const valid = validateInputs(profileData);
     if (valid) {
@@ -76,7 +75,6 @@ function General() {
       try {
         const { bio, website } = profileData;
         if (file) {
-          console.log("here");
           formData.append("profileImagePath", file);
         }
         formData.append("bio", bio);
@@ -84,10 +82,9 @@ function General() {
         formData.append("socialMediaLinks", JSON.stringify(sMedia));
         formData.append("country", country);
         formData.append("city", region);
-       
 
         const response = await updateUserProfile(formData);
-        console.log(response);
+
         if (response.status === 200) {
           setSuccess(true);
         }

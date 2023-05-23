@@ -6,8 +6,9 @@ export const fetchTask = async (id) => {
 };
 
 export const fetchTasks = async (query) => {
-  const url = "/task" + query;
-  return await http.get(url);
+  const url = "/task";
+  const response = await http.get(url);
+  return response.data.data;
 };
 
 export const createTask = async (payload) => {
