@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Roles from 'App/Enums/Roles'
+import Criterion from 'App/Models/Criterion'
 import Program from 'App/Models/Program'
 import UserProgram from 'App/Models/UserProgram'
 
@@ -23,16 +24,19 @@ export default class ArchivesController {
     try {
       if (auth.user?.id) {
         const userId = auth.user?.id
-        const { name, description, mentors, mentorManagers } = request.only([
+        const { name, description, mentors, mentorManagers, criteria } = request.only([
           'name',
           'description',
           'mentors',
           'mentorManagers',
+          'criteria',
         ])
         const program = new Program()
         program.fill({ userId, name, description })
 
         await program.save()
+
+        await this.setCriteria(program.id, criteria)
 
         const users = [...mentors, ...mentorManagers]
 
@@ -65,8 +69,9 @@ export default class ArchivesController {
       .paginate(page || 1, limit || 10)
 
     if (!program) return response.status(404).send({ message: 'Program not found' })
-
+    const criteria = await Criterion.query().where('program_id', params.id)
     program.users = users
+    program.criteria = criteria
 
     return response.ok(program)
   }
@@ -75,17 +80,20 @@ export default class ArchivesController {
     try {
       const userId = await auth.user?.id
       const program = await Program.findByOrFail('id', params.id)
-      const { name, description, mentors, mentorManagers } = request.only([
+      const { name, description, mentors, mentorManagers, criteria } = request.only([
         'name',
         'description',
         'mentors',
         'mentorManagers',
+        'criteria',
       ])
 
       if (!program) return response.status(404).send({ message: 'Program not Found' })
 
       program.merge({ name, description, userId })
       await program.save()
+
+      await this.setCriteria(program.id, criteria)
 
       const users = [...mentors, ...mentorManagers]
 
@@ -98,7 +106,9 @@ export default class ArchivesController {
         await UserProgram.createMany(usersData)
       }
 
-      response.status(200).json({ message: 'Program updated', ...program.$attributes })
+      response
+        .status(200)
+        .json({ message: 'Program updated', ...program.$attributes })
     } catch (error) {
       response.badRequest({ message: `server issue`, status: 'Error' })
     }
@@ -251,5 +261,11 @@ export default class ArchivesController {
     program.users = users
 
     return response.ok(program)
+  }
+
+  private async setCriteria(program, criteria) {
+    return await Promise.all(
+      criteria.map((id) => Criterion.query().where('id', id).update({ program_id: program }))
+    )
   }
 }

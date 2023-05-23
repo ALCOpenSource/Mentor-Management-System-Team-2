@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, HasMany, belongsTo, column, hasMany } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
+import Criterion from './Criterion'
 
 export default class Program extends BaseModel {
   @column({ isPrimary: true })
@@ -18,6 +19,9 @@ export default class Program extends BaseModel {
   @column()
   public isArchive: boolean
 
+  @hasMany(() => Criterion)
+  public criterion: HasMany<typeof Criterion>
+
   @belongsTo(() => User)
   public user: BelongsTo<typeof User>
 
@@ -26,6 +30,9 @@ export default class Program extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  @column()
+  public criteria: Criterion[]
 
   @column()
   public users?: any
