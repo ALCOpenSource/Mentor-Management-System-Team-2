@@ -81,9 +81,12 @@ export default class ProgramsController {
         })
         .preload('user')
         .exec()
+      const criteria = await Criterion.query().where('program_id', params.id)
 
       return response.ok({
         program,
+        criteriaCount: criteria.length,
+        criteria,
         reportCount: reports.length,
         reports,
         mentorCount: mentors.length,
@@ -94,19 +97,6 @@ export default class ProgramsController {
     } catch (error) {
       return response.badRequest({ message: 'Server issue', status: 'Error' })
     }
-    const program = await Program.query().where('id', params.id).firstOrFail()
-    const { page, limit } = request.qs()
-    const users = await UserProgram.query()
-      .preload('user')
-      .where('program_id', params.id)
-      .paginate(page || 1, limit || 10)
-
-    if (!program) return response.status(404).send({ message: 'Program not found' })
-    const criteria = await Criterion.query().where('program_id', params.id)
-    program.users = users
-    program.criteria = criteria
-
-    return response.ok(program)
   }
 
   public async update({ auth, params, request, response }: HttpContextContract) {
@@ -140,9 +130,7 @@ export default class ProgramsController {
         await UserProgram.createMany(usersData)
       }
 
-      response
-        .status(200)
-        .json({ message: 'Program updated', ...program.$attributes })
+      response.status(200).json({ message: 'Program updated', ...program.$attributes })
     } catch (error) {
       response.badRequest({ message: `server issue`, status: 'Error' })
     }
