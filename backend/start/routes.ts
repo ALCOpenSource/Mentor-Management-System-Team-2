@@ -124,6 +124,14 @@ Route.group(() => {
     .middleware('auth')
 
   Route.group(() => {
+    Route.get('/', 'CriteriaController.index')
+    Route.post('/', 'CriteriaController.create')
+    Route.put('/:id', 'CriteriaController.update')
+  })
+    .prefix('criteria')
+    .middleware('auth')
+
+  Route.group(() => {
     Route.get('/', 'SupportRequestsController.index')
     Route.post('/', 'SupportRequestsController.createRequest')
   })
