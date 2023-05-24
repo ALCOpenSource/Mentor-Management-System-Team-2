@@ -1,4 +1,6 @@
 import http from "services/axios";
+import { apiService } from "../../api/axios";
+
 export const fetchMentors = async () => {
   const response = await http.get("/mentor");
   return response.data.mentors.data;
@@ -12,6 +14,17 @@ export const fetchMentorTasks = async (id) => {
 export const fetchMentorAbout = async (id) => {
   const response = await http.get(`/user/${id}/about`);
   return response.data;
+};
+
+export const fetchMentorManagerData = async (id) => {
+  try {
+    const response = await apiService(`/user/${id}/about`, "GET");
+    return response.data;
+  } catch (e) {
+    toast.error("An error occured while fetching mentor manager data", {
+      toastId: "error-message",
+    });
+  }
 };
 
 export const fetchMentorCertificates = async (id) => {
