@@ -69,22 +69,6 @@ const TaskAction = () => {
             </h1>
 
             <div className={styles.content_wrapper}>
-              <div className={`flex flex-align-center gap-16`}>
-                <Image
-                  src="/assets/images/user_img.svg"
-                  width={85}
-                  height={85}
-                  alt="profile image"
-                  className={styles.profile_image}
-                />
-                <div>
-                  <h3>Set Task Avatar</h3>
-                  <Button variant="white" bordered size="small">
-                    Select file
-                  </Button>
-                </div>
-              </div>
-
               <div className={styles.input_area}>
                 <div className={`mb-1`}>
                   <label className={styles.input_label}>Task Name</label>

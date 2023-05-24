@@ -90,19 +90,19 @@ const Tasks = () => {
 
                   <Stats
                     icon={<Icons name="mentor-manager" />}
-                    number={12}
+                    number={task.mentorManagerCount}
                     text="Mentor Managers assigned to this task"
                   />
 
                   <Stats
                     icon={<Icons name="mentor" />}
-                    number={80}
+                    number={task.mentorCount}
                     text="Mentors assigned to this task"
                   />
 
                   <Stats
                     icon={<Icons name="report-sheet" />}
-                    number={35}
+                    number={task.taskReportCount}
                     text="Task reports"
                   />
                 </section>

@@ -102,18 +102,21 @@ const Programs = () => {
                   <p>{program.description}</p>
 
                   <Stats
+                    url={`/programs/assignees/${program.id}`}
                     icon={<Icons name="mentor-manager" />}
                     number={12}
                     text="Mentor Managers assigned to this program"
                   />
 
                   <Stats
+                    url={`/programs/assignees/${program.id}`}
                     icon={<Icons name="mentor" />}
                     number={80}
                     text="Mentors assigned to this program"
                   />
 
                   <Stats
+                    url={`/programs/reports/id?${program.id}`}
                     icon={<Icons name="report-sheet" />}
                     number={35}
                     text="Program reports"
@@ -128,7 +131,7 @@ const Programs = () => {
                   </Link>
                   <Button
                     type="link"
-                    url={`/programs/edit?${program.id}`}
+                    url={`/programs/edit?id=${program.id}`}
                     variant="normal"
                     size="large">
                     Edit Program

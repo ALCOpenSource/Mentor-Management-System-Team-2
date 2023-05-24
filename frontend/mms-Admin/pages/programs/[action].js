@@ -19,7 +19,9 @@ const Create = () => {
   const [users, setUsers] = useState([]);
   const [selectedManagers, setSelectedManagers] = useState([]);
   const [selectedMentors, setSelectedMentors] = useState([]);
-  const { action } = router.query;
+  const { action, id } = router.query;
+  const [programName, setProgramName] = useState("");
+  const [programDescription, setProgramDescription] = useState("");
 
   useEffect(async () => {
     if (listType === "mentor") {
@@ -32,6 +34,12 @@ const Create = () => {
       setUsers((prev) => mentorManagers.data);
     }
   }, [listType]);
+
+  useEffect(async () => {
+    if (action === "edit" && id) {
+      console.log(action, id);
+    }
+  }, []);
 
   function selectUser(id) {
     if (listType === "mentor" && !selectedMentors.includes(id)) {
@@ -57,6 +65,43 @@ const Create = () => {
         id: "user_removed",
       });
     }
+  }
+
+  function handleInputChange(e) {
+    setProgramName(e.target.value);
+  }
+
+  function handleTextAreaChange(e) {
+    setProgramDescription(e.target.value);
+  }
+
+  function createProgram() {
+    const payload = {
+      name: programName,
+      description: programDescription,
+      mentors: selectedMentors,
+      mentorManagers: selectedManagers,
+      criteria: [],
+    };
+    alert(JSON.stringify(payload));
+    const response = confirm("Do you want to submit this data?");
+    if (response) {
+      setCreatedSuccessfully(true);
+      resetState();
+    }
+  }
+
+  function editProgram() {
+    alert("program edited");
+  }
+
+  function resetState() {
+    setListType("");
+    setUsers([]);
+    setSelectedManagers([]);
+    setSelectedMentors([]);
+    setProgramName("");
+    setProgramDescription("");
   }
 
   return (
@@ -91,6 +136,8 @@ const Create = () => {
                   <label className={styles.input_label}>Program Name</label>
                   <div>
                     <input
+                      value={programName}
+                      onChange={handleInputChange}
                       className={styles.input}
                       placeholder="Enter program name"
                     />
@@ -102,7 +149,10 @@ const Create = () => {
                     Program Description
                   </label>
                   <div>
-                    <textarea className={styles.text_area}></textarea>
+                    <textarea
+                      value={programDescription}
+                      onChange={handleTextAreaChange}
+                      className={styles.text_area}></textarea>
                   </div>
                 </div>
               </div>
@@ -132,7 +182,11 @@ const Create = () => {
 
               <div className="flex flex-justify-end">
                 <Button
-                  onClick={() => setCreatedSuccessfully(true)}
+                  onClick={
+                    router.query.action === "create"
+                      ? createProgram
+                      : editProgram
+                  }
                   variant="normal"
                   size="large">
                   {router.query.action === "edit"
