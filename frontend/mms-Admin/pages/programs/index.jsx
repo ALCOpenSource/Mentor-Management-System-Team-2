@@ -22,6 +22,7 @@ const Programs = () => {
 
   if (isError) return "An error occured";
 
+  console.log("programs ", programs);
   return (
     <div className={`flex`}>
       <div className={`${styles.list_area}`}>
@@ -102,21 +103,21 @@ const Programs = () => {
                   <p>{program.description}</p>
 
                   <Stats
-                    url={`/programs/assignees/${program.id}`}
+                    url={`/programs/assignees/mentor-manager/${program.id}`}
                     icon={<Icons name="mentor-manager" />}
                     number={12}
                     text="Mentor Managers assigned to this program"
                   />
 
                   <Stats
-                    url={`/programs/assignees/${program.id}`}
+                    url={`/programs/assignees/mentor/${program.id}`}
                     icon={<Icons name="mentor" />}
                     number={80}
                     text="Mentors assigned to this program"
                   />
 
                   <Stats
-                    url={`/programs/reports/id?${program.id}`}
+                    url={`/programs/reports/${program.id}`}
                     icon={<Icons name="report-sheet" />}
                     number={35}
                     text="Program reports"

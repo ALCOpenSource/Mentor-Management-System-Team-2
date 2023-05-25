@@ -89,21 +89,21 @@ const Tasks = () => {
                   <p>{task.description}</p>
 
                   <Stats
-                    url={`/tasks/assignees/${task.id}`}
+                    url={`/tasks/assignees/mentor-manager/${task.id}`}
                     icon={<Icons name="mentor-manager" />}
                     number={task.mentorManagerCount}
                     text="Mentor Managers assigned to this task"
                   />
 
                   <Stats
-                    url={`/tasks/assignees/${task.id}`}
+                    url={`/tasks/assignees/mentor/${task.id}`}
                     icon={<Icons name="mentor" />}
                     number={task.mentorCount}
                     text="Mentors assigned to this task"
                   />
 
                   <Stats
-                    url={`/tasks/reports/id?${task.id}`}
+                    url={`/tasks/reports/${task.id}`}
                     icon={<Icons name="report-sheet" />}
                     number={task.taskReportCount}
                     text="Task reports"

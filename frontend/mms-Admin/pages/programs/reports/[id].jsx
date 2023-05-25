@@ -3,8 +3,25 @@ import { ListItem } from "../../../components/atoms/ListItem";
 import { Icons } from "../../../components/atoms/Icons";
 import styles from "../../../styles/programs/reports.module.scss";
 import { PaginationWithFilter } from "../../../components/molecules/PaginationWithFilter";
+import { useRouter } from "next/router";
+import { fetchReportAssociatedWithprogram } from "../../api/report";
+import { useQuery } from "@tanstack/react-query";
 
 const Reports = () => {
+  const router = useRouter();
+  const { id } = router.query;
+
+  const { data, isLoading, isError } = useQuery(
+    [`program-reports-by-${id}`],
+    () => fetchReportAssociatedWithprogram(id),
+  );
+
+  if (isLoading) return "loading...";
+
+  if (isError) return "An error occured";
+
+  console.log(data);
+
   return (
     <div>
       <div className="flex flex-justify-between flex-align-center">
