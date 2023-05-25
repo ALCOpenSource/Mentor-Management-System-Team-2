@@ -182,7 +182,7 @@ export default class TaskReportController {
 
   async downloadReportPDF({ auth, params, response }: HttpContextContract) {
     const trx = await Database.transaction()
-    const event = {name: Task}
+    const event = { name: Task }
     try {
       const user = auth.user
       if (!user || !user.isAdmin) {

@@ -1,6 +1,12 @@
 import PDFDocument from 'pdfkit'
 
-async function generatePdfFile(response: any, report: any, title: any, mentorManager: any, {name}) {
+async function generatePdfFile(
+  response: any,
+  report: any,
+  title: any,
+  mentorManager: any,
+  { name }
+) {
   const doc = new PDFDocument()
   response.attachment(`Report_${report.id}.pdf`, 'application/pdf')
   doc.pipe(response.response)

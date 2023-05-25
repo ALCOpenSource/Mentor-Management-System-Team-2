@@ -180,7 +180,7 @@ export default class ProgramReportsController {
 
   async downloadReportPDF({ auth, params, response }: HttpContextContract) {
     const trx = await Database.transaction()
-    const title = {name: Program}
+    const title = { name: Program }
     try {
       const user = auth.user
       if (!user || !user.isAdmin) {
@@ -206,5 +206,4 @@ export default class ProgramReportsController {
       response.badRequest({ message: 'Error getting request', status: 'Error' })
     }
   }
-
 }
