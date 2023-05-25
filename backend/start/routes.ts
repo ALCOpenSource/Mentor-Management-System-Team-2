@@ -55,6 +55,7 @@ Route.group(() => {
   Route.group(() => {
     Route.get('/', 'MentorManagerController.getAllMentorManagers')
     Route.get('/:mentorManagerId/tasks', 'MentorManagerController.getMentorManagerTask')
+    Route.get('/:mentorManagerId/mentors', 'MentorManagerController.getMentorsByManager')
     Route.delete('/delete/:mentorManagerId', 'MentorManagerController.deleteAMentorManager')
     Route.delete('/:taskId/:mentorManagerId', 'MentorManagerController.removeMentorManagerFromTask')
   }).prefix('mentor-manager')
