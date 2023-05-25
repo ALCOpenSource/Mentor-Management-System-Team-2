@@ -307,21 +307,18 @@ export default class TaskController {
     }
   }
 
-   async getMentorsByTask({ params, response }: HttpContextContract) {
+  async getMentorsByTask({ params, response }: HttpContextContract) {
     const { taskId } = params
 
     try {
-      const task = await Task.query()
-        .where('id', taskId)
-        .preload('mentors')
-        .first()
+      const task = await Task.query().where('id', taskId).preload('mentors').first()
 
       if (!task) {
         return response.notFound({ message: 'Task not found' })
       }
 
       const mentors = task.mentors.map((mentor) => ({
-        mentor
+        mentor,
       }))
 
       return response.ok({
@@ -334,21 +331,18 @@ export default class TaskController {
     }
   }
 
-   async getMentorManagersByTask({ params, response }: HttpContextContract) {
+  async getMentorManagersByTask({ params, response }: HttpContextContract) {
     const { taskId } = params
 
     try {
-      const task = await Task.query()
-        .where('id', taskId)
-        .preload('mentorManagers')
-        .first()
+      const task = await Task.query().where('id', taskId).preload('mentorManagers').first()
 
       if (!task) {
         return response.notFound({ message: 'Task not found' })
       }
 
       const mentorManagers = task.mentorManagers.map((mentorManager) => ({
-        mentorManager
+        mentorManager,
       }))
 
       return response.ok({
@@ -361,29 +355,36 @@ export default class TaskController {
     }
   }
 
-   async getReportsByTask({ params, response }: HttpContextContract) {
+  public async getReportsByTask({ params, response }: HttpContextContract) {
     const { taskId } = params
 
     try {
-      const report = await TaskReport.query()
-        .where('task_id', taskId)
-        .first()
+      const task = await Task.query().where('id', taskId).preload('taskReports').first()
 
-      if (!report) {
-        return response.notFound({ message: 'Report not found' })
+      if (!task) {
+        return response.notFound({ message: 'Task not found' })
       }
+
+      const reports = task.taskReports.map((report) => ({
+        id: report.id,
+        taskId: report.taskId,
+        mentorId: report.mentorId,
+        achievement: report.achievement,
+        blocker: report.blocker,
+        recommendation: report.recommendation,
+        createdAt: report.createdAt,
+        updatedAt: report.updatedAt,
+      }))
 
       return response.ok({
         status: 'success',
-        message: 'Report fetched successfully',
-        data: report,
+        message: 'Reports fetched successfully',
+        data: reports,
       })
     } catch (error) {
-      return response.status(500).send({ message: 'Error retrieving report.' })
+      return response.status(500).send({ message: 'Error retrieving reports.' })
     }
   }
-
-  
 
   async searchTask({ request, response }: HttpContextContract) {
     const query = request.input('search')
