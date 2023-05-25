@@ -355,7 +355,7 @@ export default class TaskController {
     }
   }
 
-  public async getReportsByTask({ params, response }: HttpContextContract) {
+  async getReportsByTask({ params, response }: HttpContextContract) {
     const { taskId } = params
 
     try {

@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, BelongsTo, belongsTo, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
 import User from './User'
+import ProgramReport from './ProgramReport'
 
 export default class Program extends BaseModel {
   @column({ isPrimary: true })
@@ -29,4 +30,7 @@ export default class Program extends BaseModel {
 
   @column()
   public users?: any
+
+  @hasMany(() => ProgramReport)
+  public programReports: HasMany<typeof ProgramReport>
 }
