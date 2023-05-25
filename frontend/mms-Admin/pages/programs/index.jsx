@@ -105,21 +105,21 @@ const Programs = () => {
                   <Stats
                     url={`/programs/assignees/mentor-manager/${program.id}`}
                     icon={<Icons name="mentor-manager" />}
-                    number={12}
+                    number={program.mentorManagerCount}
                     text="Mentor Managers assigned to this program"
                   />
 
                   <Stats
                     url={`/programs/assignees/mentor/${program.id}`}
                     icon={<Icons name="mentor" />}
-                    number={80}
+                    number={program.mentorCount}
                     text="Mentors assigned to this program"
                   />
 
                   <Stats
                     url={`/programs/reports/${program.id}`}
                     icon={<Icons name="report-sheet" />}
-                    number={35}
+                    number={program.programReportsCount}
                     text="Program reports"
                   />
                 </section>

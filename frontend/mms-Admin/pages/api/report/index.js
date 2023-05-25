@@ -37,7 +37,7 @@ export const fetchReportAssociatedWithTask = async (id) => {
 export const fetchReportAssociatedWithprogram = async (id) => {
   try {
     const response = await apiService(`/programs/${id}/reports`, "GET");
-    return response.data;
+    return response.data.data;
   } catch (e) {
     toast.error("An error occured while fetching reports", {
       toastId: "network-error-toast",

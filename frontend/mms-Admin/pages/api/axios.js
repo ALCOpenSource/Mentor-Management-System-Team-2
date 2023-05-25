@@ -20,7 +20,6 @@ export const apiService = (url, method, data) => {
         resolve(response);
       })
       .catch((error) => {
-        console.log(error);
         if (error?.message === "Network Error") {
           reject(error.message);
         }

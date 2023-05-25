@@ -9,8 +9,8 @@ import { ListItem } from "../../components/atoms/Listitem";
 import { SuccessModal } from "../../components/molecules/SuccessModal";
 import Modal from "../../components/molecules/Modal";
 import { useRouter } from "next/router";
-import { capitalize } from "../../utils/capitalize";
 import { fetchMentorManagers, fetchMentors } from "../api/user/index";
+import { createTask } from "../api/task";
 
 const TaskAction = () => {
   const router = useRouter();
@@ -19,6 +19,8 @@ const TaskAction = () => {
   const [users, setUsers] = useState([]);
   const [selectedManagers, setSelectedManagers] = useState([]);
   const [selectedMentors, setSelectedMentors] = useState([]);
+  const [taskName, setTaskName] = useState("");
+  const [taskDescription, setTaskDescription] = useState("");
   const { action } = router.query;
 
   useEffect(async () => {
@@ -59,6 +61,43 @@ const TaskAction = () => {
     }
   }
 
+  function handleInputChange(e) {
+    setTaskName(e.target.value);
+  }
+
+  function handleTextAreaChange(e) {
+    setTaskDescription(e.target.value);
+  }
+
+  async function submitTaskData() {
+    const payload = {
+      title: taskName,
+      description: taskDescription,
+      mentors: selectedMentors,
+      mentorManagers: selectedManagers,
+    };
+
+    const response = await createTask(payload);
+    if (response) {
+      setCreatedSuccessfully(true);
+      resetState();
+      toast.success("Task created successfully.");
+    }
+  }
+
+  function editTask() {
+    alert("task edited");
+  }
+
+  function resetState() {
+    setListType("");
+    setUsers([]);
+    setSelectedManagers([]);
+    setSelectedMentors([]);
+    setTaskName("");
+    setTaskDescription("");
+  }
+
   return (
     <>
       {action === "create" || action === "edit" ? (
@@ -74,6 +113,8 @@ const TaskAction = () => {
                   <label className={styles.input_label}>Task Name</label>
                   <div>
                     <input
+                      value={taskName}
+                      onChange={handleInputChange}
                       className={styles.input}
                       placeholder="Enter task name"
                     />
@@ -83,7 +124,10 @@ const TaskAction = () => {
                 <div>
                   <label className={styles.input_label}>Task Description</label>
                   <div>
-                    <textarea className={styles.text_area}></textarea>
+                    <textarea
+                      value={taskDescription}
+                      onChange={handleTextAreaChange}
+                      className={styles.text_area}></textarea>
                   </div>
                 </div>
               </div>
@@ -107,7 +151,9 @@ const TaskAction = () => {
 
               <div className="flex flex-justify-end">
                 <Button
-                  onClick={() => setCreatedSuccessfully(true)}
+                  onClick={
+                    router.query.action === "create" ? submitTaskData : editTask
+                  }
                   variant="normal"
                   size="large">
                   {router.query.action === "edit"

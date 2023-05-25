@@ -11,6 +11,7 @@ import Modal from "../../components/molecules/Modal";
 import { useRouter } from "next/router";
 import { capitalize } from "../../utils/capitalize";
 import { fetchMentorManagers, fetchMentors } from "../api/user/index";
+import { createProgram } from "../api/program/index";
 
 const Create = () => {
   const router = useRouter();
@@ -75,7 +76,7 @@ const Create = () => {
     setProgramDescription(e.target.value);
   }
 
-  function createProgram() {
+  async function submitProgramData() {
     const payload = {
       name: programName,
       description: programDescription,
@@ -83,12 +84,15 @@ const Create = () => {
       mentorManagers: selectedManagers,
       criteria: [],
     };
-    alert(JSON.stringify(payload));
-    const response = confirm("Do you want to submit this data?");
+
+    const response = await createProgram(payload);
+    // alert(JSON.stringify(payload));
     if (response) {
       setCreatedSuccessfully(true);
       resetState();
+      return toast.success("Program created successfully.");
     }
+    toast.error("Error creating data");
   }
 
   function editProgram() {
@@ -184,7 +188,7 @@ const Create = () => {
                 <Button
                   onClick={
                     router.query.action === "create"
-                      ? createProgram
+                      ? submitProgramData
                       : editProgram
                   }
                   variant="normal"
