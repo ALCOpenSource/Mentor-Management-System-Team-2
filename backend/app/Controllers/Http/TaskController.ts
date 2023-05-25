@@ -4,6 +4,7 @@ import Roles from 'App/Enums/Roles'
 import TaskMentor from 'App/Models/TaskMentor'
 import TaskMentorManager from 'App/Models/TaskMentorManager'
 import Database from '@ioc:Adonis/Lucid/Database'
+import TaskReport from 'App/Models/TaskReport'
 
 export default class TaskController {
   async create({ auth, request, response }: HttpContextContract) {
@@ -305,6 +306,84 @@ export default class TaskController {
       return response.status(500).send({ message: 'Error deleting task' })
     }
   }
+
+   async getMentorsByTask({ params, response }: HttpContextContract) {
+    const { taskId } = params
+
+    try {
+      const task = await Task.query()
+        .where('id', taskId)
+        .preload('mentors')
+        .first()
+
+      if (!task) {
+        return response.notFound({ message: 'Task not found' })
+      }
+
+      const mentors = task.mentors.map((mentor) => ({
+        mentor
+      }))
+
+      return response.ok({
+        status: 'success',
+        message: 'Mentors fetched successfully',
+        data: mentors,
+      })
+    } catch (error) {
+      return response.status(500).send({ message: 'Error retrieving mentors.' })
+    }
+  }
+
+   async getMentorManagersByTask({ params, response }: HttpContextContract) {
+    const { taskId } = params
+
+    try {
+      const task = await Task.query()
+        .where('id', taskId)
+        .preload('mentorManagers')
+        .first()
+
+      if (!task) {
+        return response.notFound({ message: 'Task not found' })
+      }
+
+      const mentorManagers = task.mentorManagers.map((mentorManager) => ({
+        mentorManager
+      }))
+
+      return response.ok({
+        status: 'success',
+        message: 'Mentor Managers fetched successfully',
+        data: mentorManagers,
+      })
+    } catch (error) {
+      return response.status(500).send({ message: 'Error retrieving mentor managers.' })
+    }
+  }
+
+   async getReportsByTask({ params, response }: HttpContextContract) {
+    const { taskId } = params
+
+    try {
+      const report = await TaskReport.query()
+        .where('task_id', taskId)
+        .first()
+
+      if (!report) {
+        return response.notFound({ message: 'Report not found' })
+      }
+
+      return response.ok({
+        status: 'success',
+        message: 'Report fetched successfully',
+        data: report,
+      })
+    } catch (error) {
+      return response.status(500).send({ message: 'Error retrieving report.' })
+    }
+  }
+
+  
 
   async searchTask({ request, response }: HttpContextContract) {
     const query = request.input('search')
