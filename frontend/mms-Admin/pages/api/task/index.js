@@ -39,3 +39,14 @@ export const createTask = async (data) => {
     });
   }
 };
+
+export const editTask = async (id, data) => {
+  try {
+    const response = await apiService(`/tasks/${id}`, "PUT", data);
+    return response.data;
+  } catch (e) {
+    toast.error("Couldn't edit task because an error occured.", {
+      toastId: "network-error-toast",
+    });
+  }
+};
