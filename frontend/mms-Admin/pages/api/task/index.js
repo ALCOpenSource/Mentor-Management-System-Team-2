@@ -4,8 +4,8 @@ import { toast } from "react-hot-toast";
 
 export const fetchTask = async (id) => {
   try {
-    const response = await apiService(`/task/${id}`, "GET");
-    return response.data;
+    const response = await apiService(`/tasks/${id}`, "GET");
+    return response.data.result;
   } catch (e) {
     toast.error("Couldn't fetch task because an error occured.", {
       toastId: "network-error-toast",

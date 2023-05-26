@@ -117,7 +117,7 @@ const Tasks = () => {
                   </Link>
                   <Button
                     type="link"
-                    url={`/tasks/edit?${task.id}`}
+                    url={`/tasks/edit?id=${task.id}`}
                     variant="normal"
                     size="large">
                     Edit Task

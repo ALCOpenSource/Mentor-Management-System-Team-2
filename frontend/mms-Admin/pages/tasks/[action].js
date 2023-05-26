@@ -10,7 +10,7 @@ import { SuccessModal } from "../../components/molecules/SuccessModal";
 import Modal from "../../components/molecules/Modal";
 import { useRouter } from "next/router";
 import { fetchMentorManagers, fetchMentors } from "../api/user/index";
-import { createTask, editTask } from "../api/task";
+import { createTask, editTask, fetchTask } from "../api/task";
 
 const initialSate = {
   mentorManagers: [],
@@ -27,7 +27,7 @@ const TaskAction = () => {
   const [listType, setListType] = useState("");
   const [createdSuccessfully, setCreatedSuccessfully] = useState(false);
   const [users, setUsers] = useState([]);
-  const { action } = router.query;
+  const { action, id } = router.query;
 
   const [inputData, setInputData] = useState(initialSate);
 
@@ -45,18 +45,16 @@ const TaskAction = () => {
 
   useEffect(async () => {
     if (action === "edit" && id) {
-      const response = await fetchProgram(id);
+      const response = await fetchTask(id);
       if (response) {
         setInputData((prev) => ({
-          mentorManagers: response.mentorManagers.map(
-            (manager) => manager.user_id,
-          ),
-          mentors: response.mentors.map((mentor) => mentor.user_id),
-          taskName: response.task.name,
-          taskDescription: response.task.description,
-          meta: "",
-          startDate: response.task.startDate,
-          endDate: response.task.endDate,
+          mentorManagers: response.mentorManagers.map((manager) => manager.id),
+          mentors: response.mentors.map((mentor) => mentor.id),
+          taskName: response.title,
+          taskDescription: response.description,
+          meta: response.meta,
+          startDate: response.startDate,
+          endDate: response.endDate,
         }));
       }
     }
