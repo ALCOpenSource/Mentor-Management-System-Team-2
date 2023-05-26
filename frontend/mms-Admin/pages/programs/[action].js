@@ -23,10 +23,10 @@ const initialSate = {
 
 const Create = () => {
   const router = useRouter();
+  const { action, id } = router.query;
   const [listType, setListType] = useState("");
   const [createdSuccessfully, setCreatedSuccessfully] = useState(false);
   const [users, setUsers] = useState([]);
-  const { action, id } = router.query;
   const [inputData, setInputData] = useState(initialSate);
 
   useEffect(async () => {
@@ -120,9 +120,7 @@ const Create = () => {
     if (response) {
       setCreatedSuccessfully(true);
       resetState();
-      return toast.success("Program created successfully.");
     }
-    toast.error("Error creating data");
   }
 
   async function editAProgram() {
@@ -138,7 +136,6 @@ const Create = () => {
     if (response) {
       setCreatedSuccessfully(true);
       resetState();
-      toast.success("Program edited successfully.");
     }
   }
 
@@ -310,8 +307,12 @@ const Create = () => {
       )}
       <Modal show={createdSuccessfully}>
         <SuccessModal
-          title="Program Created Successfully!"
-          onConfirm={() => setCreatedSuccessfully(false)}
+          title={
+            action === "create"
+              ? "Program created successfully!"
+              : "Program saved successfully"
+          }
+          onConfirm={() => router.push("/programs")}
         />
       </Modal>
     </>
