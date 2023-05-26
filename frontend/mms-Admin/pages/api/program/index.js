@@ -8,14 +8,8 @@ export const fetchPrograms = async () => {
 };
 
 export const fetchProgram = async (id) => {
-  try {
-    const response = await apiService(`/programs/${id}`, "GET");
-    return response.data;
-  } catch (e) {
-    toast.error("Couldn't fetch program because an error occured.", {
-      toastId: "network-error-toast",
-    });
-  }
+  const response = await apiService(`/programs/${id}`, "GET");
+  return response.data;
 };
 
 export const getUserProgram = async (id, query) => {
@@ -24,23 +18,11 @@ export const getUserProgram = async (id, query) => {
 };
 
 export const createProgram = async (data) => {
-  try {
-    const response = await apiService("/programs", "POST", data);
-    return response.data;
-  } catch (e) {
-    toast.error("Couldn't create program because an error occured.", {
-      toastId: "network-error-toast",
-    });
-  }
+  const response = await apiService("/programs", "POST", data);
+  return response.data;
 };
 
 export const editProgram = async (id, data) => {
-  try {
-    const response = await apiService(`/programs/${id}`, "PUT", data);
-    return response.data;
-  } catch (e) {
-    toast.error("Couldn't edit program because an error occured.", {
-      toastId: "network-error-toast",
-    });
-  }
+  const response = await apiService(`/programs/${id}`, "PUT", data);
+  return response.data;
 };

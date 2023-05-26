@@ -3,14 +3,8 @@ import { apiService } from "../axios";
 import { toast } from "react-hot-toast";
 
 export const fetchTask = async (id) => {
-  try {
-    const response = await apiService(`/tasks/${id}`, "GET");
-    return response.data.result;
-  } catch (e) {
-    toast.error("Couldn't fetch task because an error occured.", {
-      toastId: "network-error-toast",
-    });
-  }
+  const response = await apiService(`/tasks/${id}`, "GET");
+  return response.data.result;
 };
 
 export const fetchTasks = async (query) => {
@@ -30,23 +24,11 @@ export const deleteTask = async (taskId) => {
 };
 
 export const createTask = async (data) => {
-  try {
-    const response = await apiService("/tasks", "POST", data);
-    return response.data;
-  } catch (e) {
-    toast.error("Couldn't create task because an error occured.", {
-      toastId: "network-error-toast",
-    });
-  }
+  const response = await apiService("/tasks", "POST", data);
+  return response.data;
 };
 
 export const editTask = async (id, data) => {
-  try {
-    const response = await apiService(`/tasks/${id}`, "PUT", data);
-    return response.data;
-  } catch (e) {
-    toast.error("Couldn't edit task because an error occured.", {
-      toastId: "network-error-toast",
-    });
-  }
+  const response = await apiService(`/tasks/${id}`, "PUT", data);
+  return response.data;
 };

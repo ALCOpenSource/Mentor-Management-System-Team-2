@@ -17,14 +17,8 @@ export const fetchMentorAbout = async (id) => {
 };
 
 export const fetchMentorManagerData = async (id) => {
-  try {
-    const response = await apiService(`/user/${id}/about`, "GET");
-    return response.data;
-  } catch (e) {
-    toast.error("An error occured while fetching mentor manager data", {
-      toastId: "error-message",
-    });
-  }
+  const response = await apiService(`/user/${id}/about`, "GET");
+  return response.data;
 };
 
 export const fetchMentorCertificates = async (id) => {
