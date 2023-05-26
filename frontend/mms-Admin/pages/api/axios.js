@@ -1,5 +1,6 @@
 import axios from "axios";
 import http from "../../services/axios";
+import { toast } from "react-hot-toast";
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -20,10 +21,10 @@ export const apiService = (url, method, data) => {
         resolve(response);
       })
       .catch((error) => {
-        if (error?.message === "Network Error") {
-          reject(error.message);
+        if (error.message === "Network Error") {
+          toast.error("A network error has occured", { id: "network-error" });
         }
-        reject(error.message);
+        reject(error);
       });
   });
 };

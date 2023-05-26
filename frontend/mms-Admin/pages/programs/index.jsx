@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import format from "date-fns/format";
-import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import styles from "../../styles/programs/programs.module.scss";
 import { Icons } from "../../components/atoms/Icons";
@@ -8,19 +7,28 @@ import { ListItem } from "../../components/atoms/ListItem";
 import { Button } from "../../components/atoms/Button";
 import { Stats } from "../../components/molecules/Stats";
 import NoItemSelected from "../../components/organisms/NoItemSelected";
-import { fetchPrograms } from "pages/api/program";
+import useAxiosFetch from "../../hooks/useAxiosFetch";
+import { useRouter } from "next/router";
 
 const Programs = () => {
   const [program, setProgram] = useState(null);
-  const {
-    data: programs,
-    isLoading,
-    isError,
-  } = useQuery(["programs"], fetchPrograms);
+  const router = useRouter();
+  const { data: programs, isLoading, fetchError } = useAxiosFetch("/programs");
+
+  useEffect(() => {
+    if (router.query.id && programs) {
+      setProgram(
+        (prev) =>
+          programs.filter((program) => program.id == router.query.id)[0],
+      );
+    }
+  }, [programs]);
 
   if (isLoading) return "loading...";
 
-  if (isError) return "An error occured";
+  if (fetchError) return "An error occured";
+
+  if (!program) return "No program returned";
 
   return (
     <div className={`flex`}>
@@ -36,7 +44,13 @@ const Programs = () => {
         <div className={`${styles.list_wrapper}`}>
           {programs.map((item) => (
             <ListItem
-              onClick={() => setProgram(item)}
+              onClick={() => {
+                router.push({
+                  pathname: `/programs`,
+                  query: { id: encodeURI(item.id) },
+                });
+                setProgram(item);
+              }}
               className="cursor-pointer"
               key={item.id}>
               <div className={`flex gap-16 flex-align-center`}>
