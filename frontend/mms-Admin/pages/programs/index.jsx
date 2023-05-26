@@ -22,7 +22,6 @@ const Programs = () => {
 
   if (isError) return "An error occured";
 
-  console.log("programs ", programs);
   return (
     <div className={`flex`}>
       <div className={`${styles.list_area}`}>

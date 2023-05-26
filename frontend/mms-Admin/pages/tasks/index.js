@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import format from "date-fns/format";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import styles from "../../styles/programs/programs.module.scss";

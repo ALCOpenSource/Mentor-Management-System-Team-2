@@ -5,24 +5,29 @@ import Image from "next/image";
 import { Button } from "../../components/atoms/Button";
 import { Icons } from "../../components/atoms/Icons";
 import { Selector } from "../../components/molecules/Selector";
-import { ListItem } from "../../components/atoms/Listitem";
+import { ListItem } from "../../components/atoms/ListItem";
 import { SuccessModal } from "../../components/molecules/SuccessModal";
 import Modal from "../../components/molecules/Modal";
 import { useRouter } from "next/router";
 import { capitalize } from "../../utils/capitalize";
 import { fetchMentorManagers, fetchMentors } from "../api/user/index";
-import { createProgram } from "../api/program/index";
+import { createProgram, fetchProgram, editProgram } from "../api/program/index";
+
+const initialSate = {
+  mentorManagers: [],
+  mentors: [],
+  programName: "",
+  programDescription: "",
+  criteria: [],
+};
 
 const Create = () => {
   const router = useRouter();
   const [listType, setListType] = useState("");
   const [createdSuccessfully, setCreatedSuccessfully] = useState(false);
   const [users, setUsers] = useState([]);
-  const [selectedManagers, setSelectedManagers] = useState([]);
-  const [selectedMentors, setSelectedMentors] = useState([]);
   const { action, id } = router.query;
-  const [programName, setProgramName] = useState("");
-  const [programDescription, setProgramDescription] = useState("");
+  const [inputData, setInputData] = useState(initialSate);
 
   useEffect(async () => {
     if (listType === "mentor") {
@@ -38,30 +43,56 @@ const Create = () => {
 
   useEffect(async () => {
     if (action === "edit" && id) {
-      console.log(action, id);
+      const response = await fetchProgram(id);
+      if (response) {
+        setInputData((prev) => ({
+          mentorManagers: response.mentorManagers.map(
+            (manager) => manager.user_id,
+          ),
+          mentors: response.mentors.map((mentor) => mentor.user_id),
+          programName: response.program.name,
+          programDescription: response.program.description,
+          criteria: [],
+        }));
+      }
     }
   }, []);
 
   function selectUser(id) {
-    if (listType === "mentor" && !selectedMentors.includes(id)) {
-      setSelectedMentors((prev) => [...prev, id]);
+    if (listType === "mentor" && !inputData.mentors.includes(id)) {
+      setInputData((prev) => ({ ...prev, mentors: [...prev.mentors, id] }));
       toast.success("Mentor selected", { id: "user_added" });
     }
 
-    if (listType === "mentor-manager" && !selectedManagers.includes(id)) {
-      setSelectedManagers((prev) => [...prev, id]);
+    if (
+      listType === "mentor-manager" &&
+      !inputData.mentorManagers.includes(id)
+    ) {
+      setInputData((prev) => ({
+        ...prev,
+        mentorManagers: [...prev.mentorManagers, id],
+      }));
       toast.success("Mentor Manager selected", { id: "user_added" });
     }
   }
 
   function deSelectUser(id) {
-    if (listType === "mentor" && selectedMentors.includes(id)) {
-      setSelectedMentors((prev) => prev.filter((userID) => userID !== id));
+    if (listType === "mentor" && inputData.mentors.includes(id)) {
+      setInputData((prev) => ({
+        ...prev,
+        mentors: prev.mentors.filter((userID) => userID !== id),
+      }));
       toast.success("Mentor removed for selection", { id: "user_removed" });
     }
 
-    if (listType === "mentor-manager" && selectedManagers.includes(id)) {
-      setSelectedManagers((prev) => prev.filter((userID) => userID !== id));
+    if (
+      listType === "mentor-manager" &&
+      inputData.mentorManagers.includes(id)
+    ) {
+      setInputData((prev) => ({
+        ...prev,
+        mentorManagers: prev.mentorManagers.filter((userID) => userID !== id),
+      }));
       toast.success("Mentor Manager removed for selection", {
         id: "user_removed",
       });
@@ -69,24 +100,23 @@ const Create = () => {
   }
 
   function handleInputChange(e) {
-    setProgramName(e.target.value);
+    setInputData((prev) => ({ ...prev, programName: e.target.value }));
   }
 
   function handleTextAreaChange(e) {
-    setProgramDescription(e.target.value);
+    setInputData((prev) => ({ ...prev, programDescription: e.target.value }));
   }
 
   async function submitProgramData() {
     const payload = {
-      name: programName,
-      description: programDescription,
-      mentors: selectedMentors,
-      mentorManagers: selectedManagers,
-      criteria: [],
+      name: inputData.programName,
+      description: inputData.programDescription,
+      mentors: inputData.mentors,
+      mentorManagers: inputData.mentorManagers,
+      criteria: inputData.criteria,
     };
 
     const response = await createProgram(payload);
-    // alert(JSON.stringify(payload));
     if (response) {
       setCreatedSuccessfully(true);
       resetState();
@@ -95,17 +125,25 @@ const Create = () => {
     toast.error("Error creating data");
   }
 
-  function editProgram() {
-    alert("program edited");
+  async function editAProgram() {
+    const payload = {
+      name: inputData.programName,
+      description: inputData.programDescription,
+      mentors: inputData.mentors,
+      mentorManagers: inputData.mentorManagers,
+      criteria: inputData.criteria,
+    };
+
+    const response = await editProgram(id, payload);
+    if (response) {
+      setCreatedSuccessfully(true);
+      resetState();
+      toast.success("Program edited successfully.");
+    }
   }
 
   function resetState() {
-    setListType("");
-    setUsers([]);
-    setSelectedManagers([]);
-    setSelectedMentors([]);
-    setProgramName("");
-    setProgramDescription("");
+    setInputData(initialSate);
   }
 
   return (
@@ -140,7 +178,7 @@ const Create = () => {
                   <label className={styles.input_label}>Program Name</label>
                   <div>
                     <input
-                      value={programName}
+                      value={inputData.programName}
                       onChange={handleInputChange}
                       className={styles.input}
                       placeholder="Enter program name"
@@ -154,7 +192,7 @@ const Create = () => {
                   </label>
                   <div>
                     <textarea
-                      value={programDescription}
+                      value={inputData.programDescription}
                       onChange={handleTextAreaChange}
                       className={styles.text_area}></textarea>
                   </div>
@@ -164,21 +202,21 @@ const Create = () => {
               <div className="flex flex-justify-between mb-3">
                 <Selector
                   title="Add Mentor Manager"
-                  value={selectedManagers.length}
+                  value={inputData.mentorManagers.length}
                   showUserList={() => {
                     setListType("mentor-manager");
                   }}
                 />
                 <Selector
                   title="Add Mentor"
-                  value={selectedMentors.length}
+                  value={inputData.mentors.length}
                   showUserList={() => {
                     setListType("mentor");
                   }}
                 />
                 <Selector
                   title="Set Criteria"
-                  value={0}
+                  value={inputData.criteria.length}
                   type="link"
                   url="https://google.com"
                 />
@@ -189,7 +227,7 @@ const Create = () => {
                   onClick={
                     router.query.action === "create"
                       ? submitProgramData
-                      : editProgram
+                      : editAProgram
                   }
                   variant="normal"
                   size="large">
@@ -245,9 +283,10 @@ const Create = () => {
                     </div>
                     <div className="flex flex-column gap-16">
                       <span className={`cursor-pointer`}>
-                        {[...selectedMentors, ...selectedManagers].includes(
-                          item.id,
-                        ) ? (
+                        {[
+                          ...inputData.mentors,
+                          ...inputData.mentorManagers,
+                        ].includes(item.id) ? (
                           <Icons
                             name="subtract"
                             onClick={() => deSelectUser(item.id)}

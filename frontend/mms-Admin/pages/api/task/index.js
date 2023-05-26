@@ -3,8 +3,14 @@ import { apiService } from "../axios";
 import { toast } from "react-hot-toast";
 
 export const fetchTask = async (id) => {
-  const url = "/task/" + id;
-  return await http.get(url);
+  try {
+    const response = await apiService(`/task/${id}`, "GET");
+    return response.data;
+  } catch (e) {
+    toast.error("Couldn't fetch task because an error occured.", {
+      toastId: "network-error-toast",
+    });
+  }
 };
 
 export const fetchTasks = async (query) => {

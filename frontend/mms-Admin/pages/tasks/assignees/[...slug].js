@@ -44,7 +44,6 @@ const TaskAssignees = () => {
         {users.length > 0 ? (
           users.map((user) => {
             const userData = user.mentor ? "mentor" : "mentorManager";
-            console.log(userData);
 
             return (
               <ListItem key={user[userData].id}>

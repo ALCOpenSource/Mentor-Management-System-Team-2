@@ -5,7 +5,7 @@ import Image from "next/image";
 import { Button } from "../../components/atoms/Button";
 import { Icons } from "../../components/atoms/Icons";
 import { Selector } from "../../components/molecules/Selector";
-import { ListItem } from "../../components/atoms/Listitem";
+import { ListItem } from "../../components/atoms/ListItem";
 import { SuccessModal } from "../../components/molecules/SuccessModal";
 import Modal from "../../components/molecules/Modal";
 import { useRouter } from "next/router";

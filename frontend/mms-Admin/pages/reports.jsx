@@ -9,7 +9,6 @@ import { SuccessModal } from "../components/molecules/SuccessModal";
 import NoItemSelected from "../components/organisms/NoItemSelected";
 import { fetchTaskReports, fetchProgramReports } from "./api/report/index";
 import { format } from "date-fns";
-import { toast } from "react-hot-toast";
 
 const Reports = () => {
   const [report, setReport] = useState(null);
@@ -70,7 +69,6 @@ const Reports = () => {
                   onClick={() => setReport(item)}
                   className="cursor-pointer"
                   key={item.id}>
-                  {console.log(item)}
                   <div className={`flex gap-16 flex-align-center`}>
                     <Icons name="report-sheet" />
                     <div>

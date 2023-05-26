@@ -21,8 +21,6 @@ const Reports = () => {
 
   if (isError) return "An error occured";
 
-  console.log(data);
-
   return (
     <div>
       <div className="flex flex-justify-between flex-align-center">

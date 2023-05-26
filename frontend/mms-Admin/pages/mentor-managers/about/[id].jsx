@@ -14,8 +14,6 @@ function AboutMentorManager() {
 
   if (isError) return "An error occured";
 
-  console.log(data);
-
   return <>About mentor manager content here</>;
 }
 
