@@ -17,7 +17,7 @@ export const createProgram = async (data) => {
     const response = await apiService("/programs", "POST", data);
     return response.data;
   } catch (e) {
-    toast.error("An error occured while fetching reports", {
+    toast.error("Couldn't create program because an error occured.", {
       toastId: "network-error-toast",
     });
   }

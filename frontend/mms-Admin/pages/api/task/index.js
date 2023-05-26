@@ -28,7 +28,7 @@ export const createTask = async (data) => {
     const response = await apiService("/tasks", "POST", data);
     return response.data;
   } catch (e) {
-    toast.error("Couldn't created task because an error occured.", {
+    toast.error("Couldn't create task because an error occured.", {
       toastId: "network-error-toast",
     });
   }
