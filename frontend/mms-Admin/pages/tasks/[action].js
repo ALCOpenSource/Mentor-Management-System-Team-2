@@ -10,18 +10,26 @@ import { SuccessModal } from "../../components/molecules/SuccessModal";
 import Modal from "../../components/molecules/Modal";
 import { useRouter } from "next/router";
 import { fetchMentorManagers, fetchMentors } from "../api/user/index";
-import { createTask } from "../api/task";
+import { createTask, editTask } from "../api/task";
+
+const initialSate = {
+  mentorManagers: [],
+  mentors: [],
+  taskName: "",
+  taskDescription: "",
+  startDate: new Date(),
+  endDate: new Date(),
+  meta: "",
+};
 
 const TaskAction = () => {
   const router = useRouter();
   const [listType, setListType] = useState("");
   const [createdSuccessfully, setCreatedSuccessfully] = useState(false);
   const [users, setUsers] = useState([]);
-  const [selectedManagers, setSelectedManagers] = useState([]);
-  const [selectedMentors, setSelectedMentors] = useState([]);
-  const [taskName, setTaskName] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
   const { action } = router.query;
+
+  const [inputData, setInputData] = useState(initialSate);
 
   useEffect(async () => {
     if (listType === "mentor") {
@@ -35,26 +43,60 @@ const TaskAction = () => {
     }
   }, [listType]);
 
+  useEffect(async () => {
+    if (action === "edit" && id) {
+      const response = await fetchProgram(id);
+      if (response) {
+        setInputData((prev) => ({
+          mentorManagers: response.mentorManagers.map(
+            (manager) => manager.user_id,
+          ),
+          mentors: response.mentors.map((mentor) => mentor.user_id),
+          taskName: response.task.name,
+          taskDescription: response.task.description,
+          meta: "",
+          startDate: response.task.startDate,
+          endDate: response.task.endDate,
+        }));
+      }
+    }
+  }, []);
+
   function selectUser(id) {
-    if (listType === "mentor" && !selectedMentors.includes(id)) {
-      setSelectedMentors((prev) => [...prev, id]);
+    if (listType === "mentor" && !inputData.mentors.includes(id)) {
+      setInputData((prev) => ({ ...prev, mentors: [...prev.mentors, id] }));
       toast.success("Mentor selected", { id: "user_added" });
     }
 
-    if (listType === "mentor-manager" && !selectedManagers.includes(id)) {
-      setSelectedManagers((prev) => [...prev, id]);
+    if (
+      listType === "mentor-manager" &&
+      !inputData.mentorManagers.includes(id)
+    ) {
+      setInputData((prev) => ({
+        ...prev,
+        mentorManagers: [...prev.mentorManagers, id],
+      }));
       toast.success("Mentor Manager selected", { id: "user_added" });
     }
   }
 
   function deSelectUser(id) {
-    if (listType === "mentor" && selectedMentors.includes(id)) {
-      setSelectedMentors((prev) => prev.filter((userID) => userID !== id));
+    if (listType === "mentor" && inputData.mentors.includes(id)) {
+      setInputData((prev) => ({
+        ...prev,
+        mentors: prev.mentors.filter((userID) => userID !== id),
+      }));
       toast.success("Mentor removed for selection", { id: "user_removed" });
     }
 
-    if (listType === "mentor-manager" && selectedManagers.includes(id)) {
-      setSelectedManagers((prev) => prev.filter((userID) => userID !== id));
+    if (
+      listType === "mentor-manager" &&
+      inputData.mentorManagers.includes(id)
+    ) {
+      setInputData((prev) => ({
+        ...prev,
+        mentorManagers: prev.mentorManagers.filter((userID) => userID !== id),
+      }));
       toast.success("Mentor Manager removed for selection", {
         id: "user_removed",
       });
@@ -62,19 +104,22 @@ const TaskAction = () => {
   }
 
   function handleInputChange(e) {
-    setTaskName(e.target.value);
+    setInputData((prev) => ({ ...prev, taskName: e.target.value }));
   }
 
   function handleTextAreaChange(e) {
-    setTaskDescription(e.target.value);
+    setInputData((prev) => ({ ...prev, taskDescription: e.target.value }));
   }
 
   async function submitTaskData() {
     const payload = {
-      title: taskName,
-      description: taskDescription,
-      mentors: selectedMentors,
-      mentorManagers: selectedManagers,
+      title: inputData.taskName,
+      description: inputData.taskDescription,
+      mentors: inputData.mentors,
+      mentorManagers: inputData.mentorManagers,
+      meta: inputData.meta,
+      startDate: inputData.startDate,
+      endDate: inputData.endDate,
     };
 
     const response = await createTask(payload);
@@ -85,17 +130,28 @@ const TaskAction = () => {
     }
   }
 
-  function editTask() {
-    alert("task edited");
+  async function editATask() {
+    const payload = {
+      title: inputData.taskName,
+      description: inputData.taskDescription,
+      mentors: inputData.mentors,
+      mentorManagers: inputData.mentorManagers,
+      meta: inputData.meta,
+      startDate: inputData.startDate,
+      endDate: inputData.endDate,
+    };
+
+    const response = await editTask(id, payload);
+    if (response) {
+      setCreatedSuccessfully(true);
+      resetState();
+    }
   }
 
   function resetState() {
     setListType("");
     setUsers([]);
-    setSelectedManagers([]);
-    setSelectedMentors([]);
-    setTaskName("");
-    setTaskDescription("");
+    setInputData(initialSate);
   }
 
   return (
@@ -113,7 +169,7 @@ const TaskAction = () => {
                   <label className={styles.input_label}>Task Name</label>
                   <div>
                     <input
-                      value={taskName}
+                      value={inputData.taskName}
                       onChange={handleInputChange}
                       className={styles.input}
                       placeholder="Enter task name"
@@ -125,7 +181,7 @@ const TaskAction = () => {
                   <label className={styles.input_label}>Task Description</label>
                   <div>
                     <textarea
-                      value={taskDescription}
+                      value={inputData.taskDescription}
                       onChange={handleTextAreaChange}
                       className={styles.text_area}></textarea>
                   </div>
@@ -135,14 +191,14 @@ const TaskAction = () => {
               <div className="flex flex-justify-between mb-3">
                 <Selector
                   title="Add Mentor Manager"
-                  value={selectedManagers.length}
+                  value={inputData.mentorManagers.length}
                   showUserList={() => {
                     setListType("mentor-manager");
                   }}
                 />
                 <Selector
                   title="Add Mentor"
-                  value={selectedMentors.length}
+                  value={inputData.mentors.length}
                   showUserList={() => {
                     setListType("mentor");
                   }}
@@ -152,7 +208,9 @@ const TaskAction = () => {
               <div className="flex flex-justify-end">
                 <Button
                   onClick={
-                    router.query.action === "create" ? submitTaskData : editTask
+                    router.query.action === "create"
+                      ? submitTaskData
+                      : editATask
                   }
                   variant="normal"
                   size="large">
@@ -208,9 +266,10 @@ const TaskAction = () => {
                     </div>
                     <div className="flex flex-column gap-16">
                       <span className={`cursor-pointer`}>
-                        {[...selectedMentors, ...selectedManagers].includes(
-                          item.id,
-                        ) ? (
+                        {[
+                          ...inputData.mentors,
+                          ...inputData.mentorManagers,
+                        ].includes(item.id) ? (
                           <Icons
                             name="subtract"
                             onClick={() => deSelectUser(item.id)}
@@ -234,8 +293,12 @@ const TaskAction = () => {
       )}
       <Modal show={createdSuccessfully}>
         <SuccessModal
-          title="Task Created Successfully!"
-          onConfirm={() => setCreatedSuccessfully(false)}
+          title={
+            action === "create"
+              ? "Task created successfully!"
+              : "Task saved successfully"
+          }
+          onConfirm={() => router.push("/tasks")}
         />
       </Modal>
     </>
