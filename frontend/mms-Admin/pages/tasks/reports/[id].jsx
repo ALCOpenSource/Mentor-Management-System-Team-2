@@ -1,6 +1,7 @@
 import React from "react";
 import { ListItem } from "../../../components/atoms/ListItem";
 import { Icons } from "../../../components/atoms/Icons";
+import { Loader } from "../../../components/atoms/Loader";
 import styles from "../../../styles/programs/reports.module.scss";
 import { PaginationWithFilter } from "../../../components/molecules/PaginationWithFilter";
 import { useQuery } from "@tanstack/react-query";
@@ -16,7 +17,7 @@ const Reports = () => {
     fetchReportAssociatedWithTask(id),
   );
 
-  if (isLoading) return "loading...";
+  if (isLoading) return <Loader />;
 
   if (isError) return "An error occured";
 

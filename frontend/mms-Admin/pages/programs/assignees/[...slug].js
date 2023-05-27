@@ -11,7 +11,7 @@ import {
   getMentorsAssignedToAProgram,
 } from "../../api/mentor";
 
-const TaskAssignees = () => {
+const ProgramAssignees = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [programData, setProgramData] = useState({});
   const router = useRouter();
@@ -94,4 +94,4 @@ const TaskAssignees = () => {
   );
 };
 
-export default TaskAssignees;
+export default ProgramAssignees;
