@@ -5,6 +5,7 @@ import WithAuth from "../components/WithAuth";
 import { SessionProvider } from "next-auth/react";
 import ContextProvider from "store/context";
 import Login from "./login";
+import ErrorBoundary from "../components/molecules/ErrorBoundary";
 
 import "antd/dist/reset.css";
 import "styles/globals.css";
@@ -31,7 +32,11 @@ const App = ({ Component, pageProps, session }) => {
         <ContextProvider>
           <SessionProvider session={session}>
             <WithAuth
-              component={getLayout(<Component {...pageProps} />)}
+              component={
+                <ErrorBoundary>
+                  {getLayout(<Component {...pageProps} />)}
+                </ErrorBoundary>
+              }
               route={router?.route}
             />
           </SessionProvider>

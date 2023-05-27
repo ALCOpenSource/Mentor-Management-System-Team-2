@@ -1,20 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import styles from "../../styles/programs/programs.module.scss";
 import { Icons } from "../../components/atoms/Icons";
+import { Loader } from "../../components/atoms/Loader";
 import { ListItem } from "../../components/atoms/ListItem";
 import { Button } from "../../components/atoms/Button";
 import { Stats } from "../../components/molecules/Stats";
 import NoItemSelected from "../../components/organisms/NoItemSelected";
 import { fetchTasks } from "pages/api/task";
 import { formatDistance } from "date-fns";
+import { useRouter } from "next/router";
 
 const Tasks = () => {
+  const router = useRouter();
   const [task, setTask] = useState(null);
   const { data: tasks, isLoading, isError } = useQuery(["tasks"], fetchTasks);
 
-  if (isLoading) return "loading...";
+  useEffect(() => {
+    if (router.query.id && tasks) {
+      setTask((prev) => tasks.filter((task) => task.id == router.query.id)[0]);
+    }
+  }, [tasks]);
+
+  if (isLoading) return <Loader />;
 
   if (isError) return "An error occured";
 
@@ -32,7 +41,13 @@ const Tasks = () => {
         <div className={`${styles.list_wrapper}`}>
           {tasks.map((item) => (
             <ListItem
-              onClick={() => setTask(item)}
+              onClick={() => {
+                router.push({
+                  pathname: `/tasks`,
+                  query: { id: encodeURI(item.id) },
+                });
+                setTask(item);
+              }}
               className="cursor-pointer"
               key={item.id}>
               <div className={`flex gap-16 flex-align-center`}>

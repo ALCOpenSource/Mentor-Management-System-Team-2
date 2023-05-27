@@ -3,6 +3,7 @@ import format from "date-fns/format";
 import Link from "next/link";
 import styles from "../../styles/programs/programs.module.scss";
 import { Icons } from "../../components/atoms/Icons";
+import { Loader } from "../../components/atoms/Loader";
 import { ListItem } from "../../components/atoms/ListItem";
 import { Button } from "../../components/atoms/Button";
 import { Stats } from "../../components/molecules/Stats";
@@ -24,11 +25,9 @@ const Programs = () => {
     }
   }, [programs]);
 
-  if (isLoading) return "loading...";
+  if (isLoading) return <Loader />;
 
   if (fetchError) return "An error occured";
-
-  if (!program) return "No program returned";
 
   return (
     <div className={`flex`}>
