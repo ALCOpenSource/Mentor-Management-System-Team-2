@@ -12,10 +12,14 @@ import { Loader } from "components/Loader";
 import { Button } from "components/Button";
 import { useRouter } from "next/router";
 
-function About() { 
+let image_url =
+  process.env.NEXT_PUBLIC_BASE_URL.replace("/api/v1", "") +
+  "/uploads/upload_file/";
+function About() {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [sMedia, setSmedia] = useState({});
   const { Paragraph } = Typography;
 
   const router = useRouter();
@@ -28,7 +32,9 @@ function About() {
       const response = await fetchUserProfile();
       if (response.status === 200) {
         setData(response.data);
-
+        setSmedia(
+          response?.data?.social_media_links ? JSON.parse(response?.data?.social_media_links) : {},
+        );
         setLoading(false);
       }
 
@@ -40,9 +46,9 @@ function About() {
         setError(error);
         setLoading(false);
       }
-    } 
-    catch (e) {
+    } catch (e) {
       setError(error);
+      setLoading(false);
     }
   };
 
@@ -64,16 +70,30 @@ function About() {
       <Row className={styles.about}>
         <Col span={18}>
           <div className={styles.about_header}>
-            <Avatar
-              size={90}
-              icon={
-                <Icon
-                  icon={"/assets/images/admin_avatar.png"}
-                  width={"90px"}
-                  height={"90px"}
-                />
-              }
-            />
+            {data?.profile_image_path ? (
+              <Avatar
+                size={90}
+                icon={
+                  <img
+                    src={image_url + data.profile_image_path}
+                    width="90px"
+                    height="90px"
+                  />
+                }
+              />
+            ) : (
+              <Avatar
+                size={90}
+                icon={
+                  <Icon
+                    icon={"/assets/images/admin_avatar.png"}
+                    width={"90px"}
+                    height={"90px"}
+                  />
+                }
+              />
+            )}
+
             <div className={styles.profile}>
               <p className={styles.about_name}>
                 {capitalize(data.first_name) + " " + capitalize(data.last_name)}
@@ -97,15 +117,27 @@ function About() {
             <p className={styles.about_title}>About</p>
             <div className={styles.about_desc_container}>
               <p className={styles.about_desc}>{data.bio}</p>
-            </div> 
+            </div>
           </div>
         </Col>
         <Col span={24}>
           <Paragraph className={styles.meta}>
-            <div><h4>Location:</h4><p>{data?.location || "NIL"}</p></div>
-            <div><h4>Email:</h4><p>{data?.email || "NIL"}</p></div>
-            <div><h4>Website:</h4><p>{data?.website || "NIL"}</p></div>
-           <div> <h4>Member Since:</h4><p>{moment(data?.created_at).format("ll")}</p></div>
+            <div>
+              <h4>Location:</h4>
+              <p>{data?.country || "NIL"}</p>
+            </div>
+            <div>
+              <h4>Email:</h4>
+              <p>{data?.email || "NIL"}</p>
+            </div>
+            <div>
+              <h4>Website:</h4>
+              <p>{data?.website || "NIL"}</p>
+            </div>
+            <div>
+              <h4>Member Since:</h4>
+              <p>{moment(data?.created_at).format("ll")}</p>
+            </div>
           </Paragraph>
         </Col>
         <Col span={24}>
@@ -116,9 +148,7 @@ function About() {
                 container={styles.social_icon_container}
                 color={styles.social_color}
                 styles={styles.social_icon}
-                text={
-                  data.social_media_links ? data.social_media_links.github : ""
-                }>
+                text={sMedia ? sMedia.github : ""}>
                 <Icon
                   icon={"/assets/images/Gitlogo.svg"}
                   width={"25px"}
@@ -131,11 +161,7 @@ function About() {
                 container={styles.social_icon_container}
                 color={styles.social_color}
                 styles={styles.social_icon}
-                text={
-                  data.social_media_links
-                    ? data.social_media_links.linkedin
-                    : ""
-                }>
+                text={sMedia ? sMedia.linkedin : ""}>
                 <Icon
                   icon={"/assets/images/Linkeinlogo.svg"}
                   width={"25px"}
@@ -150,9 +176,7 @@ function About() {
                 container={styles.social_icon_container}
                 color={styles.social_color}
                 styles={styles.social_icon}
-                text={
-                  data.social_media_links ? data.social_media_links.twitter : ""
-                }>
+                text={sMedia ? sMedia.twitter : ""}>
                 <Icon
                   icon={"/assets/images/Twitterlogo.svg"}
                   width={"25px"}
@@ -165,11 +189,7 @@ function About() {
                 container={styles.social_icon_container}
                 color={styles.social_color}
                 styles={styles.social_icon}
-                text={
-                  data.social_media_links
-                    ? data.social_media_links.instagram
-                    : ""
-                }>
+                text={sMedia ? sMedia.instagram : ""}>
                 <Icon
                   icon={"/assets/images/instagramlogo.svg"}
                   width={"25px"}
@@ -179,6 +199,14 @@ function About() {
             </Col>
           </Row>
         </Col>
+        <div>
+          <image
+            src="http://127.0.0.1:3333/uploads/upload_file/clhity6g60005m0ss65ctblxj.png"
+            width="90px"
+            height="90px"
+            alt="image"
+          />
+        </div>
       </Row>
     </>
   );

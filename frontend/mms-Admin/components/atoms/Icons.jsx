@@ -260,5 +260,206 @@ export const Icons = (props) => {
     );
   }
 
+  if (props.name === "delete") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={24}
+        height={24}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M3 6h18M5 6v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2M14 11v6M10 11v6"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "grid") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={24}
+        height={24}
+        fill="none"
+        {...props}>
+        <path
+          fill="#9CF6FC"
+          d="M20 2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2ZM8 20H5c-.55 0-1-.45-1-1v-3h4v4Zm0-6H4v-4h4v4Zm0-6H4V5c0-.55.45-1 1-1h3v4Zm6 12h-4v-4h4v4Zm0-6h-4v-4h4v4Zm0-6h-4V4h4v4Zm5 12h-3v-4h4v3c0 .55-.45 1-1 1Zm1-6h-4v-4h4v4Zm0-6h-4V4h3c.55 0 1 .45 1 1v3Z"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "list") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={24}
+        height={24}
+        fill="none"
+        {...props}>
+        <path
+          fill="#058B94"
+          d="M4.5 13.5c-.417 0-.77-.146-1.062-.438A1.444 1.444 0 0 1 3 12c0-.417.146-.77.438-1.062A1.444 1.444 0 0 1 4.5 10.5c.417 0 .77.146 1.062.438.292.291.438.645.438 1.062 0 .417-.146.77-.438 1.062A1.444 1.444 0 0 1 4.5 13.5Zm0-6c-.417 0-.77-.146-1.062-.438A1.444 1.444 0 0 1 3 6c0-.417.146-.77.438-1.062A1.444 1.444 0 0 1 4.5 4.5c.417 0 .77.146 1.062.438C5.854 5.229 6 5.583 6 6c0 .417-.146.77-.438 1.062A1.444 1.444 0 0 1 4.5 7.5Zm0 12c-.417 0-.77-.146-1.062-.438A1.444 1.444 0 0 1 3 18c0-.417.146-.77.438-1.062A1.444 1.444 0 0 1 4.5 16.5c.417 0 .77.146 1.062.438.292.291.438.645.438 1.062 0 .417-.146.77-.438 1.062A1.444 1.444 0 0 1 4.5 19.5ZM9 19a.965.965 0 0 1-.712-.288A.965.965 0 0 1 8 18c0-.283.096-.52.288-.712A.965.965 0 0 1 9 17h11c.283 0 .52.096.712.288A.965.965 0 0 1 21 18c0 .283-.096.52-.288.712A.965.965 0 0 1 20 19H9Zm0-6a.965.965 0 0 1-.712-.288A.965.965 0 0 1 8 12c0-.283.096-.521.288-.713A.967.967 0 0 1 9 11h11c.283 0 .52.096.712.287.192.192.288.43.288.713s-.096.52-.288.712A.965.965 0 0 1 20 13H9Zm0-6a.967.967 0 0 1-.712-.287A.968.968 0 0 1 8 6c0-.283.096-.521.288-.713A.967.967 0 0 1 9 5h11c.283 0 .52.096.712.287.192.192.288.43.288.713a.968.968 0 0 1-.288.713A.967.967 0 0 1 20 7H9Z"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "gads") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={49}
+        height={50}
+        fill="none"
+        {...props}>
+        <path
+          fill="#333"
+          d="M47.747 20.385c.302 1.647.467 3.37.467 5.167 0 14.06-9.253 24.058-23.229 24.058a23.843 23.843 0 0 1-9.262-1.871 24.17 24.17 0 0 1-7.852-5.335 24.635 24.635 0 0 1-5.246-7.985 24.965 24.965 0 0 1-1.84-9.42 24.965 24.965 0 0 1 1.84-9.418 24.634 24.634 0 0 1 5.246-7.985 24.17 24.17 0 0 1 7.852-5.335A23.842 23.842 0 0 1 24.985.39c6.534 0 11.994 2.445 16.183 6.415l-6.822 6.937v-.017c-2.54-2.46-5.762-3.723-9.361-3.723-7.985 0-14.475 6.86-14.475 14.983 0 8.12 6.49 14.995 14.475 14.995 7.245 0 12.176-4.213 13.189-9.998H24.985v-9.597h22.764-.002Z"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "timer") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={20}
+        height={20}
+        fill="none"
+        {...props}>
+        <path
+          fill="#058B94"
+          d="M10.833 1.667C6.238 1.667 2.5 5.405 2.5 10c0 4.595 3.738 8.333 8.333 8.333 4.595 0 8.334-3.738 8.334-8.333 0-4.595-3.739-8.333-8.334-8.333Zm0 15A6.674 6.674 0 0 1 4.167 10a6.674 6.674 0 0 1 6.666-6.667A6.674 6.674 0 0 1 17.5 10a6.674 6.674 0 0 1-6.667 6.667Z"
+        />
+        <path fill="#058B94" d="M10.833 5.833H9.166v5h5V9.167h-3.333V5.833Z" />
+      </svg>
+    );
+  }
+
+  if (props.name === "mentor") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={24}
+        height={24}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM4 21v-4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "mentor-manager") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={24}
+        height={24}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM2 21v-4a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v4M16 3a4 4 0 0 1 0 7.75M19 15h1a2 2 0 0 1 2 2v4"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "remove-tag") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={19}
+        height={14}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#99000A"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="m9.426 4.5-5 5m0-5 5 5m3.03-8.333L17.76 7l-5.303 5.833H2.76c-.92 0-1.667-.746-1.667-1.667V2.833c0-.92.746-1.667 1.667-1.667h9.697Z"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "check-good") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={20}
+        height={20}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="m2.5 10 5 5 10-10"
+        />
+      </svg>
+    );
+  }
+
+  if (props.name === "circle-add") {
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={20}
+        height={20}
+        fill="none"
+        {...props}>
+        <g
+          stroke="#058B94"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          clipPath="url(#a)">
+          <path d="M10 5.833v8.334M5.835 10h8.333M10 18.333a8.333 8.333 0 1 0 0-16.666 8.333 8.333 0 0 0 0 16.666Z" />
+        </g>
+        <defs>
+          <clipPath id="a">
+            <path fill="#fff" d="M0 0h20v20H0z" />
+          </clipPath>
+        </defs>
+      </svg>
+    );
+  }
+
+  if (props.name === "subtract")
+    return (
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width={26}
+        height={25}
+        fill="none"
+        {...props}>
+        <path
+          stroke="#000"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M7.583 12.5h10.834M13 22.5c5.983 0 10.833-4.477 10.833-10S18.983 2.5 13 2.5c-5.983 0-10.833 4.477-10.833 10s4.85 10 10.833 10Z"
+        />
+      </svg>
+    );
+
   return null;
 };
