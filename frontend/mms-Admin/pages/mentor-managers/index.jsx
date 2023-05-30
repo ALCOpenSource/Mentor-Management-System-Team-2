@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { PaginationWithFilter } from "../../components/molecules/PaginationWithFilter";
 import styles from "../../styles/mentor-managers/mentor-managers.module.scss";
