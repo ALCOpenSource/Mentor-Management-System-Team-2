@@ -6,7 +6,7 @@ import { Button } from "../components/atoms/Button";
 import { FlexContainer, Section } from "../components/atoms/HTMLElements";
 import { Icons } from "../components/atoms/Icons";
 import { useQuery } from "@tanstack/react-query";
-import { Loader } from "components/Loader";
+import { Loader } from "components/atoms/Loader";
 
 function Dashboard() {
   const { data, isLoading, isError } = useQuery(["dashboard"], () =>
