@@ -4,6 +4,7 @@ import styles from "styles/admin/dashboard.module.scss";
 import { getDashboardData } from "./api/dashboard/index";
 import { fetchPrograms } from "pages/api/program";
 import { Button } from "../components/atoms/Button";
+import { FlexContainer, Section } from "../components/atoms/HTMLElements";
 import { Icons } from "../components/atoms/Icons";
 import { useQuery } from "@tanstack/react-query";
 import { Loader } from "components/Loader";
@@ -26,8 +27,9 @@ function Dashboard() {
   return (
     <>
       <div className={`my-2 ${styles.header_text}`}>Dashboard</div>
-      <div className="flex gap-x-8">
-        <div className="px-3 pt-4 bg-mms-teal text-white rounded w-1/6">
+
+      <FlexContainer className="gap-x-8">
+        <Section className="px-3 pt-4 bg-mms-teal text-white rounded w-1/6">
           <div className="flex justify-end">
             <Button variant="white" size="small">
               View
@@ -39,9 +41,9 @@ function Dashboard() {
               Active Programs
             </h3>
           </div>
-        </div>
+        </Section>
 
-        <div className="flex gap-x-4 justify-between p-3 w-5/6 bg-mms-ts-teal rounded">
+        <Section className="flex gap-x-4 justify-between p-3 w-5/6 bg-mms-ts-teal rounded">
           <ReportCard
             title="Mentors"
             meta1="30"
@@ -69,8 +71,8 @@ function Dashboard() {
             meta2="10%"
             icon={<Icons name="report-sheet" width="35" />}
           />
-        </div>
-      </div>
+        </Section>
+      </FlexContainer>
 
       {/* <Row className={styles.details_card_row}>
         <Col span={24} className={styles.programs_header_justify}>
@@ -202,19 +204,19 @@ function Dashboard() {
 
 function ReportCard({ flip, title, meta1, meta2, icon }) {
   return (
-    <div
-      className={`flex justify-between items-center bg-mms-light-teal basis-1/2 rounded p-4 ${
+    <FlexContainer
+      className={`justify-between items-center bg-mms-light-teal basis-1/2 rounded p-4 ${
         flip && "flex-row-reverse"
       }`}>
-      <div>
+      <Section>
         <p className="text-xl font-bold text-gray-600">{title}</p>
         <div className="flex items-center gap-x-4">
           <p className="text-lg font-semibold">{meta1}</p>{" "}
           {meta2 && <p>{meta2}</p>}
         </div>
-      </div>
+      </Section>
       {icon}
-    </div>
+    </FlexContainer>
   );
 }
 
