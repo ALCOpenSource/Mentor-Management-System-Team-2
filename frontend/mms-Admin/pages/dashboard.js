@@ -138,7 +138,7 @@ function Dashboard() {
           </h1>
         </div>
         <FlexContainer className="gap-x-8">
-          <Section className="flex items-center px-3 bg-mms-teal text-white rounded w-1/6">
+          <Section className="flex justify-center items-center px-3 bg-mms-teal text-white rounded w-1/6">
             <h3 className="text-xl font-bold leading-5">In progress</h3>
           </Section>
 
@@ -163,7 +163,7 @@ function Dashboard() {
         </FlexContainer>
 
         <FlexContainer className="gap-x-8">
-          <Section className="flex items-center px-3 bg-mms-teal text-white rounded w-1/6">
+          <Section className="flex justify-center items-center px-3 bg-mms-teal text-white rounded w-1/6">
             <h3 className="text-xl font-bold leading-5">Completed</h3>
           </Section>
 
