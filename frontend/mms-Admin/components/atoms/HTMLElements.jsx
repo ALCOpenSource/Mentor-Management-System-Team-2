@@ -1,7 +1,11 @@
 import React from "react";
 
 export const FlexContainer = ({ className, children }) => {
-  return <div className={`flex ${className}`}>{children}</div>;
+  return (
+    <div className={`flex flex-wrap sm:flex-nowrap ${className}`}>
+      {children}
+    </div>
+  );
 };
 
 export const Section = ({ className, children }) => {
