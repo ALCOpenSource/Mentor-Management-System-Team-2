@@ -22,7 +22,7 @@ function Dashboard() {
       <h1 className={`text-lg font-bold text-gray-700`}>Dashboard</h1>
 
       <FlexContainer className="gap-x-8">
-        <Section className="px-3 pt-4 bg-mms-teal text-white rounded w-1/6">
+        <Section className="px-3 min-w-[200px] pt-4 bg-mms-teal text-white rounded w-1/6">
           <div className="flex justify-end">
             <Button type="link" url="/programs" variant="white" size="small">
               View
@@ -36,7 +36,7 @@ function Dashboard() {
           </div>
         </Section>
 
-        <Section className="flex gap-x-4 justify-between p-3 w-5/6 bg-mms-ts-teal rounded">
+        <Section className="flex overflow-x-auto gap-x-4 justify-between p-3 w-5/6 bg-mms-ts-teal rounded">
           <ReportCard
             title="Mentors"
             meta={data.mentors}
@@ -73,7 +73,7 @@ function Dashboard() {
             {data.active_programs} Active
           </h1>
         </div>
-        <div className="flex gap-x-4 justify-between">
+        <div className="flex overflow-x-auto gap-x-4 justify-between">
           {data.program_list.map((program) => (
             <ReportCard
               key={program.id}
@@ -105,7 +105,7 @@ function Dashboard() {
             {data.reports} reports submitted
           </h1>
         </div>
-        <div className="flex gap-x-4 justify-between">
+        <div className="flex overflow-x-auto gap-x-4 justify-between">
           {data.report_list.map((report) => (
             <ReportCard
               key={report.id}
@@ -138,11 +138,11 @@ function Dashboard() {
           </h1>
         </div>
         <FlexContainer className="gap-x-8">
-          <Section className="flex justify-center items-center px-3 bg-mms-teal text-white rounded w-1/6">
+          <Section className="flex min-w-[200px] justify-center items-center px-3 bg-mms-teal text-white rounded w-1/6">
             <h3 className="text-xl font-bold leading-5">In progress</h3>
           </Section>
 
-          <Section className="flex gap-x-4 justify-between w-5/6">
+          <Section className="flex overflow-x-auto gap-x-4 justify-between w-5/6">
             {data.inprogress_task_list.map((task) => (
               <ReportCard
                 key={task.id}
@@ -163,11 +163,11 @@ function Dashboard() {
         </FlexContainer>
 
         <FlexContainer className="gap-x-8">
-          <Section className="flex justify-center items-center px-3 bg-mms-teal text-white rounded w-1/6">
+          <Section className="flex min-w-[200px] justify-center items-center px-3 bg-mms-teal text-white rounded w-1/6">
             <h3 className="text-xl font-bold leading-5">Completed</h3>
           </Section>
 
-          <Section className="flex gap-x-4 justify-between w-5/6">
+          <Section className="flex overflow-x-auto gap-x-4 justify-between w-5/6">
             {data.completed_task_list.map((task) => (
               <ReportCard
                 key={task.id}
@@ -198,7 +198,8 @@ function Dashboard() {
 
 function ReportCard({ flip, title, meta, icon }) {
   return (
-    <FlexContainer className={`bg-mms-light-teal basis-1/2 rounded p-4`}>
+    <FlexContainer
+      className={`min-w-[300px] bg-mms-light-teal basis-1/2 rounded p-4`}>
       <div
         className={`flex items-center gap-x-4 w-full ${
           flip ? "flex-row-reverse justify-end" : "justify-between"
