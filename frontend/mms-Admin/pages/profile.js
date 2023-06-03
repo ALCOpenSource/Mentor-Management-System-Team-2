@@ -93,7 +93,7 @@ function About() {
 
       <div className="mt-8 p-4 border border-gray-200 rounded">
         <div className="mb-8">
-          <p className="text-2xl font-bold mb-4">About</p>
+          <p className="text-xl font-bold mb-4">About</p>
           <div className="p-4 mb-4 bg-mms-ts-teal">
             <p className={styles.about_desc}>{data.bio}</p>
           </div>
@@ -119,7 +119,7 @@ function About() {
         </div>
 
         <div>
-          <p className="text-2xl font-bold mb-4">Socials</p>
+          <p className="text-xl font-bold mb-4">Socials</p>
           <div className="flex mb-4 gap-x-4">
             <div className="flex w-full bg-mms-ts-teal p-4 rounded gap-x-4 items-center">
               <Icon
