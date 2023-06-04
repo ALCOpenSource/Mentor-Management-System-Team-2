@@ -27,7 +27,7 @@ const Mentors = () => {
     <div>
       <div className="flex flex-justify-between flex-align-center">
         <div className="flex flex-align-center gap-16">
-          <h1 className={styles.page_title}>Mentor Managers</h1>
+          <h1 className={styles.page_title}>Mentors</h1>
           <span className="cursor-pointer">
             <Icons name="grid" onClick={() => setIsGrid(true)} />
           </span>
@@ -40,7 +40,7 @@ const Mentors = () => {
             Send Broadcast Message
           </Button>
           <Button variant="normal" size="small" bordered>
-            Add New Mentor Manager
+            Add New Mentor
           </Button>
           <PaginationWithFilter />
         </div>
