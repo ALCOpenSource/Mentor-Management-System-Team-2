@@ -69,13 +69,17 @@ export default class ProgramsCertificateController {
       const approvedCertificates = await ProgramCertificate.query()
         .where('is_approved', true)
         .exec()
+      
+      const approvedCertificatesCount = approvedCertificates.length
 
-      const pendingApprovalCount = (await ProgramCertificate.query().where('isApproved', false))
-        .length
+      const pendingApproval = await ProgramCertificate.query().where('is_approved', false)
+        
+      const pendingApprovalCount = pendingApproval.length
 
-      const userGeneratedCertificatesCount = (
+      const userGeneratedCertificates = 
         await ProgramCertificate.query().where('creator_id', user.id)
-      ).length
+      
+      const userGeneratedCertificatesCount = userGeneratedCertificates.length
 
       const recentCertificates = await ProgramCertificate.query()
         .orderBy('updated_at', 'desc')
@@ -84,7 +88,10 @@ export default class ProgramsCertificateController {
 
       return response.ok({
         approvedCertificates,
+        approvedCertificatesCount,
+        pendingApproval,
         pendingApprovalCount,
+        userGeneratedCertificates,
         userGeneratedCertificatesCount,
         recentCertificates,
       })

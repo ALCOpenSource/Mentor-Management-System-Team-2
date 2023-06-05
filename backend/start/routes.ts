@@ -184,6 +184,11 @@ Route.group(() => {
     .prefix('criteria')
     .middleware('auth')
 
+  Route.group(()=>{
+    Route.get('/pending-requests', 'RequestController.getPendingRequest')
+  })
+  .prefix('requests').middleware('auth')
+
   Route.get('/dashboard', 'DashboardController.index').middleware('auth')
 
   Route.resource('faq', 'FaqController').middleware({
