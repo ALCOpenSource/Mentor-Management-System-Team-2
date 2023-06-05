@@ -4,6 +4,7 @@ import Roles from 'App/Enums/Roles'
 import TaskMentor from 'App/Models/TaskMentor'
 import TaskMentorManager from 'App/Models/TaskMentorManager'
 import Database from '@ioc:Adonis/Lucid/Database'
+import { schema } from '@ioc:Adonis/Core/Validator'
 
 export default class TaskController {
   async create({ auth, request, response }: HttpContextContract) {
@@ -12,55 +13,50 @@ export default class TaskController {
     if (!adminUser || adminUser.roleId !== Roles.ADMIN) {
       return response.unauthorized({ message: 'You are not authorized to perform this action' })
     }
-
-    const { title, description, meta, startDate, endDate, typeOfReport, mentors, mentorManagers } =
-      request.only([
-        'title',
-        'description',
-        'meta',
-        'startDate',
-        'endDate',
-        'typeOfReport',
-        'mentors',
-        'mentorManagers',
-      ])
+    
+      const payload = await request.validate({
+        schema: schema.create({
+          title: schema.string(),
+          description: schema.string(),
+          meta: schema.string.optional(),
+          startDate: schema.date(),
+          endDate: schema.date(),
+          typeOfReport: schema.string.optional(),
+          mentors: schema.array.optional().members(schema.number()),
+          mentorManagers: schema.array.optional().members(schema.number()),
+        }),
+      })
 
     try {
       const task = await Database.transaction(async (trx) => {
         const task = new Task()
 
         task.fill({
-          title,
-          description,
-          meta,
-          userId: adminUser.id,
-          startDate,
-          endDate,
-          typeOfReport,
+          ...payload,
+          userId: adminUser.id
         })
 
         await task.useTransaction(trx).save()
 
-        if (mentors && mentors.length > 0) {
-          for (const mentorId of mentors) {
+        if (payload.mentors && payload.mentors.length > 0) {
+          for (const mentorId of payload.mentors) {
             const taskMentor = new TaskMentor()
 
             taskMentor.fill({
               taskId: task.id,
-              mentorId,
+              mentorId: Number(mentorId)
             })
-
             await taskMentor.useTransaction(trx).save()
           }
         }
 
-        if (mentorManagers && mentorManagers.length > 0) {
-          for (const mentorManagerId of mentorManagers) {
+        if (payload.mentorManagers && payload.mentorManagers.length > 0) {
+          for (const mentorManagerId of payload.mentorManagers) {
             const taskMentorManager = new TaskMentorManager()
 
             taskMentorManager.fill({
               taskId: task.id,
-              mentorManagerId,
+              mentorManagerId: Number(mentorManagerId),
             })
 
             await taskMentorManager.useTransaction(trx).save()
@@ -72,7 +68,7 @@ export default class TaskController {
 
       return response.created({ status: 'success', message: 'Task Created', task })
     } catch (error) {
-      return response.status(500).send({ message: 'Error creating task.' })
+      return response.status(500).send({ message: 'Error creating task.', error})
     }
   }
 
@@ -83,17 +79,23 @@ export default class TaskController {
       return response.unauthorized({ message: 'You are not authorized to perform this action' })
     }
 
-    const { title, description, meta, startDate, endDate, typeOfReport, mentors, mentorManagers } =
-      request.only([
-        'title',
-        'description',
-        'meta',
-        'startDate',
-        'endDate',
-        'typeOfReport',
-        'mentors',
-        'mentorManagers',
-      ])
+    const { mentors, mentorManagers } = request.only([
+      'mentors',
+      'mentorManagers',
+    ])
+    
+      const payload = await request.validate({
+        schema: schema.create({
+          title: schema.string(),
+          description: schema.string(),
+          meta: schema.string.optional(),
+          startDate: schema.date(),
+          endDate: schema.date(),
+          typeOfReport: schema.string.optional(),
+          mentors: schema.array.optional().members(schema.number()),
+          mentorManagers: schema.array.optional().members(schema.number()),
+        }),
+      })
 
     const taskId = params.taskId
 
@@ -102,12 +104,7 @@ export default class TaskController {
         const task = await Task.findOrFail(taskId)
 
         task.merge({
-          title,
-          description,
-          meta,
-          startDate,
-          endDate,
-          typeOfReport,
+         ...payload
         })
 
         await task.useTransaction(trx).save()
@@ -142,7 +139,7 @@ export default class TaskController {
         .json({ status: 'success', message: 'Task Updated Successfully', task })
     } catch (error) {
       console.log(error)
-      return response.status(500).send({ message: 'Error updating task.' })
+      return response.status(500).send({ message: 'Error updating task.', error})
     }
   }
 
