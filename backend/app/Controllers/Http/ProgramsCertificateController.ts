@@ -65,24 +65,31 @@ export default class ProgramsCertificateController {
       return
     }
 
-    const approvedCertificates = await ProgramCertificate.query().where('is_approved', true).exec()
+    try {
+      const approvedCertificates = await ProgramCertificate.query()
+        .where('is_approved', true)
+        .exec()
 
-    const pendingApprovalCount = (await ProgramCertificate.query().where('isApproved', false))
-      .length
+      const pendingApprovalCount = (await ProgramCertificate.query().where('isApproved', false))
+        .length
 
-    const userGeneratedCertificatesCount = (await ProgramCertificate.query().where('creator_id', user.id))
-      .length
+      const userGeneratedCertificatesCount = (
+        await ProgramCertificate.query().where('creator_id', user.id)
+      ).length
 
-    const recentCertificates = await ProgramCertificate.query()
-      .orderBy('updated_at', 'desc')
-      .limit(6)
-      .exec()
+      const recentCertificates = await ProgramCertificate.query()
+        .orderBy('updated_at', 'desc')
+        .limit(6)
+        .exec()
 
-    return response.ok({
-      approvedCertificates,
-      pendingApprovalCount,
-      userGeneratedCertificatesCount,
-      recentCertificates,
-    })
+      return response.ok({
+        approvedCertificates,
+        pendingApprovalCount,
+        userGeneratedCertificatesCount,
+        recentCertificates,
+      })
+    } catch (error) {
+      return response.badRequest({ message: `Error fetching certificates`, status: 'error' })
+    }
   }
 }
