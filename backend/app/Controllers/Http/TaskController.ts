@@ -78,24 +78,17 @@ export default class TaskController {
     if (!adminUser || adminUser.roleId !== Roles.ADMIN) {
       return response.unauthorized({ message: 'You are not authorized to perform this action' })
     }
-
-    const { mentors, mentorManagers } = request.only([
+    const { title, description, meta, startDate, endDate, typeOfReport, mentors, mentorManagers } =
+    request.only([
+      'title',
+      'description',
+      'meta',
+      'startDate',
+      'endDate',
+      'typeOfReport',
       'mentors',
       'mentorManagers',
     ])
-    
-      const payload = await request.validate({
-        schema: schema.create({
-          title: schema.string(),
-          description: schema.string(),
-          meta: schema.string.optional(),
-          startDate: schema.date(),
-          endDate: schema.date(),
-          typeOfReport: schema.string.optional(),
-          mentors: schema.array.optional().members(schema.number()),
-          mentorManagers: schema.array.optional().members(schema.number()),
-        }),
-      })
 
     const taskId = params.taskId
 
@@ -104,7 +97,12 @@ export default class TaskController {
         const task = await Task.findOrFail(taskId)
 
         task.merge({
-         ...payload
+          title,
+          description,
+          meta,
+          startDate,
+          endDate,
+          typeOfReport,
         })
 
         await task.useTransaction(trx).save()

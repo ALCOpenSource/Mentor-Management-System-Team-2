@@ -42,6 +42,8 @@ Route.group(() => {
   }).prefix('user')
 
   Route.group(() => {
+    Route.get('/', 'ProgramsCertificateController.getAllApprovedCertificates')
+    Route.post('/', 'ProgramsCertificateController.createCertificate')
     Route.get('/:userId/certificates', 'ProgramsCertificateController.getUserCertificates')
   }).prefix('certificate')
 
