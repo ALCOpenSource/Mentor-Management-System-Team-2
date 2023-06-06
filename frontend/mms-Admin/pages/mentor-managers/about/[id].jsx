@@ -17,7 +17,7 @@ function AboutMentorManager() {
 
   return (
     <div className={styles.tab_content_wrapper}>
-      <h3>Bio</h3>
+      <h3 className="bold text-lg">Bio</h3>
       <div className={styles.bio_text}>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent
@@ -26,36 +26,36 @@ function AboutMentorManager() {
           Phasellus eget tortor dapibus, laoreet mauris sed, dignissim lectus.{" "}
         </p>
       </div>
-      <div className={`flex gap-16 flex-align-center`}>
-        <p className={`bold`}>Technical Proficiency:</p>
+      <div className={`flex gap-16 mb-4 flex-align-center`}>
+        <p className={`bold text-lg`}>Technical Proficiency:</p>
         <p>Java Script, Django, Mysql, Android </p>
       </div>
-      <div className={`flex gap-16 flex-align-center`}>
-        <p className={`bold`}>Previous Programs:</p>
+      <div className={`flex gap-16 mb-4 flex-align-center`}>
+        <p className={`bold text-lg`}>Previous Programs:</p>
         <p>GADS 2022, Google I/O Extended 2021</p>
       </div>
-      <div className={`flex gap-16 flex-align-center`}>
-        <p className={`bold`}>Previous Roles Held: </p>
+      <div className={`flex gap-16 mb-4 flex-align-center`}>
+        <p className={`bold text-lg`}>Previous Roles Held: </p>
         <p>Learner, Mentor, Program Assistant, Program Assistant Lead</p>
       </div>
-      <div className={`flex gap-16 flex-align-center`}>
-        <p className={`bold`}>Availability to join a new program:</p>
+      <div className={`flex gap-16 mb-4 flex-align-center`}>
+        <p className={`bold text-lg`}>Availability to join a new program:</p>
         <p>Unavailable</p>
       </div>
-      <div className={`flex gap-16 flex-align-center`}>
-        <p className={`bold`}>Program of interest:</p>
+      <div className={`flex gap-16 mb-4 flex-align-center`}>
+        <p className={`bold text-lg`}>Program of interest:</p>
         <p>Google Africa Scholarship Program</p>
       </div>
-      <div className={`flex gap-16 flex-align-center`}>
-        <p className={`bold`}>Been a Mentor Before?</p>
+      <div className={`flex gap-16 mb-4 flex-align-center`}>
+        <p className={`bold text-lg`}>Been a Mentor Before?</p>
         <p>Yes</p>
       </div>
-      <div className={`flex gap-16 flex-align-center`}>
-        <p className={`bold`}>Years of Technical Experience:</p>
+      <div className={`flex gap-16 mb-4 flex-align-center`}>
+        <p className={`bold text-lg`}>Years of Technical Experience:</p>
         <p>3years</p>
       </div>
-      <div className={`flex gap-16 flex-align-center`}>
-        <p className={`bold`}>Website:</p>
+      <div className={`flex gap-16 mb-4 flex-align-center`}>
+        <p className={`bold text-lg`}>Website:</p>
         <p>www.kabir.i@andela.com</p>
       </div>
     </div>

@@ -199,7 +199,7 @@ function Dashboard() {
 function ReportCard({ flip, title, meta, icon }) {
   return (
     <FlexContainer
-      className={`min-w-[300px] bg-mms-light-teal basis-1/2 rounded p-4`}>
+      className={`min-w-[250px] bg-mms-light-teal basis-1/2 rounded p-4`}>
       <div
         className={`flex items-center gap-x-4 w-full ${
           flip ? "flex-row-reverse justify-end" : "justify-between"
