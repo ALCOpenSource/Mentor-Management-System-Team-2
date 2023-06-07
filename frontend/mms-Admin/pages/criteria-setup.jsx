@@ -53,11 +53,13 @@ const CriteriaSetup = () => {
         </div>
       </div>
 
-      <div className={`flex flex-justify-end`}>
-        <Button variant="normal" size="large">
-          Create Criteria
-        </Button>
-      </div>
+      {criteriaConfig.title && criteriaConfig.formFields.length > 0 && (
+        <div className={`flex flex-justify-end`}>
+          <Button variant="normal" size="large">
+            Create Criteria
+          </Button>
+        </div>
+      )}
 
       <Modal show={showAddCriteriaModal}>
         <CriteriaInputModal

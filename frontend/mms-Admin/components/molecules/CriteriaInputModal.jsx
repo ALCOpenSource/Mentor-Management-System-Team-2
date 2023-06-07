@@ -12,13 +12,29 @@ const inputOptions = [
   { id: 5, name: "Multi-Choice" },
 ];
 
+function processInputType(type) {
+  switch (type) {
+    case "Single Input":
+      return "text";
+    case "Multiple Input":
+      return "select";
+    case "Yes/No":
+      return "boolean";
+    case "File Input":
+      return "upload";
+    case "Multi-Choice":
+      return "checkbox";
+    default:
+      return "text";
+  }
+}
+
 export const CriteriaInputModal = ({
   setCriteriaConfig,
   criteriaConfig,
   onClose,
 }) => {
   const [selectedInputOption, setSelectedInputOption] = useState("");
-  const [questionData, setQuestionData] = useState({});
 
   return (
     <div>
@@ -32,15 +48,7 @@ export const CriteriaInputModal = ({
       ) : (
         <AddQuestionsScreen
           selectedInputOption={selectedInputOption}
-          done={() => {
-            setCriteriaConfig((prev) => ({
-              ...prev,
-              formFields: questionData,
-            }));
-            onClose();
-          }}
-          criteriaConfig={criteriaConfig}
-          setQuestionData={setQuestionData}
+          setCriteriaConfig={setCriteriaConfig}
           onClose={onClose}
           setSelectedInputOption={setSelectedInputOption}
         />
@@ -54,6 +62,7 @@ function CriteriaInputOptions({
   setSelectedInputOption,
   setCriteriaConfig,
   onClose,
+  criteriaConfig,
 }) {
   function handleSelect(e) {
     setSelectedInputOption(e.target.value);
@@ -70,6 +79,7 @@ function CriteriaInputOptions({
             onChange={(e) =>
               setCriteriaConfig((prev) => ({ ...prev, title: e.target.value }))
             }
+            value={criteriaConfig.title}
           />
         </>
       </div>
@@ -86,6 +96,7 @@ function CriteriaInputOptions({
                 description: e.target.value,
               }))
             }
+            value={criteriaConfig.description}
           />
         </>
       </div>
@@ -120,20 +131,33 @@ function CriteriaInputOptions({
   );
 }
 
+const initalQuestionData = {
+  label: "",
+  type: "",
+};
+
 function AddQuestionsScreen({
   selectedInputOption,
   onClose,
-  done,
   setSelectedInputOption,
-  criteriaConfig = { criteriaConfig },
+  setCriteriaConfig,
 }) {
-  const [question, setQuestion] = useState("");
+  const [question, setQuestion] = useState(initalQuestionData);
 
-  function handleQuestionInput() {
+  function handleQuestionInput(e) {
     setQuestion({
-      label: question,
-      type: selectedInputOption,
+      label: e.target.value,
+      type: processInputType(selectedInputOption),
     });
+  }
+
+  function submitEntry(data) {
+    setCriteriaConfig((prev) => ({
+      ...prev,
+      formFields: [...prev.formFields, data],
+    }));
+    setQuestion(initalQuestionData);
+    onClose();
   }
 
   if (selectedInputOption === "Single Input")
@@ -143,12 +167,12 @@ function AddQuestionsScreen({
         <Inputs
           type="text"
           placeholder="Input question here"
-          value={question}
+          value={question.label}
           onChange={handleQuestionInput}
         />
         <Footer
           onClose={onClose}
-          done={done}
+          done={() => submitEntry(question)}
           selectedInputOption={selectedInputOption}
           setSelectedInputOption={setSelectedInputOption}
         />
@@ -162,7 +186,7 @@ function AddQuestionsScreen({
         <Inputs
           type="text"
           placeholder="Input question here"
-          value={question}
+          value={question.title}
           onChange={handleQuestionInput}
         />
         <Inputs
@@ -174,7 +198,7 @@ function AddQuestionsScreen({
         />
         <Footer
           onClose={onClose}
-          done={done}
+          done={() => submitEntry(question)}
           selectedInputOption={selectedInputOption}
           setSelectedInputOption={setSelectedInputOption}
         />
@@ -188,7 +212,7 @@ function AddQuestionsScreen({
         <Inputs
           type="text"
           placeholder="Input question here"
-          value={question}
+          value={question.title}
           onChange={handleQuestionInput}
         />
         <div className={`flex flex-align-center gap-16`}>
@@ -196,7 +220,7 @@ function AddQuestionsScreen({
         </div>
         <Footer
           onClose={onClose}
-          done={done}
+          done={() => submitEntry(question)}
           selectedInputOption={selectedInputOption}
           setSelectedInputOption={setSelectedInputOption}
         />
@@ -210,7 +234,7 @@ function AddQuestionsScreen({
         <Inputs
           type="text"
           placeholder="Input question here"
-          value={question}
+          value={question.title}
           onChange={handleQuestionInput}
         />
         <div className={`flex flex-align-center gap-16`}>
@@ -230,7 +254,7 @@ function AddQuestionsScreen({
 
         <Footer
           onClose={onClose}
-          done={done}
+          done={() => submitEntry(question)}
           selectedInputOption={selectedInputOption}
           setSelectedInputOption={setSelectedInputOption}
         />
@@ -247,7 +271,7 @@ function AddQuestionsScreen({
         <Inputs
           type="text"
           placeholder="Input question here"
-          value={question}
+          value={question.title}
           onChange={handleQuestionInput}
         />
 
@@ -263,7 +287,7 @@ function AddQuestionsScreen({
 
         <Footer
           onClose={onClose}
-          done={done}
+          done={() => submitEntry(question)}
           selectedInputOption={selectedInputOption}
           setSelectedInputOption={setSelectedInputOption}
         />
