@@ -13,19 +13,19 @@ export default class TaskController {
     if (!adminUser || adminUser.roleId !== Roles.ADMIN) {
       return response.unauthorized({ message: 'You are not authorized to perform this action' })
     }
-    
-      const payload = await request.validate({
-        schema: schema.create({
-          title: schema.string(),
-          description: schema.string(),
-          meta: schema.string.optional(),
-          startDate: schema.date(),
-          endDate: schema.date(),
-          typeOfReport: schema.string.optional(),
-          mentors: schema.array.optional().members(schema.number()),
-          mentorManagers: schema.array.optional().members(schema.number()),
-        }),
-      })
+
+    const payload = await request.validate({
+      schema: schema.create({
+        title: schema.string(),
+        description: schema.string(),
+        meta: schema.string.optional(),
+        startDate: schema.date(),
+        endDate: schema.date(),
+        typeOfReport: schema.string.optional(),
+        mentors: schema.array.optional().members(schema.number()),
+        mentorManagers: schema.array.optional().members(schema.number()),
+      }),
+    })
 
     try {
       const task = await Database.transaction(async (trx) => {
@@ -33,7 +33,7 @@ export default class TaskController {
 
         task.fill({
           ...payload,
-          userId: adminUser.id
+          userId: adminUser.id,
         })
 
         await task.useTransaction(trx).save()
@@ -44,7 +44,7 @@ export default class TaskController {
 
             taskMentor.fill({
               taskId: task.id,
-              mentorId: Number(mentorId)
+              mentorId: Number(mentorId),
             })
             await taskMentor.useTransaction(trx).save()
           }
@@ -68,7 +68,7 @@ export default class TaskController {
 
       return response.created({ status: 'success', message: 'Task Created', task })
     } catch (error) {
-      return response.status(500).send({ message: 'Error creating task.', error})
+      return response.status(500).send({ message: 'Error creating task.', error })
     }
   }
 
@@ -78,24 +78,17 @@ export default class TaskController {
     if (!adminUser || adminUser.roleId !== Roles.ADMIN) {
       return response.unauthorized({ message: 'You are not authorized to perform this action' })
     }
-
-    const { mentors, mentorManagers } = request.only([
-      'mentors',
-      'mentorManagers',
-    ])
-    
-      const payload = await request.validate({
-        schema: schema.create({
-          title: schema.string(),
-          description: schema.string(),
-          meta: schema.string.optional(),
-          startDate: schema.date(),
-          endDate: schema.date(),
-          typeOfReport: schema.string.optional(),
-          mentors: schema.array.optional().members(schema.number()),
-          mentorManagers: schema.array.optional().members(schema.number()),
-        }),
-      })
+    const { title, description, meta, startDate, endDate, typeOfReport, mentors, mentorManagers } =
+      request.only([
+        'title',
+        'description',
+        'meta',
+        'startDate',
+        'endDate',
+        'typeOfReport',
+        'mentors',
+        'mentorManagers',
+      ])
 
     const taskId = params.taskId
 
@@ -104,7 +97,12 @@ export default class TaskController {
         const task = await Task.findOrFail(taskId)
 
         task.merge({
-         ...payload
+          title,
+          description,
+          meta,
+          startDate,
+          endDate,
+          typeOfReport,
         })
 
         await task.useTransaction(trx).save()
@@ -139,7 +137,7 @@ export default class TaskController {
         .json({ status: 'success', message: 'Task Updated Successfully', task })
     } catch (error) {
       console.log(error)
-      return response.status(500).send({ message: 'Error updating task.', error})
+      return response.status(500).send({ message: 'Error updating task.', error })
     }
   }
 
