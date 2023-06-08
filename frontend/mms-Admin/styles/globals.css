@@ -147,3 +147,7 @@ body {
 .border-0 {
   border: none;
 }
+
+.bold {
+  font-weight: 600;
+}
