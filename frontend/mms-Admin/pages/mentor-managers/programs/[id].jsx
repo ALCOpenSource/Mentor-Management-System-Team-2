@@ -2,12 +2,26 @@ import React from "react";
 import { formatDistance } from "date-fns";
 import UserDetailsLayout from "../../../components/Layouts/UserDetailsLayout";
 import { Inputs } from "../../../components/atoms/Inputs";
-import { Icons } from "../../../components/atoms/icons";
+import { Icons } from "../../../components/atoms/Icons";
+import { Loader } from "../../../components/atoms/Loader";
 import { Button } from "../../../components/atoms/Button";
 import { Stats } from "../../../components/molecules/Stats";
 import { Accordion } from "../../../components/molecules/Accordion";
+import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
+import { getMentorManagersPrograms } from "pages/api/mentor";
 
 function MentorManagerPrograms() {
+  const router = useRouter();
+  const { data, isLoading, isError } = useQuery(
+    ["mentor_manager_programs"],
+    () => getMentorManagersPrograms(router.query.id),
+  );
+
+  if (isLoading) return <Loader />;
+
+  if (isError) return "An error occured";
+
   return (
     <>
       <div className="flex pt-4 pb-4 justify-between items-center">

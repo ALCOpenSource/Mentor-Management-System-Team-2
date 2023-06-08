@@ -1,7 +1,7 @@
 import React from "react";
 import UserDetailsLayout from "../../../components/Layouts/UserDetailsLayout";
 import { Inputs } from "../../../components/atoms/Inputs";
-import { Icons } from "../../../components/atoms/icons";
+import { Icons } from "../../../components/atoms/Icons";
 import { ListItem } from "../../../components/atoms/ListItem";
 import Link from "next/link";
 import Image from "next/image";
