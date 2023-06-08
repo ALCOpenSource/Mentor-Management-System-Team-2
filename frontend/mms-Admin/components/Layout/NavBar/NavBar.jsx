@@ -1,4 +1,4 @@
-import { useContext, useState, useRef } from 'react'
+import { useContext, useState, useRef, useEffect } from 'react'
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -14,6 +14,7 @@ const NavBar = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [recentNotifications, setRecentNotifications] = useState([]);
   const { isMobileSideBarOpen, setMobileSideBarState, logout } = useContext(GlobalContext);
+  const [search, setSearch] = useState("");
 
   const router = useRouter();
 
@@ -32,6 +33,28 @@ const NavBar = () => {
     setModalOpen(false);
     router.push("/dashboard");
   };
+
+  const handleRedirectNotifications = (e) => {
+    e.preventDefault();
+    router.push("/notifications");
+  };
+
+  const handleRedirectsearch = (event) => {
+    router.push("/search");
+  };
+
+  const handleOnchange = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+
+
+  useEffect(() => {
+    if (search.length > 3) {
+      handleRedirectsearch()
+    }
+  }, [search]);
+
 
   const handleLogout = (e) => {
     e.preventDefault();
@@ -62,6 +85,8 @@ const NavBar = () => {
               prefix={<Icon name="Search" />}
               size="large"
               type="search"
+              value={search}
+              onChange={handleOnchange}
             />
           </div>
           <div className={styles.navbar_icons_size}>
@@ -79,14 +104,14 @@ const NavBar = () => {
                 </a>
               </Link>
             </div>
-            <div>
-              <Link href="/home">
+            <div onClick={handleRedirectNotifications}>
+              
                 <a>
                   <Badge count={notificationCount(recentNotifications?.length)}>
-                    <Icon name="Notification" />
+                    <Icon name="Notification"/>
                   </Badge>
                 </a>
-              </Link>
+           
             </div>
             <div>
               <a onClick={handleDropdown}>
