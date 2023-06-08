@@ -1,25 +1,22 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'tasks'
+  protected tableName = 'notifications'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.string('title').notNullable()
-      table.text('description').notNullable()
-      table.string('meta').nullable()
       table
         .integer('user_id')
         .unsigned()
+        .notNullable()
         .references('id')
         .inTable('users')
         .onDelete('CASCADE')
-        .notNullable()
-      table.timestamp('start_date').notNullable()
-      table.timestamp('end_date').notNullable()
-      table.string('type_of_report').nullable()
-      table.timestamp('deleted_at').nullable()
+      table.specificType('recipients', 'INT[]')
+      table.string('type').notNullable()
+      table.text('message').notNullable()
+      table.boolean('is_read').defaultTo(false)
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
