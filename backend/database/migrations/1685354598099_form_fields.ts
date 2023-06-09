@@ -1,25 +1,30 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'tasks'
+  protected tableName = 'form_fields'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.string('title').notNullable()
-      table.text('description').notNullable()
-      table.string('meta').nullable()
+      table
+        .integer('form_template_id')
+        .unsigned()
+        .references('id')
+        .inTable('form_templates')
+        .onDelete('CASCADE')
       table
         .integer('user_id')
+        .notNullable()
         .unsigned()
         .references('id')
         .inTable('users')
         .onDelete('CASCADE')
-        .notNullable()
-      table.timestamp('start_date').notNullable()
-      table.timestamp('end_date').notNullable()
-      table.string('type_of_report').nullable()
-      table.timestamp('deleted_at').nullable()
+      table.string('label').notNullable()
+      table.string('type').notNullable() // eg: checkbox, text, textarea, radio, etc...
+      table.specificType('options', 'varchar[]').nullable()
+      table.string('validation_rules').nullable()
+      table.boolean('is_required').notNullable().defaultTo(true)
+      table.integer('order').nullable()
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL

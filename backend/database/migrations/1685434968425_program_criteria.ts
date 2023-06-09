@@ -1,25 +1,23 @@
 import BaseSchema from '@ioc:Adonis/Lucid/Schema'
 
 export default class extends BaseSchema {
-  protected tableName = 'tasks'
+  protected tableName = 'program_criteria'
 
   public async up() {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id').primary()
-      table.string('title').notNullable()
-      table.text('description').notNullable()
-      table.string('meta').nullable()
       table
-        .integer('user_id')
-        .unsigned()
-        .references('id')
-        .inTable('users')
-        .onDelete('CASCADE')
+        .integer('form_template_id')
         .notNullable()
-      table.timestamp('start_date').notNullable()
-      table.timestamp('end_date').notNullable()
-      table.string('type_of_report').nullable()
-      table.timestamp('deleted_at').nullable()
+        .references('id')
+        .inTable('form_templates')
+        .onDelete('CASCADE')
+      table
+        .integer('program_id')
+        .notNullable()
+        .references('id')
+        .inTable('programs')
+        .onDelete('CASCADE')
 
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
