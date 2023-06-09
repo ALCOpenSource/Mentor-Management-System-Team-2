@@ -157,23 +157,6 @@ const Certificates = () => {
         <div className={styles.request_list}>
           {data[status].length > 0 ? (
             data[status].map((item, idx) => (
-              // <ListItem>
-              //   <div
-              //     className={`flex flex-align-center flex-justify-between ${styles.request}`}>
-              //     <div className={`flex gap-16 flex-align-center`}>
-              //       <div className={styles.program_icon}>
-              //         <Icons name="gads" />
-              //       </div>
-              //       <div>
-              //         <p className={`list_main_text`}>
-              //           Google Africa Scholarship Program
-              //         </p>
-              //       </div>
-              //     </div>
-              //     <div className={styles.request_count}>5</div>
-              //   </div>
-              // </ListItem>
-
               <Accordion
                 key={idx}
                 header={
