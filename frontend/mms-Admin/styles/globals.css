@@ -1,5 +1,4 @@
-/**
- * ignoreAtRules: ["tailwind"] */
+/*** ignoreAtRules: ["tailwind"] */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
