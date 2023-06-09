@@ -31,11 +31,9 @@ function About() {
       const response = await fetchUserProfile();
       if (response.status === 200) {
         setData(response.data);
-        setSmedia(
-          response?.data?.social_media_links
-            ? JSON.parse(response?.data?.social_media_links)
-            : {},
-        );
+        if (response?.data?.social_media_links) {
+          setSmedia(JSON.parse(response?.data?.social_media_links));
+        }
         setLoading(false);
       }
 
