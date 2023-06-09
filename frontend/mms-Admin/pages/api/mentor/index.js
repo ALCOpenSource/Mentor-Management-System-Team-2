@@ -38,6 +38,11 @@ export const getMentorManagersTasks = async (id) => {
 };
 
 export const getMentorManagersPrograms = async (id) => {
-  const response = await apiService(`/mentor-managers/${id}/programs`, "GET");
+  const response = await apiService(`/programs/user-programs/${id}`, "GET");
+  return response.data;
+};
+
+export const getMentorsOfManagers = async (id) => {
+  const response = await apiService(`/mentor-managers/${id}/mentors`, "GET");
   return response.data.data;
 };

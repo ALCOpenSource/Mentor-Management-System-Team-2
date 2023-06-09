@@ -34,68 +34,75 @@ function MentorManagerPrograms() {
           />
         </div>
       </div>
-      <div>
-        <Accordion
-          header={
-            <div className="flex flex-justify-between flex-align-center">
-              <div className="flex gap-x-4 flex-align-center">
-                <Icons name="gads" fill="#058B94" margin="0 1rem 0 0" />
-                <div className={`flex flex-justify-center flex-column`}>
-                  <h1 className="text-lg font-bold">Gads program </h1>
-                  <div className="flex gap-x-8">
-                    <div className="flex gap-x-2 flex-align-center">
-                      <Icons name="calendar" />
-                      <p>
-                        {formatDistance(new Date(), new Date(), {
-                          addSuffix: true,
-                        })}
-                      </p>
-                    </div>
-                    <div className="flex gap-x-2 flex-align-center">
-                      <Icons name="calendar" />
-                      <p>
-                        {formatDistance(new Date(), new Date(), {
-                          addSuffix: true,
-                        })}
-                      </p>
+      <div className="h-[80vh] overflow-y-auto">
+        {data?.programs?.map((item) => {
+          const {
+            created_at,
+            description,
+            id,
+            name,
+            programReportsCount,
+            updated_at,
+          } = item;
+          return (
+            <Accordion
+              header={
+                <div className="flex flex-justify-between flex-align-center">
+                  <div className="flex gap-x-4 flex-align-center">
+                    <Icons name="gads" fill="#058B94" margin="0 1rem 0 0" />
+                    <div className={`flex flex-justify-center flex-column`}>
+                      <h1 className="text-lg font-bold">{name} </h1>
+                      <div className="flex gap-x-8">
+                        <div className="flex gap-x-2 flex-align-center">
+                          <Icons name="calendar" />
+                          <p>
+                            {formatDistance(new Date(created_at), new Date(), {
+                              addSuffix: true,
+                            })}
+                          </p>
+                        </div>
+                        <div className="flex gap-x-2 flex-align-center">
+                          <Icons name="calendar" />
+                          <p>
+                            {formatDistance(new Date(updated_at), new Date(), {
+                              addSuffix: true,
+                            })}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </div>
+                  <Icons name="arrow-up" fill="#058B94" />
                 </div>
-              </div>
-              <Icons name="arrow-up" fill="#058B94" />
-            </div>
-          }
-          body={
-            <div className={`flex flex-justify-center `}>
-              <div>
-                <h2 className="text-xl font-bold">About</h2>
+              }
+              body={
+                <div className={`flex flex-justify-center `}>
+                  <div className="w-full">
+                    <h2 className="text-xl font-bold">About</h2>
 
-                <div className="pt-4 pb-4">
-                  <p className="text-gray-500">
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Voluptas temporibus placeat neque itaque eius vero, sunt
-                    beatae nemo, quod qui excepturi mollitia officiis quaerat
-                    expedita libero unde voluptatum atque magnam!
-                  </p>
+                    <div className="pt-4 pb-4">
+                      <p className="text-gray-500">{description}</p>
+                    </div>
+
+                    <Stats
+                      url={`/programs/reports/${id}`}
+                      icon={<Icons name="report-sheet" />}
+                      number={programReportsCount}
+                      text="Program reports"
+                    />
+                  </div>
                 </div>
-
-                <Stats
-                  url={`/programs/reports/${1}`}
-                  icon={<Icons name="report-sheet" />}
-                  number={10}
-                  text="Program reports"
-                />
-              </div>
-            </div>
-          }
-          footer={
-            <div className="flex justify-end">
-              <Button variant="white" size="large" bordered>
-                Unassign from Program
-              </Button>
-            </div>
-          }
-        />
+              }
+              footer={
+                <div className="flex justify-end">
+                  <Button variant="white" size="large" bordered>
+                    Unassign from Program
+                  </Button>
+                </div>
+              }
+            />
+          );
+        })}
       </div>
     </>
   );
