@@ -69,11 +69,14 @@ export default class ProgramsCertificateController {
     try {
       const approvedCertificates = await ProgramCertificate.query()
         .where('is_approved', true)
+        .whereNull('deleted_at')
         .exec()
 
       const approvedCertificatesCount = approvedCertificates.length
 
-      const pendingApproval = await ProgramCertificate.query().where('is_approved', false)
+      const pendingApproval = await ProgramCertificate.query()
+        .where('is_approved', false)
+        .whereNull('deleted_at')
 
       const pendingApprovalCount = pendingApproval.length
 
@@ -130,11 +133,14 @@ export default class ProgramsCertificateController {
       return
     }
     try {
-      const programCertificate = await ProgramCertificate.findOrFail('id', params.id)
+      const programCertificate = await ProgramCertificate.findByOrFail('id', params.id)
+      if (!programCertificate)
+        return response.status(404).send({ message: 'Program Certificate does not exist' })
+
       programCertificate.deletedAt = DateTime.local()
 
       programCertificate.save()
-      response.status(202).send({message: 'Program Certificate declined'})
+      response.status(202).send({ message: 'Program Certificate declined' })
     } catch (error) {
       response.status(204).send({ message: `invalid userId: ${params.userId}`, status: 'Error' })
     }
