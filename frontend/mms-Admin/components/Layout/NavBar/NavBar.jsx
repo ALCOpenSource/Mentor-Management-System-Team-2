@@ -8,6 +8,10 @@ import { Avatar, Badge, Input } from "antd";
 import styles from "styles/navbar.module.scss";
 import { BarsOutlined } from '@ant-design/icons'
 import { GlobalContext } from '../../../Context/store'
+import NotificationIcon from 'components/NotificationIcon';
+import { useStateValue } from "store/context";
+
+
 
 const NavBar = () => {
   const ref = useRef(null);
@@ -15,6 +19,7 @@ const NavBar = () => {
   const [recentNotifications, setRecentNotifications] = useState([]);
   const { isMobileSideBarOpen, setMobileSideBarState, logout } = useContext(GlobalContext);
   const [search, setSearch] = useState("");
+  const [ {notification} ] = Object.values(useStateValue())
 
   const router = useRouter();
 
@@ -62,6 +67,8 @@ const NavBar = () => {
     router.push("/login");
   };
 
+  const countIsRead = notification?.data?.filter(item => item.is_read === true).length;
+
   return (
     <header className={styles.header}>
       <div className={styles.navbar}>
@@ -108,6 +115,7 @@ const NavBar = () => {
               
                 <a>
                   <Badge count={notificationCount(recentNotifications?.length)}>
+                    <NotificationIcon count={countIsRead || 0}/>
                     <Icon name="Notification"/>
                   </Badge>
                 </a>
