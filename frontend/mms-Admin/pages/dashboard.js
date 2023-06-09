@@ -112,10 +112,12 @@ function Dashboard() {
               title={report.achievement}
               meta={
                 <p className="text-lg">
-                  {`By Ibrahim Kabir - ${format(
-                    new Date(report.created_at),
-                    "dd MMM yyyy",
-                  )}`}
+                  {`${report.mentorManager.firstName} ${
+                    report.mentorManager.lastName
+                  } - ${format(
+                    new Date(report.task.startDate),
+                    "dd",
+                  )} - ${format(new Date(report.task.endDate), "dd MMM yyyy")}`}
                 </p>
               }
               icon={<Icons name="report-sheet" width="35" />}
