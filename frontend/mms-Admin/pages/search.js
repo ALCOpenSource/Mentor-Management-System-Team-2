@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-import styles from 'styles/search.module.css'
 import { Row, Col, Avatar } from 'antd';
+import styles from 'styles/search.module.css'
 import Icon from "../components/Icon";
 import Pagination from "../components/Pagination";
 import { Icons } from "../components/atoms/Icons";

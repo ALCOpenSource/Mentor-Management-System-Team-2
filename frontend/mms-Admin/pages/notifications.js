@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import styles from 'styles/notifications.module.css'
 import { Row, Col, Avatar } from 'antd';
+import styles from 'styles/notifications.module.css'
 import Icon from "../components/Icon";
 import Pagination from "../components/Pagination";
 import { fetchNotifications } from "pages/api/notification";

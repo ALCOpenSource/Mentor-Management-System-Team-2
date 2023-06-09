@@ -25,7 +25,6 @@
   margin-left: 2rem;
 }
 
-
 .sub_item_div {
   display: flex;
 }
@@ -65,7 +64,7 @@
 @media (min-width: 1280px) and (max-width: 1280px) {
   .item_icon {
     margin-left: 15rem;
-  }  
+  }
 }
 
 @media (max-width: 540px) {
@@ -80,7 +79,7 @@
   .box_item {
     margin-left: 0.3rem;
   }
-  
+
   .sub_box_item > p,
   .sub_box_item > p > span {
     font-weight: 400;
@@ -91,4 +90,3 @@
     height: 15px;
   }
 }
-  
