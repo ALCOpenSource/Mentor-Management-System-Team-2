@@ -98,7 +98,7 @@ const AppLayout = ({ children }) => {
     const query = { query: searchMentor, page: mentorPage, limit };
     try {
       setLoading(true);
-      const { data } = await getAllmentor(convertToURLQuery(query));
+      const { data } = await (convertToURLQuery(query));
       const newData = data;
       setMentorTotal(data?.mentors?.meta);
       dispatch({
@@ -177,88 +177,6 @@ const AppLayout = ({ children }) => {
                         Send Broadcast Message
                       </CustomButton>
                     </span>
-                  </>
-                )}
-                {router?.pathname === "/mentors" && (
-                  <>
-                    <span className={[styles.task_memtor]}>
-                      <CustomButton
-                        className={styles.mentorbutton1}
-                        onClick={() => router.push("/broadcast")}>
-                        Send Broadcast Message
-                      </CustomButton>
-                      <CustomButton
-                        className={styles.mentorbutton}
-                        onClick={() => handleClickInvite()}>
-                        Add New Mentor
-                      </CustomButton>
-                    </span>
-                    <Pagination
-                      total={mentorTotal?.total || 0}
-                      currentPage={mentorPage}
-                      onPageChange={handleMentorPageChange}
-                    />
-                    {showMentorSearch !== false ? (
-                      <CustomInput
-                        className={[styles.archive_input]}
-                        size="large"
-                        placeholder="Search Mentor"
-                        type="mentor"
-                        required
-                        value={searchMentor}
-                        onChange={handleOnchangeMentor}
-                      />
-                    ) : (
-                      ""
-                    )}
-                    {showMentorSearch !== false ? (
-                      <div className={[styles.mentor_icon1]}>
-                        <div
-                          className={[styles.task_search_icon]}
-                          onClick={handleShow}>
-                          <Icon
-                            icon={"/assets/images/search.svg"}
-                            width={"20px"}
-                            height={"20px"}
-                          />
-                        </div>
-                        <div className={[styles.task_filter_icon]}>
-                          <Icon
-                            icon={"/assets/images/filter.svg"}
-                            width={"25px"}
-                            height={"25px"}
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <div className={[styles.mentor_icon]}>
-                        <div
-                          className={[styles.task_search_icon]}
-                          onClick={handleShow}>
-                          <Icon
-                            icon={"/assets/images/search.svg"}
-                            width={"20px"}
-                            height={"20px"}
-                          />
-                        </div>
-                        <div className={[styles.task_filter_icon]}>
-                          <Icon
-                            icon={"/assets/images/filter.svg"}
-                            width={"25px"}
-                            height={"25px"}
-                          />
-                        </div>
-                      </div>
-                    )}
-                    {isOpen && (
-                      <AddMentor
-                        message={"Add Mentor"}
-                        width={"400px"}
-                        height={"200px"}
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
-                      />
-                    )}
                   </>
                 )}
               </div>
