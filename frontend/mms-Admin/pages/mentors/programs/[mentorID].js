@@ -7,7 +7,6 @@ import styles from "../../../components/componentStyles/archive.module.css";
 import Icon from "../../../components/Icon";
 import moment from "moment";
 import { CustomInput } from "../../../components/formInputs/CustomInput";
-import { convertToURLQuery } from "../../../utils/extractTitleFromUrl";
 import { getUserProgram } from "pages/api/program";
 import { Icons } from "../../../components/atoms/Icons";
 import { Button } from "../../../components/atoms/Button";
@@ -22,13 +21,13 @@ function MentorPrograms() {
     isLoading,
     isError,
   } = useQuery(["mentor_program", search], () =>
-    getUserProgram(router.query.mentorID, convertToURLQuery(query)),
+    getUserProgram(router.query.mentorID),
   );
 
   const total = programs?.meta?.total;
 
   if (!search) {
-    if (isLoading) return "loading tasks...";
+    if (isLoading) return "loading programs...";
   }
 
   if (isError) return "An error occured";
