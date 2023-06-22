@@ -14,6 +14,11 @@ This section lists major frameworks/libraries used for this project.
 [![Tailwind][tailwind]][tailwind-url]
 [![Antd][antd]][antd-url]
 
+- React
+- Nextjs
+- Tailwindcss
+- Ant Design
+
 <br />
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -65,12 +70,16 @@ _Do the following to get this project on your local machine._
    ```
 2. Install NPM packages
    ```sh
-   npm install
+   yarn install
    ```
-3. Add a .env file to your project with the following keys
+3. Create a file called .env and add the environment variables for your app
    ```js
    NEXT_PUBLIC_BASE_URL;
    NEXT_PUBLIC_PUSHER_APP_KEY;
+   ```
+4. Start the server using this command
+   ```js
+   yarn start
    ```
 
 <!-- <p align="right">(<a href="#readme-top">back to top</a>)</p> -->
