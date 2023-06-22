@@ -35,7 +35,7 @@ To get it up and running on your local machine, follow the steps below:
 
 - Open a pull request against the develop branch and request a review from your
 
-### Frontend
+### [Frontend](https://mms-team-2.ue.r.appspot.com/)
 
 - Navigate to the project directory with the command `cd Mentor-Management-System-Team-1`
 
@@ -49,7 +49,7 @@ To get it up and running on your local machine, follow the steps below:
 
 - Navigate to the app on your browser with the url `http://localhost:****` where \*\*\*\* is the port number displayed on your terminal.
 
-### Backend
+### [Backend](https://server-dot-mms-team-2.ue.r.appspot.com/api/v1/)
 
 - Navigate to the project directory with the command `cd Mentor-Management-System-Team-2`
 
