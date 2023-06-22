@@ -8,6 +8,20 @@ import ProgramCriterion from 'App/Models/ProgramCriterion'
 import NotificationController from './NotificationController'
 
 export default class ProgramsController {
+  /**
+   * @swagger
+   * /api/v1/programs:
+   * Get:
+   *    produces:
+   *      - application/json
+   *    responses:
+   *      200:
+   *        description: Success
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/Program'
+    */
   public async index({ request, response }: HttpContextContract) {
     try {
       const { page, limit, search } = request.qs()
@@ -31,6 +45,31 @@ export default class ProgramsController {
     }
   }
 
+  /**
+   * @swagger
+   * /api/v1/programs:
+   * post:
+   *    tags:
+   *      - Program
+   *    requestBody:
+   *      required: true
+   *      content:
+   *        application/json:
+   *          description: Program Payload
+   *          schema:
+   *            type: object
+   *            properties:
+   *              name:
+   *    produces:
+   *      - application/json
+   *    responses:
+   *      200:
+   *        description: Success
+   *        content:
+   *          application/json:
+   *            schema:
+   *              $ref: '#/components/schemas/Program'
+   */
   public async store({ auth, request, response }: HttpContextContract) {
     try {
       if (auth.user?.id) {
