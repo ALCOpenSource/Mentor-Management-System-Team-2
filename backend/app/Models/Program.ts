@@ -15,6 +15,21 @@ import ProgramReport from './ProgramReport'
 import ProgramCriterion from './ProgramCriterion'
 import FormTemplate from './FormTemplate'
 
+/**
+ * components:
+ *      schemas:
+ *          Program:
+ *              type: object
+ *              properties:
+ *                name:
+ *                  type: string
+ *                description:
+ *                  type: string
+ *                gravatar:
+ *                  type: string
+ *                isArchive:
+ *                  type: boolean
+ */
 export default class Program extends BaseModel {
   @column({ isPrimary: true })
   public id: number
