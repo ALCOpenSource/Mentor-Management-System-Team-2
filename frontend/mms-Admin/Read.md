@@ -5,7 +5,7 @@
 Mentors Management system is a people management app that enables proper. coordination of mentors needed to execute projects, ranging from recruitment to off-boarding. Ensue to go through the app doc below to read more and follow all the instructions.
 <br /><br />
 
-## Built With
+## Technologies
 
 This section lists major frameworks/libraries used for this project.
 
