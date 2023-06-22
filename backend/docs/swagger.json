@@ -1,11 +1,1 @@
-{
-  "openapi": "3.0.0",
-  "info": {
-    "title": "Application with swagger docs",
-    "version": "1.0.0",
-    "description": "My application with swagger docs"
-  },
-  "paths": {},
-  "components": {},
-  "tags": []
-}
+{"openapi":"3.0.0","info":{"title":"Application with swagger docs","version":"1.0.0","description":"My application with swagger docs"},"paths":{"/api/v1/programs":{},"Get":{"produces":["application/json"],"responses":{"200":{"description":"Success","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Program"}}}}}},"post":{"tags":["Program"],"requestBody":{"required":true,"content":{"application/json":{"description":"Program Payload","schema":{"type":"object","properties":{"name":null}}}}},"produces":["application/json"],"responses":{"200":{"description":"Success","content":{"application/json":{"schema":{"$ref":"#/components/schemas/Program"}}}}}}},"components":{},"tags":[]}
